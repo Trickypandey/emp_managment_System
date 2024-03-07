@@ -3,14 +3,18 @@
 #include <vector>
 #include <iostream>
 
-
-bool Database::open() {
-    if (sqlite3_open(dbName.c_str(), &db) == SQLITE_OK) {
+int Database::rows = 0;
+bool Database::open(std::string db_name) {
+    if (sqlite3_open(db_name.c_str(), &db) == SQLITE_OK) {
 
         if (!createTables()) {
             return false;
         }
 
+        std::string pragmaQuery = { "PRAGMA foreign_keys = ON;" };
+        executeQuery(pragmaQuery);
+
+        std::cout << "Opened\n";
         return true;
     }
     else {
@@ -47,7 +51,7 @@ bool Database::createTables() {
         "name VARCHAR,"
         "manager_id INTEGER,"
         "description VARCHAR,"
-        "FOREIGN KEY (manager_id) REFERENCES Employee(id))";
+        "FOREIGN KEY (manager_id) REFERENCES Employee(id) ON DELETE CASCADE)";
 
 
     if (!executeQuery(sql2))
@@ -61,7 +65,7 @@ bool Database::createTables() {
         "id INTEGER PRIMARY KEY,"
         "programming_language VARCHAR,"
         "specialization VARCHAR,"
-        "FOREIGN KEY (id) REFERENCES Employee(id))";
+        "FOREIGN KEY (id) REFERENCES Employee(id) ON DELETE CASCADE)";
 
     if (!executeQuery(sql3))
     {
@@ -73,7 +77,7 @@ bool Database::createTables() {
         "id INTEGER PRIMARY KEY,"
         "management_experience INTEGER,"
         "project_title VARCHAR,"
-        "FOREIGN KEY (id) REFERENCES Employee(id))";
+        "FOREIGN KEY (id) REFERENCES Employee(id) ON DELETE CASCADE)";
 
 
     if (!executeQuery(sql4))
@@ -84,10 +88,10 @@ bool Database::createTables() {
 
     const char* sql5 = "CREATE TABLE IF NOT EXISTS Salary ("
         "id INTEGER PRIMARY KEY,"
-        "amount INTEGER,"
-        "base_salary INTEGER,"
-        "bonus INTEGER,"
-        "FOREIGN KEY (id) REFERENCES Employee(id))";
+        "amount REAL,"
+        "base_salary REAL,"
+        "bonus REAL,"
+        "FOREIGN KEY (id) REFERENCES Employee(id) ON DELETE CASCADE)";
 
     if (!executeQuery(sql5))
     {
@@ -100,7 +104,6 @@ bool Database::createTables() {
 
 void Database::close() {
     if (db) {
-        std::cout << "DB closed\n";
         sqlite3_close(db);
         db = nullptr;
     }
@@ -127,8 +130,10 @@ std::string Database::getError() const {
 
 bool Database::executeQueryCallback(const std::string& query) {
     char* errMsg = nullptr;
-    
+
     int rc = sqlite3_exec(db, query.c_str(), callback, 0, &errMsg);
+    std::cout << rows << " rows returned \n\n";
+    rows = 0;
     if (rc != SQLITE_OK) {
         setError(errMsg);
         sqlite3_free(errMsg);
@@ -139,8 +144,9 @@ bool Database::executeQueryCallback(const std::string& query) {
 
 
 int Database::callback(void* data, int argc, char** argv, char** azColName) {
+    ++rows;
     for (int i = 0; i < argc; ++i) {
-        std::cout<< azColName[i] << ": " << (argv[i] ? argv[i] : "NULL") << " ";
+        std::cout << azColName[i] << ": " << (argv[i] ? argv[i] : "NULL") << " ";
         std::cout << "\n";
     }
     std::cout << "\n";
@@ -163,17 +169,17 @@ bool Database::isIdExist(int id, const std::string& tableName) {
 
     rc = sqlite3_step(stmt);
     if (rc == SQLITE_ROW) {
-        
+
         sqlite3_finalize(stmt);
         return true;
     }
     else if (rc == SQLITE_DONE) {
-        
+
         sqlite3_finalize(stmt);
         return false;
     }
     else {
-       
+
         setError("SQL error: " + std::string(sqlite3_errmsg(db)));
         sqlite3_finalize(stmt);
         return false;

@@ -40,10 +40,10 @@ void Department::insertDepartment() {
         std::to_string(manager_id) + ", '" +
         description + "');";
 
-    if (db_department.executeQuery(insertQuery))
+    if (Database::getInstance().executeQuery(insertQuery))
         std::cout << "Inserted Department Successfully!\n";
     else
-        std::cout << db_department.getError() << "\n";
+        std::cout << Database::getInstance().getError() << "\n";
 
 };
 void Department::deleteDepartment() {};

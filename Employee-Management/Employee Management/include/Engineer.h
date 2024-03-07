@@ -5,9 +5,7 @@
 class Engineer : public Employee {
 public:
 	Engineer() = default;
-	Engineer(const Database& db) {
-		engineer_db = db;
-	}
+	
 	/*Engineer(int id, const std::string& firstname, const std::string& lastname, const std::string& dob,
 		const std::string& mobile, const std::string& email, const std::string& address,
 		Gender gender, const std::string& doj, float salary, const std::string& w_location,
@@ -34,7 +32,7 @@ public:
 
 private:
 
-	Database engineer_db;
+	
 	std::string programming_language {};
 	std::string specialization{};
 };

@@ -1,25 +1,28 @@
 
+#include <conio.h>
 #include <iostream>
 #include "include/database.h"
 #include "include/Employee.h"
 #include "include/Engineer.h"
 #include "include/Manager.h"
+#include "include/Department.h"
 #include "include/Salary.h"
-#include "include/department.h"
 
 
 int main() {
 
-	Database db("employee.db");
 
-	
+	if (!Database::getInstance().open("employee.db")) {
+		std::cerr << "Error opening database: " << Database::getInstance().getError() << std::endl;
+		return 1;
+	}
 
 	bool flag = true;
 	int choice;
 
 
 	while (flag) {
-
+		system("cls");
 		std::cout << "Welcome to the database management system!\n";
 		std::cout << "Please select a table to perform an action:\n";
 		std::cout << "1. Employee\n";
@@ -32,40 +35,40 @@ int main() {
 
 
 		std::cin >> choice;
-
+		std::cout << "\n";
 
 		switch (choice) {
 		case 1:
 		{
-			Employee e1(db);
+			Employee e1;
 			e1.action();
 		}
 		break;
 		case 2:
 		{
-			Department d1(db);
+			Department d1;
 			d1.action();
 		}
 		break;
 		case 3:
 		{
-			Salary s1(db);
+			Salary s1;
 			s1.action();
 		}
 		break;
 		case 4:
 		{
-			Engineer en1(db);
+			Engineer en1;
 			en1.action();
 		}
 		break;
 		case 5:
 		{
-			Manager m1(db);
+			Manager m1;
 			m1.action();
 		}
 		break;
-		case 6: 
+		case 6:
 			flag = false;
 			break;
 		default:
@@ -74,7 +77,7 @@ int main() {
 		}
 	}
 
-	db.close();
+	Database::getInstance().close();
 
 	return 0;
 }

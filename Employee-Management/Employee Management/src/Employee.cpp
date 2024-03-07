@@ -115,8 +115,6 @@ void Employee::setDepartmentIdFromUserInput() {
     setDepartmentId(department_id);
 }
 
-
-
 void Employee::insertEmployee() { 
     
     std::cout << "Enter Employee Details:\n";
@@ -137,12 +135,13 @@ void Employee::insertEmployee() {
         std::to_string(manager_id) + ", " +
         std::to_string(department_id) + ");";
  
-     if (db_emp.executeQuery(insertQuery))
+     if (Database::getInstance().executeQuery(insertQuery))
         std::cout << "Inserted Employee Succesfully ! \n";
     else
-        std::cout<<db_emp.getError()<<"\n";
+         std::cout << Database::getInstance().getError() << "\n";
 
 };
+
 void Employee::deleteEmployee() {  
     std::string deleteQuery{};
     bool flag = true;
@@ -165,27 +164,18 @@ void Employee::deleteEmployee() {
         case 1:
             setIdFromUserInput();
             deleteQuery = "DELETE FROM Employee WHERE id = " + std::to_string(getId());
-            if (db_emp.executeQuery(deleteQuery))
-                std::cout << "Employee Deleted Succesfully ! \n";
-            else
-                std::cout << db_emp.getError() << "\n";
+            
             break;
         case 2:
             setFirstnameFromUserInput();
             deleteQuery = "DELETE FROM Employee WHERE firstname = '" + getFirstname()+ "'";
-            if (db_emp.executeQuery(deleteQuery))
-                std::cout << "Employee Deleted Succesfully ! \n";
-            else
-                std::cout << db_emp.getError() << "\n";
+            
             break;
 
         case 3:
             setEmailFromUserInput();
             deleteQuery = "DELETE FROM Employee WHERE email = '" + getEmail() + "'";
-            if (db_emp.executeQuery(deleteQuery))
-                std::cout << "Employee Deleted Succesfully ! \n";
-            else
-                std::cout << db_emp.getError() << "\n";
+            
             break;
 
         case 4:
@@ -195,6 +185,18 @@ void Employee::deleteEmployee() {
             std::cerr << "Invalid choice. Please enter a number between 1 and 4.\n";
             break;
         }
+        if (Database::getInstance().executeQuery(deleteQuery)) {
+
+            int changes = sqlite3_changes(Database::getInstance().db);
+
+            std::cout << changes << " row affected \n\n";
+            if (changes != 0) {
+                std::cout << "Employee Deleted Succesfully ! \n\n";
+            }
+
+        }
+        else
+            std::cout << Database::getInstance().getError() << "\n";
     }
 };
 
@@ -205,7 +207,7 @@ void Employee::updateEmployee() {
 
     std::cout << "Enter the ID of the employee you want to update: ";
     std::cin >> idToUpdate;
-    if (!db_emp.isIdExist(idToUpdate, "employee")) {
+    if (!Database::getInstance().isIdExist(idToUpdate, "employee")) {
         std::cerr << "Employee with ID " << idToUpdate << " does not exist in the database.\n";
         return;
     }
@@ -283,17 +285,17 @@ void Employee::updateEmployee() {
         }
 
         if (flag) {
-            if (db_emp.executeQuery(updateQuery))
+            if (Database::getInstance().executeQuery(updateQuery))
                 std::cout << "Employee information updated successfully!\n";
             else
-                std::cout << "Failed to update employee information: " << db_emp.getError() << "\n";
+                std::cout << "Failed to update employee information: " << Database::getInstance().getError() << "\n";
         }
     }
 }
+
 std::string Employee::generateUpdateQuery(const std::string& fieldName, const std::string& value, int idToUpdate) {
     return "UPDATE Employee SET " + fieldName + " = '" + value + "' WHERE id = " + std::to_string(idToUpdate);
 }
-
 
 void Employee::viewEmployee() { 
 
@@ -320,30 +322,30 @@ void Employee::viewEmployee() {
         case 1:
             selectQuery = "SELECT * FROM Employee";
 
-            if (!db_emp.executeQueryCallback(selectQuery)) {
-                std::cerr << "Error executing query: " << db_emp.getError() << std::endl;
+            if (!Database::getInstance().executeQueryCallback(selectQuery)) {
+                std::cerr << "Error executing query: " << Database::getInstance().getError() << std::endl;
             }
             break;
         case 2:
             setIdFromUserInput();
             selectQuery = "SELECT * FROM Employee WHERE id = " + std::to_string(getId());
-            if (!db_emp.executeQueryCallback(selectQuery)) {
-                std::cerr << "Error executing query: " << db_emp.getError() << std::endl;
+            if (!Database::getInstance().executeQueryCallback(selectQuery)) {
+                std::cerr << "Error executing query: " << Database::getInstance().getError() << std::endl;
             }
             break;
         case 3:
             setFirstnameFromUserInput();
             selectQuery = "SELECT * FROM Employee WHERE firstname = '" + getFirstname() + "'";
-            if (!db_emp.executeQueryCallback(selectQuery)) {
-                std::cerr << "Error executing query: " << db_emp.getError() << std::endl;
+            if (!Database::getInstance().executeQueryCallback(selectQuery)) {
+                std::cerr << "Error executing query: " << Database::getInstance().getError() << std::endl;
             }
             break;
 
         case 4:
             setEmailFromUserInput();
             selectQuery = "SELECT * FROM Employee WHERE email = '" + getEmail() + "'";
-            if (!db_emp.executeQueryCallback(selectQuery)) {
-                std::cerr << "Error executing query: " << db_emp.getError() << std::endl;
+            if (!Database::getInstance().executeQueryCallback(selectQuery)) {
+                std::cerr << "Error executing query: " << Database::getInstance().getError() << std::endl;
             }
             break;
 
@@ -357,19 +359,15 @@ void Employee::viewEmployee() {
     }
 };
 
-
 void Employee::action() {
-
-    if (!db_emp.open()) {
-        std::cerr << "Error opening database: " << db_emp.getError() << std::endl;
-       
-    }
     bool flag = true;
 
     int choice;
-     
+
 
     while (flag) {
+
+
         std::cout << "Employee Table\n";
         std::cout << "Please select a value to perform actions:\n";
         std::cout << "1. Insert\n";
@@ -380,6 +378,7 @@ void Employee::action() {
         std::cout << "Enter your choice (1-5): ";
 
         std::cin >> choice;
+        std::cout << "\n";
 
         switch (choice) {
         case 1:
@@ -389,16 +388,16 @@ void Employee::action() {
             deleteEmployee();
             break;
         case 3:
-            updateEmployee();   
+            updateEmployee();
             break;
         case 4:
             viewEmployee();
             break;
-        case 5: 
+        case 5:
             flag = false;
             break;
         default:
-            std::cerr << "Invalid choice. Please enter a number between 1 and 5.\n";
+            std::cout << "Invalid choice. Please enter a number between 1 and 5.\n";
             break;
         }
     }

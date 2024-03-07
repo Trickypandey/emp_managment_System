@@ -15,11 +15,7 @@ class Employee {
 
 public:
     Employee() = default;
-    Employee(const Database& db) {
-        db_emp = db;
-    }
-
-    
+   
     int getId() const { return id; }
     std::string getFirstname() const { return firstname; }
     std::string getLastname() const { return lastname; }
@@ -106,7 +102,6 @@ public:
     void action();
 
 private:
-    Database db_emp;
     int id{};
     std::string firstname{};
     std::string lastname{};
