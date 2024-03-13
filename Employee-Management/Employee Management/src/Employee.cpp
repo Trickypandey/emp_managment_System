@@ -148,9 +148,8 @@ bool Employee::setWLocationFromUserInput() {
 bool Employee::setManagerIdFromUserInput() {
     int _manager_id;
     std::cout << "Enter Manager ID: ";
-    std::cin >> _manager_id;
-    setManagerId(_manager_id);
-    return true;
+    std::cin >> manager_id;
+    setManagerId(manager_id);
 }
 
 bool  Employee::setDepartmentIdFromUserInput() {
