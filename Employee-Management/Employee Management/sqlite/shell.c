@@ -5,7 +5,8 @@
 ** "shell.c" file used to implement the SQLite command-line shell.
 **
 ** Most of the code found below comes from the "src/shell.c.in" file in
-** the canonical SQLite source tree.  That main file contains "INCLUDE"
+** the canonical SQLite source tree.  That 
+file contains "INCLUDE"
 ** lines that specify other files in the canonical source tree that are
 ** inserted to getnerate this complete program source file.
 **

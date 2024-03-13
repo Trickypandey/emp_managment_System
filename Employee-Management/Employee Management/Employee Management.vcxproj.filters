@@ -71,5 +71,8 @@
     <ClInclude Include="include\GenericDbClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\MenuControler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

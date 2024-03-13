@@ -78,18 +78,18 @@ public:
     }
 
 
-    void setIdFromUserInput();
-    void setFirstnameFromUserInput();
-    void setLastnameFromUserInput();
-    void setDobFromUserInput();
-    void setMobileFromUserInput();
-    void setEmailFromUserInput();
-    void setAddressFromUserInput();
-    void setGenderFromUserInput();
-    void setDojFromUserInput();
-    void setWLocationFromUserInput();
-    void setManagerIdFromUserInput();
-    void setDepartmentIdFromUserInput();
+    bool setIdFromUserInput();
+    bool setFirstnameFromUserInput();
+    bool setLastnameFromUserInput();
+    bool setDobFromUserInput();
+    bool setMobileFromUserInput();
+    bool setEmailFromUserInput();
+    bool setAddressFromUserInput();
+    bool setGenderFromUserInput();
+    bool setDojFromUserInput();
+    bool setWLocationFromUserInput();
+    bool setManagerIdFromUserInput();
+    bool setDepartmentIdFromUserInput();
     
 
 
@@ -118,19 +118,15 @@ private:
 
     std::string  generateUpdateQuery(const std::string& fieldName, const std::string& value, int idToUpdate);
 
-    void setUserData() {
-        setIdFromUserInput();
-        setFirstnameFromUserInput();
-        setLastnameFromUserInput();
-        setDobFromUserInput();
-        setMobileFromUserInput();
-        setEmailFromUserInput();
-        setAddressFromUserInput();
-        setGenderFromUserInput();
-        setDojFromUserInput();
-        setWLocationFromUserInput();
-        setManagerIdFromUserInput();
-        setDepartmentIdFromUserInput();
+    bool setUserData() {
+        if (!setIdFromUserInput() || !setFirstnameFromUserInput() || !setLastnameFromUserInput() ||
+            !setDobFromUserInput() || !setMobileFromUserInput() || !setEmailFromUserInput() ||
+            !setAddressFromUserInput() || !setGenderFromUserInput() || !setDojFromUserInput() ||
+            !setWLocationFromUserInput() || !setManagerIdFromUserInput() || !setDepartmentIdFromUserInput()) {
+            std::cout << "Error setting user data. Aborting insertion.\n";
+            return false;
+        }
+        return true;
     }
 };
 
