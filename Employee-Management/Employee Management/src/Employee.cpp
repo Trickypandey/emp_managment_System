@@ -2,124 +2,179 @@
 #include "../include/Employee.h"
 #include "../include/validate.h"
 
-void Employee::setIdFromUserInput() {
+bool Employee::setIdFromUserInput() {
     std::cout << "Enter Employee ID: ";
     std::cin >> id;
     setId(id);
+    return true;
 }
 
-void Employee::setFirstnameFromUserInput() {
+bool Employee::setFirstnameFromUserInput() {
     std::cout << "Enter First Name: ";
     std::cin >> firstname;
     setFirstname(firstname);
+    return true;
 }
 
-void Employee::setLastnameFromUserInput() {
+bool Employee::setLastnameFromUserInput() {
     std::cout << "Enter Last Name: ";
     std::cin >> lastname;
     setLastname(lastname);
+    return true;
 }
 
-void Employee::setDobFromUserInput() {      
+bool Employee::setDobFromUserInput() {      
     bool validInput = false;
-    auto count = 0;
+    int count = 0; 
     do {
-        if (count > 3)
-        {
-            std::cout << "maximum number of attemps reach \n";
-
+        if (count > 3) {
+            std::cout << "Maximum number of attempts reached.\n";
+            return false; 
         }
         std::cout << "Enter Date of Birth (DD-MM-YYYY): ";
-        std::cin >> dob; 
+        std::cin >> dob;
         if (!validateDateOfBirth(dob)) {
             std::cout << "Invalid date format. Please enter the date in DD-MM-YYYY format.\n";
+            count++; 
         }
         else {
             validInput = true;
             setDob(dob);
         }
     } while (!validInput);
+
+    return true;
 }
 
-void Employee::setMobileFromUserInput() {
+bool Employee::setMobileFromUserInput() {
+    bool validInput = false;
+    int count = 0;
     do {
+        if (count > 3) {
+            std::cout << "Maximum number of attempts reached.\n";
+            return false;
+        }
         std::cout << "Enter Mobile number : ";
         std::cin >> mobile;
         if (!validatePhoneNumber(mobile)) {
             std::cout << "Invalid Format !! Please enter a valid mobile number.\n";
+            count++;
         }
         else
         {
+            validInput = true;
             setMobile(mobile);
         }
-    } while (!validatePhoneNumber(mobile));
+    } while (!validInput);
+    return true;
 }
 
-void Employee::setEmailFromUserInput() {
+bool Employee::setEmailFromUserInput() {
+    bool validInput = false;
+    int count = 0;
     do {
+        if (count > 3) {
+            std::cout << "Maximum number of attempts reached.\n";
+            return false;
+        }
         std::cout << "Enter Email address : ";
         std::cin >> email;
         if (!validateEmail(email)) {
             std::cout << "Invalid Format !! Please enter a valid email address.\n";
+            count++;
         }
         else
         {
+            validInput = true;
             setEmail(email);
         }
-    } while (!validateEmail(email));
+    } while (!validInput);
+    return true;
 }
 
-void Employee::setAddressFromUserInput() {
+bool Employee::setAddressFromUserInput() {
     std::cout << "Enter Address: ";
     std::cin.ignore();
     std::getline(std::cin, address);
     setAddress(address);
+    return true;
 }
 
-void Employee::setGenderFromUserInput() {
+bool Employee::setGenderFromUserInput() {
     std::cout << "Enter Gender (Male, Female, Other): ";
     std::cin >> gender;
     setGender(gender);
+    return true;
 }
 
-void Employee::setDojFromUserInput() {
+bool Employee::setDojFromUserInput() {
     bool validInput = false;
+    int count = 0;
     do {
+        if (count > 3) {
+            std::cout << "Maximum number of attempts reached.\n";
+            return false;
+        }
         std::cout << "Enter Date of Joining (DD-MM-YYYY): ";
         std::cin >> doj;
         if (!validateDateOfBirth(doj)) {
             std::cout << "Invalid date format. Please enter the date in DD-MM-YYYY format.\n";
+            count++;
         }
         else {
             validInput = true;
             setDoj(doj);
         }
     } while (!validInput);
+    return true;
 }
 
-void Employee::setWLocationFromUserInput() {
+bool Employee::setWLocationFromUserInput() {
     std::cout << "Enter Work Location: ";
     std::cin >> w_location;
     setWLocation(w_location);
+    return true;
 }
 
-void Employee::setManagerIdFromUserInput() {
+bool Employee::setManagerIdFromUserInput() {
     std::cout << "Enter Manager ID: ";
     std::cin >> manager_id;
     setManagerId(manager_id);
+    return true;
 }
 
-void Employee::setDepartmentIdFromUserInput() {
-    std::cout << "Enter Department ID: ";
-    std::cin >> department_id;
-    setDepartmentId(department_id);
+bool  Employee::setDepartmentIdFromUserInput() {
+    bool validInput = false;
+    int count = 0;
+
+    do {
+        if (count > 3) {
+            std::cout << "Maximum number of attempts reached.\n";
+            return false;
+        }
+        std::cout << "Enter Department ID: ";
+        std::cin >> department_id;
+        if (!Database::getInstance().isIdExist(department_id, "Department")) {
+            std::cout << "Invalid Format !! Please enter a valid DepartmentId.\n";
+            count++;
+        }
+        else
+        {
+            validInput = true;
+            setDepartmentId(department_id);
+           
+        }
+    } while (!validInput);
+    return true;
 }
 
 void Employee::insertEmployee() { 
     
     std::cout << "Enter Employee Details:\n";
 
-    setUserData();
+    if (!setUserData()) {
+        return;
+    }
 
     std::string insertQuery = "INSERT INTO Employee (id, firstname, lastname, dob, mobile, email, address, gender, doj, w_location, manager_id, department_id) VALUES ("
         + std::to_string(id) + ", '" +

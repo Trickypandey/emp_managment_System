@@ -9,6 +9,7 @@ public:
 
     bool open(std::string);
     bool createTables();
+    std::string generateCreateTableQuery();
     void close();
 
     static Database& getInstance() {
@@ -19,6 +20,7 @@ public:
     bool executeQuery(const std::string& query);
     bool executeQueryCallback(const std::string& query);
     std::string getError() const;
+    int getRow();
     void setError(const std::string& errorMessage);
     bool isIdExist(int id, const std::string& tableName);
 
