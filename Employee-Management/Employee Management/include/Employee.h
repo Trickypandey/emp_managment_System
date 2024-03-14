@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include <string>
-#include<vector>
 #include "database.h"
+#include "Utility.h"
 
 
 //#include "validate.h"
@@ -128,6 +128,9 @@ private:
         }
         return true;
     }
+
+
+    
 };
 
 #endif

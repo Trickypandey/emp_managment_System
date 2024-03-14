@@ -1,30 +1,33 @@
 #include "../include/Department.h"
-
+using namespace Utility;
 void Department::setIdFromUserInput() {
-    std::cout << "Enter department ID: ";
-    std::cin >> id;
-    setId(id);
+    auto input = getInput<int>("Enter department ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt);
+    if (input.has_value()) {
+        setId(input.value());
+    }
 }
 
 void Department::setNameFromUserInput() {
-    std::cout << "Enter department name: ";
-    std::cin.ignore(); 
-    std::getline(std::cin, name);
-    setName(name);
+    auto input = getInput<std::string>("Enter department name: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); });
+    if (input.has_value()) {
+        setName(input.value());
+    }
 }
 
 void Department::setManagerIdFromUserInput() {
-    std::cout << "Enter manager ID: ";
-    std::cin >> manager_id;
-    setManagerId(manager_id);
+    auto input = getInput<int>("Enter manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
+    if (input.has_value()) {
+        setManagerId(input.value());
+    }
 }
 
 void Department::setDescriptionFromUserInput() {
-    std::cout << "Enter department description: ";
-    std::cin.ignore(); 
-    std::getline(std::cin, description);
-    setDescription(description);
+    auto input = getInput<std::string>("Enter department description: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty() && Validation::validateString(s) ; });
+    if (input.has_value()) {
+        setDescription(input.value());
+    }
 }
+
 
 void Department::insertDepartment() {
 

@@ -1,182 +1,115 @@
 
 #include "../include/Employee.h"
 #include "../include/validate.h"
-
+using namespace Utility;
 bool Employee::setIdFromUserInput() {
-    std::cout << "Enter Employee ID: ";
-    int _id;
-    std::cin >> _id;
-    setId(_id);
-    return true;
+    auto input = getInput<int>("Enter Employee ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt);
+    if (input.has_value()) {
+        setId(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setFirstnameFromUserInput() {
-    std::cout << "Enter First Name: ";
-    std::string _firstname;
-    std::cin >> _firstname;
-    setFirstname(_firstname);
-    return true;
+    auto input = getInput<std::string>("Enter First Name: ", "Invalid Input. Please enter a non-empty string.",Validation::validateString);
+    if (input.has_value()) {
+        setFirstname(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setLastnameFromUserInput() {
-    std::cout << "Enter Last Name: ";
-    std::cin >> lastname;
-    setLastname(lastname);
-    return true;
+    auto input = getInput<std::string>("Enter Last Name: ", "Invalid Input. Please enter a non-empty string.", Validation::validateString);
+    if (input.has_value()) {
+        setLastname(input.value());
+        return true;
+    }
+    return false;
 }
 
-bool Employee::setDobFromUserInput() {      
-    bool validInput = false;
-    int count = 0; 
-    std::string _dob;
-    do {
-        if (count > 3) {
-            std::cout << "Maximum number of attempts reached.\n";
-            return false; 
-        }
-        std::cout << "Enter Date of Birth (DD-MM-YYYY): ";
-        std::cin >> _dob;
-        if (!validateDateOfBirth(_dob)) {
-            std::cout << "Invalid date format. Please enter the date in DD-MM-YYYY format.\n";
-            count++; 
-        }
-        else {
-            validInput = true;
-            setDob(_dob);
-        }
-    } while (!validInput);
-
-    return true;
+bool Employee::setDobFromUserInput() {
+    auto input = getInput<std::string>("Enter Date of Birth (DD-MM-YYYY): ", "Invalid date format. Please enter the date in DD-MM-YYYY format.", Validation::validateDateOfBirth);
+    if (input.has_value()) {
+        setDob(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setMobileFromUserInput() {
-    std::string _mobile;
-    bool validInput = false;
-    int count = 0;
-    do {
-        if (count > 3) {
-            std::cout << "Maximum number of attempts reached.\n";
-            return false;
-        }
-        std::cout << "Enter Mobile number : ";
-        std::cin >> _mobile;
-        if (!validatePhoneNumber(_mobile)) {
-            std::cout << "Invalid Format !! Please enter a valid mobile number.\n";
-            count++;
-        }
-        else
-        {
-            validInput = true;
-            setMobile(_mobile);
-        }
-    } while (!validInput);
-    return true;
+    auto input = getInput<std::string>("Enter Mobile number: ", "Invalid Format !! Please enter a valid mobile number.", Validation::validatePhoneNumber);
+    if (input.has_value()) {
+        setMobile(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setEmailFromUserInput() {
-    std::string _email;
-    bool validInput = false;
-    int count = 0;
-    do {
-        if (count > 3) {
-            std::cout << "Maximum number of attempts reached.\n";
-            return false;
-        }
-        std::cout << "Enter Email address : ";
-        std::cin >> _email;
-        if (!validateEmail(_email)) {
-            std::cout << "Invalid Format !! Please enter a valid email address.\n";
-            count++;
-        }
-        else
-        {
-            validInput = true;
-            setEmail(_email);
-        }
-    } while (!validInput);
-    return true;
+    auto input = getInput<std::string>("Enter Email address: ", "Invalid Format !! Please enter a valid email address.", Validation::validateEmail);
+    if (input.has_value()) {
+        setEmail(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setAddressFromUserInput() {
-    std::string _address;
-    std::cout << "Enter Address: ";
-    std::cin.ignore();
-    std::getline(std::cin, _address);
-    setAddress(_address);
-    return true;
+    auto input = getInput<std::string>("Enter Address: ", "Invalid Input. Please enter an address.", [](const std::string& s) { return !s.empty(); });
+    if (input.has_value()) {
+        setAddress(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setGenderFromUserInput() {
-    std::string _gender;
-    std::cout << "Enter Gender (Male, Female, Other): ";
-    std::cin >> _gender;
-    setGender(_gender);
-    return true;
+    auto input = getInput<std::string>("Enter Gender (Male, Female, Other): ", "Invalid Input. Please enter your gender.", [](const std::string& s) { return !s.empty(); });
+    if (input.has_value()) {
+        setGender(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setDojFromUserInput() {
-    std::string _doj;
-    bool validInput = false;
-    int count = 0;
-    do {
-        if (count > 3) {
-            std::cout << "Maximum number of attempts reached.\n";
-            return false;
-        }
-        std::cout << "Enter Date of Joining (DD-MM-YYYY): ";
-        std::cin >> _doj;
-        if (!validateDateOfBirth(_doj)) {
-            std::cout << "Invalid date format. Please enter the date in DD-MM-YYYY format.\n";
-            count++;
-        }
-        else {
-            validInput = true;
-            setDoj(_doj);
-        }
-    } while (!validInput);
-    return true;
+    auto input = getInput<std::string>("Enter Date of Joining (DD-MM-YYYY): ", "Invalid date format. Please enter the date in DD-MM-YYYY format.", Validation::validateDateOfBirth);
+    if (input.has_value()) {
+        setDoj(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setWLocationFromUserInput() {
-    std::string _w_location;
-    std::cout << "Enter Work Location: ";
-    std::cin >> _w_location;
-    setWLocation(_w_location);
-    return true;
+    auto input = getInput<std::string>("Enter Work Location: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); });
+    if (input.has_value()) {
+        setWLocation(input.value());
+        return true;
+    }
+    return false;
 }
 
 bool Employee::setManagerIdFromUserInput() {
-    int _manager_id;
-    std::cout << "Enter Manager ID: ";
-    std::cin >> manager_id;
-    setManagerId(manager_id);
+    auto input = getInput<int>("Enter Manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
+    if (input.has_value()) {
+        setManagerId(input.value());
+        return true;
+    }
+    return false;
 }
 
-bool  Employee::setDepartmentIdFromUserInput() {
-    int _department_id;
-    bool validInput = false;
-    int count = 0;
-
-    do {
-        if (count > 3) {
-            std::cout << "Maximum number of attempts reached.\n";
-            return false;
-        }
-        std::cout << "Enter Department ID: ";
-        std::cin >> _department_id;
-        if (!Database::getInstance().isIdExist(_department_id, "Department")) {
-            std::cout << "Invalid Format !! Please enter a valid DepartmentId.\n";
-            count++;
-        }
-        else
-        {
-            validInput = true;
-            setDepartmentId(_department_id);
-           
-        }
-    } while (!validInput);
-    return true;
+bool Employee::setDepartmentIdFromUserInput() {
+    auto input = getInput<int>("Enter Department ID: ", "Invalid Format !! Please enter a valid DepartmentId.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Department"); });
+    if (input.has_value()) {
+        setDepartmentId(input.value());
+        return true;
+    }
+    return false;
 }
+
 
 void Employee::insertEmployee() { 
     

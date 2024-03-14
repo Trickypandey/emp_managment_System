@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include "database.h"
+#include "Utility.h"
+#include "Validate.h"
 
 class Department {
 public:
