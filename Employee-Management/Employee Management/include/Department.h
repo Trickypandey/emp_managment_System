@@ -1,16 +1,16 @@
 #ifndef dept_flag
 #define dept_flag
-
 #include <iostream>
 #include <string>
 #include "database.h"
 #include "Utility.h"
 #include "Validate.h"
 
+
 class Department {
 public:
     Department() = default;
-    
+
 
     int getId() const { return id; }
     std::string getName() const { return name; }
@@ -26,19 +26,29 @@ public:
     void deleteDepartment();
     void updateDepartment();
     void viewDepartment();
-    void setIdFromUserInput();
-    void setNameFromUserInput();
-    void setManagerIdFromUserInput();
-    void setDescriptionFromUserInput();
+    bool setDidFromUserInput();
+    bool setDNameFromUserInput();
+    bool setDManagerIdFromUserInput();
+    bool setDescriptionFromUserInput();
 
     void action();
 
 private:
 
-    int id {};
-    std::string name {};
-    int manager_id {};
+    int id{};
+    std::string name{};
+    int manager_id{};
     std::string description{};
+
+
+    bool setDepartemntData() {
+        if (!setDidFromUserInput() || !setDNameFromUserInput() || !setDManagerIdFromUserInput() ||
+            !setDescriptionFromUserInput()) {
+            std::cout << "Error setting Department data. Aborting insertion.\n";
+            return false;
+        }
+        return true;
+    }
 };
 
 

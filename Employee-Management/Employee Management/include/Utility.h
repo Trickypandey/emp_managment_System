@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILITY
+#define UTILITY
 #include <string_view>
 #include <functional>
 #include <optional>
@@ -37,3 +38,4 @@ namespace Utility {
         return std::nullopt;
     }
 }
+#endif

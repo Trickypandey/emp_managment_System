@@ -5,17 +5,17 @@
 #include <string_view>
 
 namespace Validation{
-    bool validateEmail(const std::string_view& email) {
+    inline bool validateEmail(const std::string_view& email) {
         const std::regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
         return std::regex_match(email.begin(), email.end(), pattern);
     }
 
-    bool validatePhoneNumber(const std::string_view& phoneNumber) {
+    inline bool validatePhoneNumber(const std::string_view& phoneNumber) {
         const std::regex pattern("\\d{10}");
         return std::regex_match(phoneNumber.begin(), phoneNumber.end(), pattern);
     }
 
-    bool validateDateOfBirth(const std::string_view& dob) {
+    inline bool validateDateOfBirth(const std::string_view& dob) {
         const std::regex pattern("^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-(\\d{4})$");
 
         if (!std::regex_match(dob.begin(), dob.end(), pattern)) {
@@ -54,13 +54,13 @@ namespace Validation{
         return true;
     }
 
-    bool validateString(const std::string_view& str) {
+    inline bool validateString(const std::string_view& str) {
         const std::regex pattern(".*\\S.*");
         return std::regex_match(str.begin(), str.end(), pattern);
     }
 
 
-    bool validateInt(const int& num) {
+    inline bool validateInt(const int& num) {
        
         std::string str = std::to_string(num);
         static const std::regex pattern("\\d+");
@@ -68,7 +68,7 @@ namespace Validation{
     }
 
 
-    bool validateStringAndInt(const std::string_view str) {
+    inline bool validateStringAndInt(const std::string_view str) {
         const std::regex pattern("[a-zA-Z].*\\d|\\d.*[a-zA-Z]");
         return std::regex_match(str.begin(), str.end(), pattern);
     }

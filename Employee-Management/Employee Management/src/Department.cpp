@@ -1,41 +1,47 @@
 #include "../include/Department.h"
 using namespace Utility;
-void Department::setIdFromUserInput() {
+bool Department::setDidFromUserInput() {
     auto input = getInput<int>("Enter department ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt);
     if (input.has_value()) {
         setId(input.value());
+        return true;
     }
+    return false;
 }
 
-void Department::setNameFromUserInput() {
+bool Department::setDNameFromUserInput() {
     auto input = getInput<std::string>("Enter department name: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); });
     if (input.has_value()) {
         setName(input.value());
+        return true;
     }
+    return false;
 }
 
-void Department::setManagerIdFromUserInput() {
+bool Department::setDManagerIdFromUserInput() {
     auto input = getInput<int>("Enter manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
     if (input.has_value()) {
         setManagerId(input.value());
+        return true;
     }
+    return false;
 }
 
-void Department::setDescriptionFromUserInput() {
-    auto input = getInput<std::string>("Enter department description: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty() && Validation::validateString(s) ; });
+bool Department::setDescriptionFromUserInput() {
+    auto input = getInput<std::string>("Enter department description: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty() && Validation::validateString(s); });
     if (input.has_value()) {
         setDescription(input.value());
+        return true;
     }
+    return false;
 }
-
 
 void Department::insertDepartment() {
 
     std::cout << "Enter Department Details:\n";
-    setIdFromUserInput();
-    setNameFromUserInput();
-    setManagerIdFromUserInput();
-    setDescriptionFromUserInput();
+    if (!setDepartemntData()) {
+        return;
+    }
 
     std::string insertQuery = "INSERT INTO Department (id, name, manager_id, description) VALUES ("
         + std::to_string(id) + ", '" +
@@ -68,11 +74,11 @@ void Department::deleteDepartment() {
 
 	switch (choice) {
 	case 1:
-        setIdFromUserInput();
+        setDidFromUserInput();
 		deleteQuery = "DELETE FROM Department WHERE id = " + std::to_string(getId());
 		break;
 	case 2:
-		setNameFromUserInput();
+		setDNameFromUserInput();
 		deleteQuery = "DELETE FROM Department WHERE name = '" + getName() + "'";
 		break;
 
@@ -124,12 +130,12 @@ void Department::updateDepartment() {
 
         switch (choice) {
         case 1:
-            setNameFromUserInput();
+            setDNameFromUserInput();
             updateQuery = "UPDATE Department SET name = '" + getName() + "' WHERE id = " + std::to_string(_id);
             flag = false; 
             break;
         case 2:
-            setManagerIdFromUserInput();
+            setDManagerIdFromUserInput();
             updateQuery = "UPDATE Department SET manager_id= '" + std::to_string(getManagerId()) + "' WHERE id = " + std::to_string(_id);
             flag = false;
             break;
@@ -186,11 +192,11 @@ void Department::viewDepartment() {
 		selectQuery = "SELECT * FROM Department";
 		break;
 	case 2:
-		setIdFromUserInput();
+		setDidFromUserInput();
 		selectQuery = "SELECT * FROM Department WHERE id = " + std::to_string(getId());
 		break;
 	case 3:
-		setNameFromUserInput();
+		setDNameFromUserInput();
 		selectQuery = "SELECT * FROM Department WHERE name = '" + getName() + "'";
 		break;
 	case 4:
