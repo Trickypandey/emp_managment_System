@@ -1,8 +1,8 @@
 #include "../include/Department.h"
+#include "../include/Utility.h"
 using namespace Utility;
 bool Department::setDidFromUserInput() {
-    auto input = getInput<int>("Enter department ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt);
-    if (input.has_value()) {
+    if (auto input = getInput<int>("Enter department ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt); input.has_value()) {
         setId(input.value());
         return true;
     }
@@ -10,8 +10,7 @@ bool Department::setDidFromUserInput() {
 }
 
 bool Department::setDNameFromUserInput() {
-    auto input = getInput<std::string>("Enter department name: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); });
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter department name: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); }); input.has_value()) {
         setName(input.value());
         return true;
     }
@@ -19,8 +18,7 @@ bool Department::setDNameFromUserInput() {
 }
 
 bool Department::setDManagerIdFromUserInput() {
-    auto input = getInput<int>("Enter manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
-    if (input.has_value()) {
+    if (auto input = getInput<int>("Enter manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); }); input.has_value()) {
         setManagerId(input.value());
         return true;
     }
@@ -28,8 +26,7 @@ bool Department::setDManagerIdFromUserInput() {
 }
 
 bool Department::setDescriptionFromUserInput() {
-    auto input = getInput<std::string>("Enter department description: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty() && Validation::validateString(s); });
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter department description: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty() && Validation::validateString(s); }); input.has_value()) {
         setDescription(input.value());
         return true;
     }

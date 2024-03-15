@@ -23,6 +23,12 @@ public:
     void setDate(const std::string& Date) { date = Date; }
     void setBonus(int Bonus) { bonus = Bonus; }
 
+    bool setSidFromUserInput();
+    bool setSAmountFromUserInput();
+    bool setSBaseSalaryFromUserInput();
+    bool setDateFromUserInput();
+    bool setBonusFromUserInput();
+
     void insertSalary();
     void deleteSalary();
     void updateSalary();

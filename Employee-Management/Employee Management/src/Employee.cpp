@@ -3,8 +3,7 @@
 #include "../include/validate.h"
 using namespace Utility;
 bool Employee::setIdFromUserInput() {
-    auto input = getInput<int>("Enter Employee ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt);
-    if (input.has_value()) {
+    if (auto input = getInput<int>("Enter Employee ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt); input.has_value()) {
         setId(input.value());
         return true;
     }
@@ -12,8 +11,7 @@ bool Employee::setIdFromUserInput() {
 }
 
 bool Employee::setFirstnameFromUserInput() {
-    auto input = getInput<std::string>("Enter First Name: ", "Invalid Input. Please enter a non-empty string.",Validation::validateString);
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter First Name: ", "Invalid Input. Please enter a non-empty string.", Validation::validateString); input.has_value()) {
         setFirstname(input.value());
         return true;
     }
@@ -21,8 +19,7 @@ bool Employee::setFirstnameFromUserInput() {
 }
 
 bool Employee::setLastnameFromUserInput() {
-    auto input = getInput<std::string>("Enter Last Name: ", "Invalid Input. Please enter a non-empty string.", Validation::validateString);
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Last Name: ", "Invalid Input. Please enter a non-empty string.", Validation::validateString); input.has_value()) {
         setLastname(input.value());
         return true;
     }
@@ -30,8 +27,7 @@ bool Employee::setLastnameFromUserInput() {
 }
 
 bool Employee::setDobFromUserInput() {
-    auto input = getInput<std::string>("Enter Date of Birth (DD-MM-YYYY): ", "Invalid date format. Please enter the date in DD-MM-YYYY format.", Validation::validateDateOfBirth);
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Date of Birth (DD-MM-YYYY): ", "Invalid date format. Please enter the date in DD-MM-YYYY format.", Validation::validateDateOfBirth); input.has_value()) {
         setDob(input.value());
         return true;
     }
@@ -39,8 +35,7 @@ bool Employee::setDobFromUserInput() {
 }
 
 bool Employee::setMobileFromUserInput() {
-    auto input = getInput<std::string>("Enter Mobile number: ", "Invalid Format !! Please enter a valid mobile number.", Validation::validatePhoneNumber);
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Mobile number: ", "Invalid Format !! Please enter a valid mobile number.", Validation::validatePhoneNumber); input.has_value()) {
         setMobile(input.value());
         return true;
     }
@@ -48,8 +43,7 @@ bool Employee::setMobileFromUserInput() {
 }
 
 bool Employee::setEmailFromUserInput() {
-    auto input = getInput<std::string>("Enter Email address: ", "Invalid Format !! Please enter a valid email address.", Validation::validateEmail);
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Email address: ", "Invalid Format !! Please enter a valid email address.", Validation::validateEmail); input.has_value()) {
         setEmail(input.value());
         return true;
     }
@@ -57,8 +51,7 @@ bool Employee::setEmailFromUserInput() {
 }
 
 bool Employee::setAddressFromUserInput() {
-    auto input = getInput<std::string>("Enter Address: ", "Invalid Input. Please enter an address.", [](const std::string& s) { return !s.empty(); });
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Address: ", "Invalid Input. Please enter an address.", [](const std::string& s) { return !s.empty(); }); input.has_value()) {
         setAddress(input.value());
         return true;
     }
@@ -66,8 +59,7 @@ bool Employee::setAddressFromUserInput() {
 }
 
 bool Employee::setGenderFromUserInput() {
-    auto input = getInput<std::string>("Enter Gender (Male, Female, Other): ", "Invalid Input. Please enter your gender.", [](const std::string& s) { return !s.empty(); });
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Gender (Male, Female, Other): ", "Invalid Input. Please enter your gender.", [](const std::string& s) { return !s.empty(); }); input.has_value()) {
         setGender(input.value());
         return true;
     }
@@ -75,8 +67,7 @@ bool Employee::setGenderFromUserInput() {
 }
 
 bool Employee::setDojFromUserInput() {
-    auto input = getInput<std::string>("Enter Date of Joining (DD-MM-YYYY): ", "Invalid date format. Please enter the date in DD-MM-YYYY format.", Validation::validateDateOfBirth);
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Date of Joining (DD-MM-YYYY): ", "Invalid date format. Please enter the date in DD-MM-YYYY format.", Validation::validateDateOfBirth); input.has_value()) {
         setDoj(input.value());
         return true;
     }
@@ -84,13 +75,13 @@ bool Employee::setDojFromUserInput() {
 }
 
 bool Employee::setWLocationFromUserInput() {
-    auto input = getInput<std::string>("Enter Work Location: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); });
-    if (input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Work Location: ", "Invalid Input. Please enter a non-empty string.", [](const std::string& s) { return !s.empty(); }); input.has_value()) {
         setWLocation(input.value());
         return true;
     }
     return false;
 }
+
 
 bool Employee::setManagerIdFromUserInput() {
     auto input = getInput<int>("Enter Manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });

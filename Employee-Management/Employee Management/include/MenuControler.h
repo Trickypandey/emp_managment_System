@@ -151,7 +151,7 @@ void runSql() {
 }
 void displayMenu() {
 	bool flag = true;
-	char choice;
+	int choice;
 
 	while (flag) {
 
@@ -168,30 +168,35 @@ void displayMenu() {
 
 		std::cin >> choice;
 		std::cout << '\n';
+		if (choice>6) {
+			std::cerr << "Invalid choice. Please enter a number between 1 and 6.\n";
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
 		switch (choice) {
-		case '1':
+		case 1:
 			createTable();
 			break;
-		case '2':
+		case 2:
 			showTable();
 			break;
-		case '3':
+		case 3:
 			manipulateDB();
 			break;
-		case '4':
+		case 4:
 			deleteTable();
 			break;
-		case '5':
+		case 5:
 			runSql();
 			break;
-		case '6':
+		case 6:
 			flag = false;
 			break;
 		default:
 			std::cerr << "Invalid choice. Please enter a number between 1 and 6.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
 			break;
 		}
 	}
