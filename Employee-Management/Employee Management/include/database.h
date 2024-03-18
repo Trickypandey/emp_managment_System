@@ -21,7 +21,8 @@ public:
     bool executeQueryCallback(const std::string& query);
     std::string getError() const;
     int getRow();
-    void setError(const std::string& errorMessage);
+    bool executeQueryRows(const std::string& query);
+    void setError(const std::string_view& errorMessage);
     bool isIdExist(int id, const std::string& tableName);
 
 private:
@@ -37,6 +38,7 @@ private:
     std::string Error{};
     static int rows;
     static int callback(void* data, int argc, char** argv, char** azColName);
+    static int callbackRows(void* data, int argc, char** argv, char** azColName);
 
 };
 

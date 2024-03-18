@@ -98,6 +98,7 @@ public:
     void deleteEmployee();
     void updateEmployee();
     void viewEmployee();
+    void deleteById(int _id);
 
     void action();
 

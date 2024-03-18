@@ -59,14 +59,12 @@ namespace Validation{
         return std::regex_match(str.begin(), str.end(), pattern);
     }
 
-
     inline bool validateInt(const int& num) {
        
         std::string str = std::to_string(num);
         static const std::regex pattern("\\d+");
         return std::regex_match(str, pattern);
     }
-
 
     inline bool validateStringAndInt(const std::string_view str) {
         const std::regex pattern("[a-zA-Z].*\\d|\\d.*[a-zA-Z]");

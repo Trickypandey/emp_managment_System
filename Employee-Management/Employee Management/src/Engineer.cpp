@@ -1,29 +1,166 @@
 #include "../include/Engineer.h"
 
-void Engineer::insertEngineer() { 
-    std::cout << "Insert Engineer \n";
-};
-void Engineer::deleteEngineer() {return;};
-void Engineer::updateEngineer() {return;};
-void Engineer::viewEngineer() {return;};
+void Engineer::setProgrammingLanguage() {
+    std::cout << "Enter Programming Language (separated by comma if multiple): \n";
+    std::cin.ignore();
+    std::getline(std::cin, programming_language);
+}
 
+void Engineer::setSpecialization() {
+    std::cout << "Enter Specialization: \n";
+    std::cin >> specialization;
+}
+
+
+void Engineer::insertEngineer() {
+    insertEmployee();
+
+    setProgrammingLanguage();
+    setSpecialization();
+
+    std::string insertQueryEngineer = "INSERT INTO Engineer (id, programming_language, specialization) VALUES ("
+        + std::to_string(getId()) + ", '" +
+        programming_language + "', '" +
+        specialization + "'" +
+        ");";
+
+    if (Database::getInstance().executeQuery(insertQueryEngineer))
+        std::cout << "Inserted Engineer Successfully!\n\n";
+    else
+        std::cout << Database::getInstance().getError() << "\n\n";
+}
+
+void Engineer::deleteEngineer() {
+    if (setIdFromUserInput()) return;
+    std::string checkEngineer = "SELECT id FROM Engineer WHERE id = " + std::to_string(getId());
+
+    if (!Database::getInstance().executeQueryRows(checkEngineer)) {
+        std::cout << Database::getInstance().getError() << std::endl;
+    }
+
+    if (int rows = Database::getInstance().getRow(); rows > 0)
+        deleteById(getId());
+    else
+        std::cout << "Engineer does not exist.\n\n";
+}
+
+void Engineer::updateEngineer() {
+    bool flag = true;
+    std::string updateQuery{};
+    int choice;
+
+    std::cout << "Enter Employee id to update: \n";
+    if (!setIdFromUserInput()) return;
+
+    while (flag) {
+        std::cout << "Please select an attribute to update:\n";
+        std::cout << "1. Programming Language\n";
+        std::cout << "2. Specialization\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter your choice (1-3): ";
+
+        std::cin >> choice;
+        std::cout << "\n";
+
+        switch (choice) {
+        case 1:
+            setProgrammingLanguage();
+            updateQuery = "UPDATE Engineer SET programming_language = '" + getProgrammingLanguage() + "' WHERE id = " + std::to_string(getId());
+            flag = false;
+            break;
+        case 2:
+            setSpecialization();
+            updateQuery = "UPDATE Engineer SET specialization = '" + getSpecialization() + "' WHERE id = " + std::to_string(getId());
+            flag = false;
+            break;
+        case 3:
+            flag = false;
+            break;
+        default:
+            std::cout << "Invalid choice. Please enter a number between 1 and 3.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            break;
+        }
+    }
+
+    if (!updateQuery.empty()) {
+        if (Database::getInstance().executeQuery(updateQuery)) {
+            int changes = sqlite3_changes(Database::getInstance().db);
+            std::cout << changes << " row affected \n\n";
+            if (changes != 0) {
+                std::cout << "Engineer Updated Successfully!\n\n";
+            }
+        }
+        else {
+            std::cout << "Error updating engineer: " << Database::getInstance().getError() << "\n";
+        }
+    }
+}
+
+void Engineer::viewEngineer() {
+    bool flag = true;
+    std::string selectQuery{};
+    int choice;
+
+    while (flag) {
+        std::cout << "Please select a column to view an Engineer:\n";
+        std::cout << "1. ALL\n";
+        std::cout << "2. Employee Id\n";
+        std::cout << "3. Exit\n";
+        std::cout << "Enter your choice (1-3): ";
+
+        std::cin >> choice;
+        std::cout << "\n";
+
+        switch (choice) {
+        case 1:
+            selectQuery = "SELECT * FROM Employee NATURAL JOIN Engineer WHERE Employee.id == Engineer.id ";
+            flag = false;
+            break;
+        case 2:
+            if (setIdFromUserInput())
+            {
+                selectQuery = "SELECT * FROM Employee NATURAL JOIN Engineer WHERE Employee.id == Engineer.id AND Employee.id = " + std::to_string(getId());
+                flag = false;
+            }
+            break;
+        case 3:
+            flag = false;
+            break;
+        default:
+            std::cout << "Invalid choice. Please enter a number between 1 and 3.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            break;
+        }
+    }
+
+    if (!Database::getInstance().executeQueryCallback(selectQuery)) {
+        std::cout << Database::getInstance().getError() << std::endl;
+    }
+}
+
+void Engineer::describeEngineer() {
+    if (!Database::getInstance().executeQueryCallback("pragma table_info('Engineer');")) {
+        std::cout << Database::getInstance().getError();
+    }
+}
 
 void Engineer::action() {
     bool flag = true;
     int choice;
-    
 
     while (flag) {
-
         std::cout << "Engineer Table\n";
         std::cout << "Please select a value to perform actions:\n";
         std::cout << "1. Insert\n";
         std::cout << "2. Delete\n";
         std::cout << "3. Update\n";
         std::cout << "4. View\n";
-        std::cout << "5. Exit\n";
-        std::cout << "Enter your choice (1-5): ";
-
+        std::cout << "5. Describe\n";
+        std::cout << "6. Exit\n";
+        std::cout << "Enter your choice (1-6): ";
 
         std::cin >> choice;
 
@@ -40,13 +177,17 @@ void Engineer::action() {
         case 4:
             viewEngineer();
             break;
-        case 5: 
+        case 5:
+            describeEngineer();
+            break;
+        case 6:
             flag = false;
             break;
         default:
-            std::cerr << "Invalid choice. Please enter a number between 1 and 5.\n";
+            std::cerr << "Invalid choice. Please enter a number between 1 and 6.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
     }
-
 }

@@ -1,5 +1,6 @@
 #include "../include/database.h"
 #include<string>
+#include<string_view>
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -201,7 +202,7 @@ int Database::callback(void* data, int argc, char** argv, char** azColName) {
     return 0;
 }
 
-void Database::setError(const std::string& errorMessage) {
+void Database::setError(const std::string_view& errorMessage) {
     Error = errorMessage;
 }
 
@@ -232,4 +233,24 @@ bool Database::isIdExist(int id, const std::string& tableName) {
         sqlite3_finalize(stmt);
         return false;
     }
+}
+
+
+bool Database::executeQueryRows(const std::string& query) {
+    char* errMsg = nullptr;
+    rows = 0;
+    int rc = sqlite3_exec(db, query.c_str(), callbackRows, 0, &errMsg);
+
+    if (rc != SQLITE_OK) {
+        std::string_view err = { errMsg };
+        setError(err);
+        //sqlite3_free(errMsg);
+        return false;
+    }
+    return true;
+}
+
+int Database::callbackRows(void* data, int argc, char** argv, char** azColName) {
+    ++rows;
+    return 0;
 }

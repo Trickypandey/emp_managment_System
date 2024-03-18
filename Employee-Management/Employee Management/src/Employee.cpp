@@ -354,7 +354,11 @@ void Employee::viewEmployee() {
 
         case 4:
             setEmailFromUserInput();
-            selectQuery = "SELECT * FROM Employee WHERE email = '" + getEmail() + "'";
+            //selectQuery = "SELECT * FROM Employee WHERE email = '" + getEmail() + "'";
+            
+            selectQuery = "SELECT * FROM Employee WHERE email LIKE '%"+ getEmail() +" %'";
+            //selectQuery = "SELECT * FROM Employee WHERE email LIKE '%@%'";
+
             if (!Database::getInstance().executeQueryCallback(selectQuery)) {
                 std::cerr << "Error executing query: " << Database::getInstance().getError() << std::endl;
             }
@@ -410,5 +414,20 @@ void Employee::action() {
             std::cout << "Invalid choice. Please enter a number between 1 and 5.\n";
             break;
         }
+    }
+}
+
+void Employee::deleteById(int _id) {
+    std::string deleteQuery = "DELETE FROM Employee WHERE id = " + std::to_string(_id);
+
+    if (Database::getInstance().executeQuery(deleteQuery)) {
+        int changes = sqlite3_changes(Database::getInstance().db);
+        std::cout << changes << " row affected \n\n";
+        if (changes != 0) {
+            std::cout << "Employee Deleted Successfully ! \n\n";
+        }
+    }
+    else {
+        std::cout << Database::getInstance().getError() << "\n";
     }
 }
