@@ -1,9 +1,44 @@
 #include "../include/Salary.h"
+using namespace Utility;
+
+bool Salary::setSidFromUserInput() {
+	if (auto input = getInput<int>("Enter Employee Id: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt); input.has_value()) {
+		setId(input.value());
+		return true;
+	}
+	return false;
+}
+
+bool Salary::setSAmountFromUserInput() {
+	if (auto input = getInput<double>("Enter Amount: ", "Invalid Input. Please enter a valid amount.", [](double amount) { return amount >= 0.0; }); input.has_value()) {
+		setAmount(input.value());
+		return true;
+	}
+	return false;
+}
+
+bool Salary::setSBaseSalaryFromUserInput() {
+	if (auto input = getInput<double>("Enter Base: ", "Invalid Input. Please enter a valid base salary.", [](double base_salary) { return base_salary >= 0.0; }); input.has_value()) {
+		setBaseSalary(input.value());
+		return true;
+	}
+	return false;
+}
+
+bool Salary::setBonusFromUserInput() {
+	if (auto input = getInput<double>("Enter Bonus: ", "Invalid Input. Please enter a valid bonus.", [](double bonus) { return bonus >= 0.0; }); input.has_value()) {
+		setBonus(input.value());
+		return true;
+	}
+	return false;
+}
 
 void Salary::insertSalary() {
 	std::cout << "Insert Salary Details:\n";
 	
-
+	if (!setSalaryData()) {
+		return;
+	}
 	std::string insertQuery = "INSERT INTO Salary (id, amount, base_salary, bonus) VALUES ("
 		+ std::to_string(id) + ", '" +
 		std::to_string(amount) + "', '" +
@@ -18,7 +53,7 @@ void Salary::insertSalary() {
 };
 void Salary::deleteSalary() {
 
-	setId();
+	if (!setSidFromUserInput()) return;
 	std::string deleteQuery = "DELETE FROM Salary WHERE id = " + std::to_string(getId());
 
 	if (Database::getInstance().executeQuery(deleteQuery)) {
@@ -55,15 +90,15 @@ void Salary::updateSalary() {
 
 	switch (choice) {
 	case 1:
-		setAmount();
+		setSAmountFromUserInput();
 		updateQuery = "UPDATE Salary SET amount = '" + std::to_string(getAmount()) + "' WHERE id = " + std::to_string(id);
 		break;
 	case 2:
-		setBaseSalary();
+		setSBaseSalaryFromUserInput();
 		updateQuery = "UPDATE Salary SET base_salary= '" + std::to_string(getBaseSalary()) + "' WHERE id = " + std::to_string(id);
 		break;
 	case 3:
-		setBonus();
+		setBonusFromUserInput();
 		updateQuery = "UPDATE Salary SET bonus = '" + std::to_string(getBonus()) + "' WHERE id = " + std::to_string(id);
 		break;
 	case 4:
@@ -109,7 +144,7 @@ void Salary::viewSalary() {
 		selectQuery = "SELECT id,firstname,lastname,email,amount,base_salary,bonus From Employee NATURAL JOIN Salary";
 		break;
 	case 2:
-		setId();
+		setSidFromUserInput();
 		selectQuery = "SELECT id,firstname,lastname,email,amount,base_salary,bonus From Employee NATURAL JOIN Salary WHERE id = " + std::to_string(getId());
 		break;
 	case 3:

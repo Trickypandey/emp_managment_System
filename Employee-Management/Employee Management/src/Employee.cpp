@@ -82,7 +82,6 @@ bool Employee::setWLocationFromUserInput() {
     return false;
 }
 
-
 bool Employee::setManagerIdFromUserInput() {
     auto input = getInput<int>("Enter Manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
     if (input.has_value()) {
@@ -100,7 +99,6 @@ bool Employee::setDepartmentIdFromUserInput() {
     }
     return false;
 }
-
 
 void Employee::insertEmployee() { 
     
@@ -131,40 +129,39 @@ void Employee::insertEmployee() {
 
 };
 
-void Employee::deleteEmployee() {  
+void Employee::deleteEmployee() {
+    bool executionFlag = false;
     std::string deleteQuery{};
     bool flag = true;
     int choice;
     while (flag) {
-
+        deleteQuery.clear();
         std::cout << "Please select a column to delete an employee:\n";
         std::cout << "1. ID\n";
         std::cout << "2. Firstname\n";
         std::cout << "3. Gmail\n";
         std::cout << "4. Exit\n";
-
         std::cout << "Enter your choice (1-4): ";
-
-
         std::cin >> choice;
-
-
         switch (choice) {
         case 1:
-            setIdFromUserInput();
-            deleteQuery = "DELETE FROM Employee WHERE id = " + std::to_string(getId());
-            
+            if (setIdFromUserInput()) {
+                deleteQuery = "DELETE FROM Employee WHERE id = " + std::to_string(getId());
+                executionFlag = true;
+            }
             break;
         case 2:
-            setFirstnameFromUserInput();
-            deleteQuery = "DELETE FROM Employee WHERE firstname = '" + getFirstname()+ "'";
-            
+            if (setFirstnameFromUserInput()) {
+                deleteQuery = "DELETE FROM Employee WHERE firstname = '" + getFirstname() + "'";
+                executionFlag = true;
+            }
             break;
 
         case 3:
-            setEmailFromUserInput();
-            deleteQuery = "DELETE FROM Employee WHERE email = '" + getEmail() + "'";
-            
+            if (setEmailFromUserInput()) {
+                deleteQuery = "DELETE FROM Employee WHERE email = '" + getEmail() + "'";
+                executionFlag = true;
+            }
             break;
 
         case 4:
@@ -174,25 +171,27 @@ void Employee::deleteEmployee() {
             std::cerr << "Invalid choice. Please enter a number between 1 and 4.\n";
             break;
         }
-        if (Database::getInstance().executeQuery(deleteQuery)) {
-
-            int changes = sqlite3_changes(Database::getInstance().db);
-
-            std::cout << changes << " row affected \n\n";
-            if (changes != 0) {
-                std::cout << "Employee Deleted Succesfully ! \n\n";
+        if (executionFlag) {
+            if (Database::getInstance().executeQuery(deleteQuery)) {
+                int changes = sqlite3_changes(Database::getInstance().db);
+                std::cout << changes << " row affected \n\n";
+                if (changes != 0) {
+                    std::cout << "Employee Deleted Successfully ! \n\n";
+                }
             }
-
+            else {
+                std::cout << Database::getInstance().getError() << "\n";
+            }
         }
-        else
-            std::cout << Database::getInstance().getError() << "\n";
     }
-};
+}
+
 
 void Employee::updateEmployee() {
     std::string updateQuery{};
     int idToUpdate;
     bool flag = true;
+    bool executionFlag = false;
 
     std::cout << "Enter the ID of the employee you want to update: ";
     std::cin >> idToUpdate;
@@ -222,65 +221,88 @@ void Employee::updateEmployee() {
 
         switch (choice) {
         case 1:
-            setFirstnameFromUserInput();
-            updateQuery = generateUpdateQuery("firstname", getFirstname(), idToUpdate);
+            if (setFirstnameFromUserInput()) {
+                updateQuery = generateUpdateQuery("firstname", getFirstname(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 2:
-            setLastnameFromUserInput();
-            updateQuery = generateUpdateQuery("lastname", getLastname(), idToUpdate);
+            if (setLastnameFromUserInput()) {
+                updateQuery = generateUpdateQuery("lastname", getLastname(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 3:
-            setDobFromUserInput();
-            updateQuery = generateUpdateQuery("dob", getDob(), idToUpdate);
+            if (setDobFromUserInput()) {
+                updateQuery = generateUpdateQuery("dob", getDob(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 4:
-            setMobileFromUserInput();
-            updateQuery = generateUpdateQuery("mobile", getMobile(), idToUpdate);
+            if (setMobileFromUserInput()) {
+                updateQuery = generateUpdateQuery("mobile", getMobile(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 5:
-            setEmailFromUserInput();
-            updateQuery = generateUpdateQuery("email", getEmail(), idToUpdate);
+            if (setEmailFromUserInput()) {
+                updateQuery = generateUpdateQuery("email", getEmail(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 6:
-            setAddressFromUserInput();
-            updateQuery = generateUpdateQuery("address", getAddress(), idToUpdate);
+            if (setAddressFromUserInput()) {
+                updateQuery = generateUpdateQuery("address", getAddress(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 7:
-            setGenderFromUserInput();
-            updateQuery = generateUpdateQuery("gender", getGender(), idToUpdate);
+            if (setGenderFromUserInput()) {
+                updateQuery = generateUpdateQuery("gender", getGender(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 8:
-            setDojFromUserInput();
-            updateQuery = generateUpdateQuery("doj", getDoj(), idToUpdate);
+            if (setDojFromUserInput()) {
+                updateQuery = generateUpdateQuery("doj", getDoj(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 9:
-            setWLocationFromUserInput();
-            updateQuery = generateUpdateQuery("w_location", getWLocation(), idToUpdate);
+            if (setWLocationFromUserInput()) {
+                updateQuery = generateUpdateQuery("w_location", getWLocation(), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 10:
-            setManagerIdFromUserInput();
-            updateQuery = generateUpdateQuery("manager_id", std::to_string(getManagerId()), idToUpdate);
+            if (setManagerIdFromUserInput()) {
+                updateQuery = generateUpdateQuery("manager_id", std::to_string(getManagerId()), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 11:
-            setDepartmentIdFromUserInput();
-            updateQuery = generateUpdateQuery("department_id", std::to_string(getDepartmentId()), idToUpdate);
+            if (setDepartmentIdFromUserInput()) {
+                updateQuery = generateUpdateQuery("department_id", std::to_string(getDepartmentId()), idToUpdate);
+                executionFlag = true;
+            }
             break;
         case 12:
             flag = false;
             break;
         default:
             std::cerr << "Invalid choice. Please enter a number between 1 and 12.\n";
-            continue;
+            break;
         }
 
-        if (flag) {
-            if (Database::getInstance().executeQuery(updateQuery))
-                std::cout << "Employee information updated successfully!\n";
-            else
-                std::cout << "Failed to update employee information: " << Database::getInstance().getError() << "\n";
-        }
+    }
+    if (executionFlag && !updateQuery.empty()) { 
+        if (Database::getInstance().executeQuery(updateQuery))
+            std::cout << "Employee information updated successfully!\n";
+        else
+            std::cout << "Failed to update employee information: " << Database::getInstance().getError() << "\n";
     }
 }
+
 
 std::string Employee::generateUpdateQuery(const std::string& fieldName, const std::string& value, int idToUpdate) {
     return "UPDATE Employee SET " + fieldName + " = '" + value + "' WHERE id = " + std::to_string(idToUpdate);
@@ -355,7 +377,6 @@ void Employee::action() {
 
 
     while (flag) {
-
 
         std::cout << "Employee Table\n";
         std::cout << "Please select a value to perform actions:\n";

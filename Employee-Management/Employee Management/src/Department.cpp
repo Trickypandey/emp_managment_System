@@ -1,5 +1,4 @@
 #include "../include/Department.h"
-#include "../include/Utility.h"
 using namespace Utility;
 bool Department::setDidFromUserInput() {
     if (auto input = getInput<int>("Enter department ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt); input.has_value()) {
@@ -56,36 +55,38 @@ void Department::deleteDepartment() {
 	std::string deleteQuery{};
 
 	int choice;
+    bool flag = true;
+    while (flag)
+    {
+
+	    std::cout << "Please select a column to delete an Department:\n";
+	    std::cout << "1. ID\n";
+	    std::cout << "2. Dept. Name\n";
+	    std::cout << "3. Exit\n";
+
+	    std::cout << "Enter your choice (1-3): ";
+	    std::cin >> choice;
+	    std::cout << "\n";
+
+	    switch (choice) {
+	    case 1:
+            setDidFromUserInput();
+		    deleteQuery = "DELETE FROM Department WHERE id = " + std::to_string(getId());
+		    break;
+	    case 2:
+		    setDNameFromUserInput();
+		    deleteQuery = "DELETE FROM Department WHERE name = '" + getName() + "'";
+		    break;
+	    case 3:
+            flag = false;
+		    break;
+	    default:
+		    std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+		    break;
+	    }
+    }
 
 
-	std::cout << "Please select a column to delete an Department:\n";
-	std::cout << "1. ID\n";
-	std::cout << "2. Dept. Name\n";
-	std::cout << "3. Exit\n";
-
-	std::cout << "Enter your choice (1-3): ";
-
-
-	std::cin >> choice;
-	std::cout << "\n";
-
-	switch (choice) {
-	case 1:
-        setDidFromUserInput();
-		deleteQuery = "DELETE FROM Department WHERE id = " + std::to_string(getId());
-		break;
-	case 2:
-		setDNameFromUserInput();
-		deleteQuery = "DELETE FROM Department WHERE name = '" + getName() + "'";
-		break;
-
-	case 3:
-		break;
-	default:
-		std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
-		deleteDepartment();
-		break;
-	}
 
 	if (Database::getInstance().executeQuery(deleteQuery)) {
 
@@ -101,6 +102,7 @@ void Department::deleteDepartment() {
 		std::cout << Database::getInstance().getError() << "\n";
 
 };
+
 void Department::updateDepartment() {
     std::string updateQuery{};
     int choice;
@@ -129,17 +131,17 @@ void Department::updateDepartment() {
         case 1:
             setDNameFromUserInput();
             updateQuery = "UPDATE Department SET name = '" + getName() + "' WHERE id = " + std::to_string(_id);
-            flag = false; 
+            
             break;
         case 2:
             setDManagerIdFromUserInput();
             updateQuery = "UPDATE Department SET manager_id= '" + std::to_string(getManagerId()) + "' WHERE id = " + std::to_string(_id);
-            flag = false;
+            
             break;
         case 3:
             setDescriptionFromUserInput();
             updateQuery = "UPDATE Department SET description = '" + getDescription() + "' WHERE id = " + std::to_string(_id);
-            flag = false;
+            
             break;
         case 4:
             flag = false;
@@ -172,46 +174,49 @@ void Department::viewDepartment() {
 
 	int choice;
 
-	std::cout << "Please select a column to view a Department:\n";
-	std::cout << "1. ALL\n";
-	std::cout << "2. Dept.Id\n";
-	std::cout << "3. Dept. Name\n";
-	std::cout << "4. Exit\n";
+    bool flag = true;
 
-	std::cout << "Enter your choice (1-4): ";
+    while (flag)
+    {
+	    std::cout << "Please select a column to view a Department:\n";
+	    std::cout << "1. ALL\n";
+	    std::cout << "2. Dept.Id\n";
+	    std::cout << "3. Dept. Name\n";
+	    std::cout << "4. Exit\n";
+
+	    std::cout << "Enter your choice (1-4): ";
 
 
-	std::cin >> choice;
-	std::cout << "\n";
+	    std::cin >> choice;
+	    std::cout << "\n";
 
-	switch (choice) {
-	case 1:
-		selectQuery = "SELECT * FROM Department";
-		break;
-	case 2:
-		setDidFromUserInput();
-		selectQuery = "SELECT * FROM Department WHERE id = " + std::to_string(getId());
-		break;
-	case 3:
-		setDNameFromUserInput();
-		selectQuery = "SELECT * FROM Department WHERE name = '" + getName() + "'";
-		break;
-	case 4:
-		break;
-	default:
-		std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
-		viewDepartment();
-		break;
-	}
+	    switch (choice) {
+	    case 1:
+		    selectQuery = "SELECT * FROM Department";
+		    break;
+	    case 2:
+		    setDidFromUserInput();
+		    selectQuery = "SELECT * FROM Department WHERE id = " + std::to_string(getId());
+		    break;
+	    case 3:
+		    setDNameFromUserInput();
+		    selectQuery = "SELECT * FROM Department WHERE name = '" + getName() + "'";
+		    break;
+	    case 4:
+            flag = false;
+		    break;
+	    default:
+		    std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+		    break;
+	    }
+    }
+
 
 	if (!Database::getInstance().executeQueryCallback(selectQuery)) {
 		std::cout << Database::getInstance().getError() << std::endl;
 	}
 
 };
-
- 
-
 
 void Department::action() {
     bool flag = true;

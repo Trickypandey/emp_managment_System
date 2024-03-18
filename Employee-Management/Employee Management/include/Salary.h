@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "database.h"
+#include "Utility.h"
+#include "Validate.h"
 
 
 class Salary {
@@ -26,7 +28,6 @@ public:
     bool setSidFromUserInput();
     bool setSAmountFromUserInput();
     bool setSBaseSalaryFromUserInput();
-    bool setDateFromUserInput();
     bool setBonusFromUserInput();
 
     void insertSalary();
@@ -43,6 +44,15 @@ private:
     float base_salary {};
     std::string date {};
     int bonus{};
+
+    bool setSalaryData() {
+        if (!setSidFromUserInput() || !setSAmountFromUserInput() || !setSBaseSalaryFromUserInput() ||
+            !setBonusFromUserInput()) {
+            std::cout << "Error setting Salary data. Aborting insertion.\n";
+            return false;
+        }
+        return true;
+    }
 };
 
 #endif
