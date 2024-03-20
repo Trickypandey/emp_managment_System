@@ -1,22 +1,40 @@
 #include "../include/Engineer.h"
-
-void Engineer::setProgrammingLanguage() {
-    std::cout << "Enter Programming Language (separated by comma if multiple): \n";
-    std::cin.ignore();
-    std::getline(std::cin, programming_language);
+using namespace Utility;
+bool Engineer::setProgLangUserInput() {
+    
+    if (auto input = getInput<std::string>("Enter Programming Language (separated by comma if multiple): ", "Invalid input. Please try again.", [](const std::string& str) { return !str.empty() && Validation::validateString(str); }); input.has_value()) {
+        setProgrammingLanguage(input.value());
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
-void Engineer::setSpecialization() {
-    std::cout << "Enter Specialization: \n";
-    std::cin >> specialization;
+bool Engineer::setSpecializationUserInput() {
+    
+    if (auto input = getInput<std::string>("Enter Specialization: ", "Invalid input. Please try again.", [](const std::string& str) { return !str.empty() && Validation::validateString(str); }); input.has_value()) {
+        setSpecialization(input.value());
+        return true;
+    }
+    else {
+        return false;
+    }
 }
+
 
 
 void Engineer::insertEngineer() {
-    insertEmployee();
+    if (!insertEmployee()) {
+        std::cout << "Error inserting Employee. Aborting insertion of Engineer.\n";
+        return;
+    }
 
-    setProgrammingLanguage();
-    setSpecialization();
+    if (!setProgLangUserInput() || !setSpecializationUserInput()) {
+        std::cout << "Error setting Engineer data. Aborting insertion.\n";
+        deleteById(getId());
+        return;
+    }
 
     std::string insertQueryEngineer = "INSERT INTO Engineer (id, programming_language, specialization) VALUES ("
         + std::to_string(getId()) + ", '" +
@@ -32,13 +50,8 @@ void Engineer::insertEngineer() {
 
 void Engineer::deleteEngineer() {
     if (setIdFromUserInput()) return;
-    std::string checkEngineer = "SELECT id FROM Engineer WHERE id = " + std::to_string(getId());
-
-    if (!Database::getInstance().executeQueryRows(checkEngineer)) {
-        std::cout << Database::getInstance().getError() << std::endl;
-    }
-
-    if (int rows = Database::getInstance().getRow(); rows > 0)
+    //std::string checkEngineer = "SELECT id FROM Engineer WHERE id = " + std::to_string(getId());
+    if (Database::getInstance().isIdExist(getId(), "Department"))
         deleteById(getId());
     else
         std::cout << "Engineer does not exist.\n\n";
@@ -46,6 +59,7 @@ void Engineer::deleteEngineer() {
 
 void Engineer::updateEngineer() {
     bool flag = true;
+    
     std::string updateQuery{};
     int choice;
 
@@ -64,14 +78,17 @@ void Engineer::updateEngineer() {
 
         switch (choice) {
         case 1:
-            setProgrammingLanguage();
-            updateQuery = "UPDATE Engineer SET programming_language = '" + getProgrammingLanguage() + "' WHERE id = " + std::to_string(getId());
-            flag = false;
+            if(setProgLangUserInput() ){
+                updateQuery = "UPDATE Engineer SET programming_language = '" + getProgrammingLanguage() + "' WHERE id = " + std::to_string(getId());
+                flag = false;
+            }
             break;
         case 2:
-            setSpecialization();
-            updateQuery = "UPDATE Engineer SET specialization = '" + getSpecialization() + "' WHERE id = " + std::to_string(getId());
-            flag = false;
+            if (setSpecializationUserInput())
+            {
+                updateQuery = "UPDATE Engineer SET specialization = '" + getSpecialization() + "' WHERE id = " + std::to_string(getId());
+                flag = false;
+            }
             break;
         case 3:
             flag = false;

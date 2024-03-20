@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "../include/database.h"
+#include "../include/validate.h"
 #include "../include/Employee.h"
 #include "../include/Engineer.h"
 #include "../include/Manager.h"
@@ -153,10 +154,10 @@ void displayMenu() {
 	bool flag = true;
 	int choice;
 
+	std::cout << "Welcome to the database management system!\n";
 	while (flag) {
 
 
-		std::cout << "Welcome to the database management system!\n";
 		std::cout << "Please select from below options to perform an action:\n";
 		std::cout << "1. Create Table \n";
 		std::cout << "2. Show Tables\n";
@@ -168,12 +169,12 @@ void displayMenu() {
 
 		std::cin >> choice;
 		std::cout << '\n';
-		if (choice>6) {
+		/*if (!Validation::validateInt(choice)) {
 			std::cerr << "Invalid choice. Please enter a number between 1 and 6.\n";
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			continue;
-		}
+		}*/
 		switch (choice) {
 		case 1:
 			createTable();

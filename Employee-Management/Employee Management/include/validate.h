@@ -62,7 +62,7 @@ namespace Validation{
     inline bool validateInt(const int& num) {
        
         std::string str = std::to_string(num);
-        static const std::regex pattern("\\d+");
+        static const std::regex pattern("^[1-9]\\d*$");
         return std::regex_match(str, pattern);
     }
 

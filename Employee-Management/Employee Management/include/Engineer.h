@@ -12,8 +12,15 @@ public:
 	std::string getProgrammingLanguage() const { return programming_language; }
 	std::string getSpecialization() const { return specialization; }
 
-	void setProgrammingLanguage();
-	void setSpecialization();
+	void setProgrammingLanguage(const std::string& str) {
+		programming_language = str;
+	}
+	void setSpecialization(const std::string& str) {
+		specialization = str;
+	}
+
+	bool setProgLangUserInput();
+	bool setSpecializationUserInput();
 
 	void insertEngineer();
 	void deleteEngineer();

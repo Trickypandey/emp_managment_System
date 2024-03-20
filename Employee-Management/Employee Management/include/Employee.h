@@ -94,7 +94,7 @@ public:
 
 
 
-    void insertEmployee();
+    bool insertEmployee();
     void deleteEmployee();
     void updateEmployee();
     void viewEmployee();

@@ -6,7 +6,7 @@
 
 namespace Utility {
     template<typename T>
-    std::optional<T> getInput(const std::string& prompt, const std::string& errorMessage, std::function<bool(T)> validator ) {
+    std::optional<T> getInput(const std::string& prompt, const std::string& errorMessage, std::function<bool(T)> validator) {
         T input;
         int count = 0;
         const int maxAttempts = 3;

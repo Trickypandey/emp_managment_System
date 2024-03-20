@@ -18,7 +18,7 @@ bool Employee::setFirstnameFromUserInput() {
     return false;
 }
 
-bool Employee::setLastnameFromUserInput() {
+bool Employee::setLastnameFromUserInput() { 
     if (auto input = getInput<std::string>("Enter Last Name: ", "Invalid Input. Please enter a non-empty string.", Validation::validateString); input.has_value()) {
         setLastname(input.value());
         return true;
@@ -100,12 +100,12 @@ bool Employee::setDepartmentIdFromUserInput() {
     return false;
 }
 
-void Employee::insertEmployee() { 
+bool Employee::insertEmployee() { 
     
     std::cout << "Enter Employee Details:\n";
 
     if (!setUserData()) {
-        return;
+        return false;
     }
 
     std::string insertQuery = "INSERT INTO Employee (id, firstname, lastname, dob, mobile, email, address, gender, doj, w_location, manager_id, department_id) VALUES ("
@@ -122,10 +122,14 @@ void Employee::insertEmployee() {
         std::to_string(manager_id) + ", " +
         std::to_string(department_id) + ");";
  
-     if (Database::getInstance().executeQuery(insertQuery))
+    if (Database::getInstance().executeQuery(insertQuery)) {
         std::cout << "Inserted Employee Succesfully ! \n";
-    else
+        return true;
+     }
+     else {
          std::cout << Database::getInstance().getError() << "\n";
+         return false;
+     }
 
 };
 
@@ -169,6 +173,8 @@ void Employee::deleteEmployee() {
             break;
         default:
             std::cerr << "Invalid choice. Please enter a number between 1 and 4.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
         if (executionFlag) {
@@ -185,7 +191,6 @@ void Employee::deleteEmployee() {
         }
     }
 }
-
 
 void Employee::updateEmployee() {
     std::string updateQuery{};
@@ -291,6 +296,8 @@ void Employee::updateEmployee() {
             break;
         default:
             std::cerr << "Invalid choice. Please enter a number between 1 and 12.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
 
@@ -302,7 +309,6 @@ void Employee::updateEmployee() {
             std::cout << "Failed to update employee information: " << Database::getInstance().getError() << "\n";
     }
 }
-
 
 std::string Employee::generateUpdateQuery(const std::string& fieldName, const std::string& value, int idToUpdate) {
     return "UPDATE Employee SET " + fieldName + " = '" + value + "' WHERE id = " + std::to_string(idToUpdate);
@@ -369,6 +375,8 @@ void Employee::viewEmployee() {
             break;
         default:
             std::cerr << "Invalid choice. Please enter a number between 1 and 5.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
     }
@@ -412,6 +420,8 @@ void Employee::action() {
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 5.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
     }
