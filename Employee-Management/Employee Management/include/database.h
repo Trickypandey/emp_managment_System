@@ -2,12 +2,13 @@
 #include "../sqlite/sqlite3.h"
 #include<string>
 #include<vector>
+#include <filesystem>
 
 class Database {
 public:
     sqlite3* db{};
 
-    bool open(std::string);
+    bool open(std::filesystem::path);
     bool createTables();
     std::string generateCreateTableQuery();
     void close();
@@ -24,6 +25,12 @@ public:
     bool executeQueryRows(const std::string& query);
     void setError(const std::string_view& errorMessage);
     bool isIdExist(int id, const std::string& tableName);
+    void export_to_csv(const std::string& table, const std::filesystem::path& filename);
+    void describeTable(const std::string& tableName);
+    void createTableQuery();
+    void showTables();
+    void deleteTableQuery();
+    void useSqlQuery();
 
 private:
     Database() {}

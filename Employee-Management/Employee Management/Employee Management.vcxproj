@@ -145,6 +145,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sqlite\shell.c" />
     <ClCompile Include="sqlite\sqlite3.c" />
+    <ClCompile Include="src\Auth.cpp" />
     <ClCompile Include="src\database.cpp" />
     <ClCompile Include="src\Department.cpp" />
     <ClCompile Include="src\Employee.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="src\validate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Auth.h" />
     <ClInclude Include="include\database.h" />
     <ClInclude Include="include\Department.h" />
     <ClInclude Include="include\Employee.h" />

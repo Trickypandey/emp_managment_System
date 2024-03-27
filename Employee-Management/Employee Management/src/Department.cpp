@@ -17,7 +17,7 @@ bool Department::setDNameFromUserInput() {
 }
 
 bool Department::setDManagerIdFromUserInput() {
-    if (auto input = getInput<int>("Enter manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); }); input.has_value()) {
+    if (auto input = getInput<int>("Enter manager ID(-1 for Empty): ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); }); input.has_value()) {
         setManagerId(input.value());
         return true;
     }
@@ -33,6 +33,7 @@ bool Department::setDescriptionFromUserInput() {
 }
 
 void Department::insertDepartment() {
+    system("cls");
     std::cout << "Enter Department Details:\n";
     if (!setDepartemntData()) {
         return;
@@ -41,7 +42,7 @@ void Department::insertDepartment() {
     std::string insertQuery = "INSERT INTO Department (id, name, manager_id, description) VALUES ("
         + std::to_string(id) + ", '" +
         name + "', " +
-        std::to_string(manager_id) + ", '" +
+        (getManagerId() == -1 ? "null" : std::to_string(getManagerId())) + + ", '" +
         description + "');";
 
     if (Database::getInstance().executeQuery(insertQuery)) {
@@ -54,11 +55,12 @@ void Department::insertDepartment() {
 
 void Department::deleteDepartment() {
     std::string deleteQuery{};
-    bool executionFlag = false; 
 
     int choice;
     bool flag = true;
+    system("cls");
     while (flag) {
+        bool executionFlag = false; 
         std::cout << "Please select a column to delete a Department:\n";
         std::cout << "1. ID\n";
         std::cout << "2. Dept. Name\n";
@@ -85,26 +87,28 @@ void Department::deleteDepartment() {
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 3.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
+        }
+        if (executionFlag && Database::getInstance().executeQuery(deleteQuery)) {
+            int changes = sqlite3_changes(Database::getInstance().db);
+            std::cout << changes << " row affected \n\n";
+            if (changes != 0) {
+                std::cout << "Department Deleted Successfully ! \n";
+            }
+        }
+        else {
+            std::cout << Database::getInstance().getError() << "\n";
         }
     }
 
-    if (executionFlag && Database::getInstance().executeQuery(deleteQuery)) {
-        int changes = sqlite3_changes(Database::getInstance().db);
-        std::cout << changes << " row affected \n\n";
-        if (changes != 0) {
-            std::cout << "Department Deleted Successfully ! \n";
-        }
-    }
-    else {
-        std::cout << Database::getInstance().getError() << "\n";
-    }
 }
 
 void Department::updateDepartment() {
     std::string updateQuery{};
-    bool executionFlag = false; 
-
+   
+    system("cls");
     int choice;
     int _id;
     bool flag = true;
@@ -117,6 +121,7 @@ void Department::updateDepartment() {
     }
 
     while (flag) {
+        bool executionFlag = false;
         std::cout << "Please select an attribute to update:\n";
         std::cout << "1. Dept. Name\n";
         std::cout << "2. Dept. Manager_Id\n";
@@ -152,33 +157,34 @@ void Department::updateDepartment() {
             std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
             break;
         }
-    }
-
-    if (executionFlag && !updateQuery.empty()) {
-        if (Database::getInstance().executeQuery(updateQuery)) {
-            int changes = sqlite3_changes(Database::getInstance().db);
-            std::cout << changes << " row affected \n\n";
-            if (changes != 0) {
-                std::cout << "Department Updated Successfully! \n";
+        if (executionFlag && !updateQuery.empty()) {
+            if (Database::getInstance().executeQuery(updateQuery)) {
+                int changes = sqlite3_changes(Database::getInstance().db);
+                std::cout << changes << " row affected \n\n";
+                if (changes != 0) {
+                    std::cout << "Department Updated Successfully! \n";
+                }
+            }
+            else {
+                std::cout << "Error executing update query: " << Database::getInstance().getError() << "\n";
             }
         }
         else {
-            std::cout << "Error executing update query: " << Database::getInstance().getError() << "\n";
+            std::cout << "No attribute selected for update.\n";
         }
     }
-    else {
-        std::cout << "No attribute selected for update.\n";
-    }
+
 }
 
 void Department::viewDepartment() {
     std::string selectQuery{};
-    bool executionFlag = false; 
 
     int choice;
     bool flag = true;
+    system("cls");
 
     while (flag) {
+        bool executionFlag = false; 
         std::cout << "Please select a column to view a Department:\n";
         std::cout << "1. ALL\n";
         std::cout << "2. Dept.Id\n";
@@ -210,13 +216,15 @@ void Department::viewDepartment() {
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
+        }
+        if (executionFlag && !Database::getInstance().executeQueryCallback(selectQuery)) {
+            std::cout << Database::getInstance().getError() << std::endl;
         }
     }
 
-    if (executionFlag && !Database::getInstance().executeQueryCallback(selectQuery)) {
-        std::cout << Database::getInstance().getError() << std::endl;
-    }
 }
 
 void Department::action() {
@@ -230,7 +238,8 @@ void Department::action() {
         std::cout << "2. Delete\n";
         std::cout << "3. Update\n";
         std::cout << "4. View\n";
-        std::cout << "5. Exit\n";
+        std::cout << "5. Describe\n";
+        std::cout << "6. Exit\n";
         std::cout << "Enter your choice (1-5): ";
         std::cin >> choice;
 
@@ -248,10 +257,15 @@ void Department::action() {
             viewDepartment();
             break;
         case 5:
+            //Database::getInstance().describeTable("Department");
+            break;
+        case 6:
             flag = false;
             break;
         default:
-            std::cerr << "Invalid choice. Please enter a number between 1 and 5.\n";
+            std::cout << "Invalid choice. Please enter a number between 1 and 6.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
     }
