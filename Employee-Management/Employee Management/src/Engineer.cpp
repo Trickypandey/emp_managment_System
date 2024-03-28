@@ -64,13 +64,19 @@ void Engineer::updateEngineer() {
     int choice;
 
     std::cout << "Enter Employee id to update: \n";
-    if (!setIdFromUserInput()) return;
+    int _id;
+    std::cin >> _id;
+    if (!Database::getInstance().isIdExist(_id, "employee")) {
+        std::cerr << "Department with ID " << _id << " does not exist in the database.\n";
+        return;
+    }
 
     while (flag) {
         std::cout << "Please select an attribute to update:\n";
         std::cout << "1. Programming Language\n";
         std::cout << "2. Specialization\n";
-        std::cout << "3. Exit\n";
+        std::cout << "3. Update Employee Details\n";
+        std::cout << "4. Exit\n";
         std::cout << "Enter your choice (1-3): ";
 
         std::cin >> choice;
@@ -79,17 +85,20 @@ void Engineer::updateEngineer() {
         switch (choice) {
         case 1:
             if (setProgLangUserInput()) {
-                updateQuery = generateUpdateQuery("Engineer", "programming_language", getProgrammingLanguage(), getId());
+                updateQuery = generateUpdateQuery("Engineer", "programming_language", getProgrammingLanguage(),_id);
                 flag = false;
             }
             break;
         case 2:
             if (setSpecializationUserInput()) {
-                updateQuery = generateUpdateQuery("Engineer", "specialization", getSpecialization(), getId());
+                updateQuery = generateUpdateQuery("Engineer", "specialization", getSpecialization(), _id);
                 flag = false;
             }
             break;
         case 3:
+            updateEmployee(_id);
+            break;
+        case 4:
             flag = false;
             break;
         default:

@@ -122,7 +122,7 @@ void Manager::updateManager() {
 
     switch (choice) {
     case 1:
-        updateEmployee();
+        updateEmployee(std::nullopt);
         break;
     case 2:
     {

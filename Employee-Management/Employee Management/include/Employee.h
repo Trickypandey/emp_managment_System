@@ -96,7 +96,7 @@ public:
 
     bool insertEmployee();
     void deleteEmployee();
-    void updateEmployee();
+    void updateEmployee(std::optional<int> id);
     void viewEmployee();
     void deleteById(int _id);
 

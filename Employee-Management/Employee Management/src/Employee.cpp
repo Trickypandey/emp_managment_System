@@ -192,13 +192,19 @@ void Employee::deleteEmployee() {
     }
 }
 
-void Employee::updateEmployee() {
+void Employee::updateEmployee(std::optional<int> id = std::nullopt) {
     std::string updateQuery{};
     int idToUpdate;
     bool flag = true;
 
-    std::cout << "Enter the ID of the employee you want to update: ";
-    std::cin >> idToUpdate;
+    if(!id.has_value()){
+        std::cout << "Enter the ID of the employee you want to update: ";
+        std::cin >> idToUpdate;
+    }
+    else
+    {
+        idToUpdate = id.value();
+    }
     if (!Database::getInstance().isIdExist(idToUpdate, "employee")) {
         std::cerr << "Employee with ID " << idToUpdate << " does not exist in the database.\n";
         return;
@@ -383,7 +389,7 @@ void Employee::action() {
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Employee::insertEmployee, this)}},
         {2, {"Delete", std::bind(&Employee::deleteEmployee, this)}},
-        {3, {"Update", std::bind(&Employee::updateEmployee, this)}},
+        {3, {"Update", std::bind(&Employee::updateEmployee, this,std::nullopt)}},
         {4, {"View", std::bind(&Employee::viewEmployee, this)}},
         {5, {"Exit", []() {}}}
     };
