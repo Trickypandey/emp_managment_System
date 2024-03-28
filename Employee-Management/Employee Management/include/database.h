@@ -1,8 +1,13 @@
 #pragma once
 #include "../sqlite/sqlite3.h"
+#include "../sqlite/sqlite3.h"
 #include<string>
 #include<vector>
 #include <filesystem>
+#include "log.h"
+#include<string>
+#include <iostream>
+#include <iomanip>
 
 class Database {
 public:

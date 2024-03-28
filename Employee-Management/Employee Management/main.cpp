@@ -3,6 +3,8 @@
 #include "include/database.h"
 #include "include/MenuControler.h"
 #include "include/Auth.h"
+#include "include/log.h"
+using logs::Log;
 
 // this is working
 int main() {
@@ -14,6 +16,7 @@ int main() {
 			std::cerr << "Error opening database: " << Database::getInstance().getError() << std::endl;
 			return 1;
 		}
+		Log::getInstance().Info("Database Opened.");
 		system("cls");
 		databaseInit();
 		Database::getInstance().close();

@@ -117,8 +117,6 @@ private:
     int department_id{};
 
 
-    std::string  generateUpdateQuery(const std::string& fieldName, const std::string& value, int idToUpdate);
-
     bool setUserData() {
         if (!setIdFromUserInput() || !setFirstnameFromUserInput() || !setLastnameFromUserInput() ||
             !setDobFromUserInput() || !setMobileFromUserInput() || !setEmailFromUserInput() ||

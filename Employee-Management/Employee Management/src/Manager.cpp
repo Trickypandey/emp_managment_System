@@ -147,13 +147,15 @@ void Manager::updateManager() {
         switch (choice) {
         case 1:
             if (setExperienceUserInput()) {
-                updateQuery = "UPDATE Manager SET management_experience = '" + std::to_string(getManagementExperience()) + "' WHERE id = " + std::to_string(_id);
+                
+                updateQuery = generateUpdateQuery("Manager", "management_experience", std::to_string(getManagementExperience()), _id);
                 executionFlag = true;
             }
             break;
         case 2:
             if (setProjectTileUserInput()) {
-                updateQuery = "UPDATE Manager SET project_title= '" + getProjectTitle() + "' WHERE id = " + std::to_string(_id);
+                
+                updateQuery = generateUpdateQuery("Manager", "project_title", getProjectTitle(), _id);
                 executionFlag = true;
             }
             break;

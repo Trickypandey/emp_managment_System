@@ -151,6 +151,7 @@
     <ClCompile Include="src\Employee.cpp" />
     <ClCompile Include="src\Engineer.cpp" />
     <ClCompile Include="src\GenericDbClass.cpp" />
+    <ClCompile Include="src\log.cpp" />
     <ClCompile Include="src\Manager.cpp" />
     <ClCompile Include="src\Salary.cpp" />
     <ClCompile Include="src\validate.cpp" />
@@ -162,7 +163,9 @@
     <ClInclude Include="include\Employee.h" />
     <ClInclude Include="include\Engineer.h" />
     <ClInclude Include="include\GenericDbClass.h" />
+    <ClInclude Include="include\log.h" />
     <ClInclude Include="include\MenuControler.h" />
+    <ClInclude Include="include\myexception.h" />
     <ClInclude Include="include\Salary.h" />
     <ClInclude Include="include\Manager.h" />
     <ClInclude Include="include\Utility.h" />

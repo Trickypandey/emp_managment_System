@@ -1,11 +1,12 @@
 #include "../include/Auth.h"
+#include "../include/log.h"
 #include <iostream>
 #include <conio.h>
 #include <string>
-//#include "log.h"
+
 
 using namespace std;
-//using namespace logs;
+using namespace logs;
 
 namespace Auth {
     std::string getPassword() {
@@ -40,19 +41,19 @@ namespace Auth {
             password = getPassword();
 
             if (username == "admin" && password == "admin") {
-                //Log::getInstance().Info(username, "signed in.");
+                Log::getInstance().Info(username, "signed in.");
                 return true;
             }
             else {
                 tryCount++;
                 std::cout << "Wrong Credentials!\n";
-                //Log::getInstance().Warn(tryCount, "attempt");
+                Log::getInstance().Warn(tryCount, "attempt");
             }
         }
 
         if (tryCount == 3) {
             std::cout << "Maximum number of attempts reached!\n";
-            //Log::getInstance().Error("Maximum number of attempts reached for : ", username);
+            Log::getInstance().Error("Maximum number of attempts reached for : ", username);
         }
         return false;
     }

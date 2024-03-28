@@ -8,7 +8,7 @@
 
 namespace Utility {
     template<typename T>
-    std::optional<T> getInput(const std::string& prompt, const std::string& errorMessage, std::function<bool(T)> validator) {
+    inline std::optional<T> getInput(const std::string& prompt, const std::string& errorMessage, std::function<bool(T)> validator) {
         T input;
         int count = 0;
         const int maxAttempts = 3;
@@ -42,7 +42,7 @@ namespace Utility {
 
 
     template<typename T>
-    void executeMenu(const std::map<int, std::pair<std::string, T>>& menuOptions) {
+    inline void executeMenu(const std::map<int, std::pair<std::string, T>>& menuOptions) {
         bool flag = true;
         int choice;
 
@@ -67,5 +67,11 @@ namespace Utility {
             }
         }
     }
+
+    inline std::string generateUpdateQuery(const std::string& tablename , const std::string& fieldName, const std::string& value, int idToUpdate) {
+        return "UPDATE "+ tablename +" SET " + fieldName + " = '" + value + "' WHERE id = " + std::to_string(idToUpdate);
+    }
+
+
 }
 #endif

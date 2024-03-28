@@ -133,21 +133,21 @@ void Department::updateDepartment() {
 
         switch (choice) {
         case 1:
-            if (setDNameFromUserInput()) { 
-                updateQuery = "UPDATE Department SET name = '" + getName() + "' WHERE id = " + std::to_string(_id);
-                executionFlag = true; 
+            if (setDNameFromUserInput()) {
+                updateQuery = generateUpdateQuery("Department", "name", getName(), _id);
+                executionFlag = true;
             }
             break;
         case 2:
-            if (setDManagerIdFromUserInput()) { 
-                updateQuery = "UPDATE Department SET manager_id = '" + std::to_string(getManagerId()) + "' WHERE id = " + std::to_string(_id);
-                executionFlag = true; 
+            if (setDManagerIdFromUserInput()) {
+                updateQuery = generateUpdateQuery("Department", "manager_id", std::to_string(getManagerId()), _id);
+                executionFlag = true;
             }
             break;
         case 3:
-            if (setDescriptionFromUserInput()) { 
-                updateQuery = "UPDATE Department SET description = '" + getDescription() + "' WHERE id = " + std::to_string(_id);
-                executionFlag = true; 
+            if (setDescriptionFromUserInput()) {
+                updateQuery = generateUpdateQuery("Department", "description", getDescription(), _id);
+                executionFlag = true;
             }
             break;
         case 4:
@@ -155,6 +155,8 @@ void Department::updateDepartment() {
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
         if (executionFlag && !updateQuery.empty()) {

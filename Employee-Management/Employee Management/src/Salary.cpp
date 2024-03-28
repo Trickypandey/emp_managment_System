@@ -101,19 +101,19 @@ void Salary::updateSalary() {
         switch (choice) {
         case 1:
             if (setSAmountFromUserInput()) {
-                updateQuery = "UPDATE Salary SET amount = '" + std::to_string(getAmount()) + "' WHERE id = " + std::to_string(id);
+                updateQuery = generateUpdateQuery("Salary", "amount", std::to_string(getAmount()), id);
                 executionFlag = true;
             }
             break;
         case 2:
             if (setSBaseSalaryFromUserInput()) {
-                updateQuery = "UPDATE Salary SET base_salary= '" + std::to_string(getBaseSalary()) + "' WHERE id = " + std::to_string(id);
+                updateQuery = generateUpdateQuery("Salary", "base_salary", std::to_string(getBaseSalary()), id);
                 executionFlag = true;
             }
             break;
         case 3:
             if (setBonusFromUserInput()) {
-                updateQuery = "UPDATE Salary SET bonus = '" + std::to_string(getBonus()) + "' WHERE id = " + std::to_string(id);
+                updateQuery = generateUpdateQuery("Salary", "bonus", std::to_string(getBonus()), id);
                 executionFlag = true;
             }
             break;
@@ -122,6 +122,8 @@ void Salary::updateSalary() {
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
 

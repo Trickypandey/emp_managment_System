@@ -78,15 +78,14 @@ void Engineer::updateEngineer() {
 
         switch (choice) {
         case 1:
-            if(setProgLangUserInput() ){
-                updateQuery = "UPDATE Engineer SET programming_language = '" + getProgrammingLanguage() + "' WHERE id = " + std::to_string(getId());
+            if (setProgLangUserInput()) {
+                updateQuery = generateUpdateQuery("Engineer", "programming_language", getProgrammingLanguage(), getId());
                 flag = false;
             }
             break;
         case 2:
-            if (setSpecializationUserInput())
-            {
-                updateQuery = "UPDATE Engineer SET specialization = '" + getSpecialization() + "' WHERE id = " + std::to_string(getId());
+            if (setSpecializationUserInput()) {
+                updateQuery = generateUpdateQuery("Engineer", "specialization", getSpecialization(), getId());
                 flag = false;
             }
             break;

@@ -1,11 +1,7 @@
 #include "../include/database.h"
 
-#include<string_view>
-#include <vector>
-#include<sstream>
-#include <iostream>
-#include <fstream>
-#include <iomanip>
+
+using logs::Log;
 
 int Database::rows = 0;
 bool Database::open(std::filesystem::path dbPath) {
@@ -24,7 +20,7 @@ bool Database::open(std::filesystem::path dbPath) {
     else {
         std::string_view err = { "Failed to open database" };
         setError(err);
-        //Log::getInstance().Error("Failed to open database.");
+        Log::getInstance().Error("Failed to open database.");
         return false;
     }
 }
@@ -151,26 +147,29 @@ std::string Database::generateCreateTableQuery() {
 
 void Database::close() {
     if (db) {
-        //std::cout << "sqlite3 closed\n";
         sqlite3_close(db);
         db = nullptr;
+        Log::getInstance().Info("Database Closed.");
     }
 }
 
 bool Database::executeQuery(const std::string& query) {
-    char* errMsg = nullptr;
 
+    char* errMsg = nullptr;
 
     int rc = sqlite3_exec(db, query.c_str(), NULL, 0, &errMsg);
 
     if (rc != SQLITE_OK) {
-        setError(errMsg);
-        sqlite3_free(errMsg);
+        std::string_view err = { errMsg };
+        setError(err);
+        Log::getInstance().Error(errMsg);
+        //sqlite3_free(errMsg);
         return false;
     }
 
     return true;
 }
+
 
 std::string Database::getError() const {
     return Error;
@@ -210,34 +209,6 @@ void Database::setError(const std::string_view& errorMessage) {
     Error = errorMessage;
 }
 
-bool Database::isIdExist(int id, const std::string& tableName) {
-    std::string query = "SELECT id FROM " + tableName + " WHERE id = " + std::to_string(id) + ";";
-
-    sqlite3_stmt* stmt;
-    int rc = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
-    if (rc != SQLITE_OK) {
-        setError("Failed to prepare statement: " + std::string(sqlite3_errmsg(db)));
-        return false;
-    }
-
-    rc = sqlite3_step(stmt);
-    if (rc == SQLITE_ROW) {
-
-        sqlite3_finalize(stmt);
-        return true;
-    }
-    else if (rc == SQLITE_DONE) {
-
-        sqlite3_finalize(stmt);
-        return false;
-    }
-    else {
-
-        setError("SQL error: " + std::string(sqlite3_errmsg(db)));
-        sqlite3_finalize(stmt);
-        return false;
-    }
-}
 
 
 bool Database::executeQueryRows(const std::string& query) {
@@ -302,7 +273,7 @@ void Database::export_to_csv(const std::string& table, const std::filesystem::pa
         std::cout << getError() << "\n\n";
     }
     else {
-        //Log::getInstance().Info("Database Exported.");
+        Log::getInstance().Info("Database Exported.");
     }
     sqlite3_finalize(stmt);
 }
@@ -344,7 +315,7 @@ void Database::createTableQuery() {
     sql += ");";
 
     if (executeQuery(sql)) {
-        //Log::getInstance().Info(tableName, " created.");
+        Log::getInstance().Info(tableName, " created.");
     }
 
 }
@@ -357,7 +328,7 @@ void Database::showTables() {
     else {
 
     }
-        //Log::getInstance().Info("Show table Query Fetched.");
+        Log::getInstance().Info("Show table Query Fetched.");
 
 }
 
@@ -380,7 +351,7 @@ void Database::deleteTableQuery() {
 
         if (executeQuery(deleteQuery)) {
             std::cout << "Table Dropped Succesfully ! \n\n";
-            //Log::getInstance().Info(tableName, " Dropped.");
+            Log::getInstance().Info(tableName, " Dropped.");
 
         }
         else
@@ -395,7 +366,7 @@ void Database::deleteTableQuery() {
 
         if (executeQuery(deleteQuery)) {
             std::cout << "Table Deleted Succesfully ! \n\n";
-            //Log::getInstance().Info(tableName, " Deleted.");
+            Log::getInstance().Info(tableName, " Deleted.");
         }
         else
             std::cout << Database::getInstance().getError() << "\n\n";
@@ -430,7 +401,7 @@ void Database::useSqlQuery()
     if (pos == 0) {
         if (executeQueryCallback(sqlQuery)) {
             std::cout << "SQL Query Completed Successfully ! \n\n";
-            //Log::getInstance().Info(sqlQuery, " : Executed.");
+            Log::getInstance().Info(sqlQuery, " : Executed.");
         }
         else
             std::cout << getError() << "\n";
@@ -438,7 +409,7 @@ void Database::useSqlQuery()
     else {
         if (executeQuery(sqlQuery)) {
             std::cout << "SQL Query Completed Successfully ! \n\n";
-            //Log::getInstance().Info(sqlQuery, " : Executed.");
+            Log::getInstance().Info(sqlQuery, " : Executed.");
         }
         else
             std::cout << getError() << "\n";
@@ -453,6 +424,35 @@ void describeTable(const std::string& tableName) {
         std::cout << Database::getInstance().getError() << std::endl;
     }
     else {
-        //Log::getInstance().Info("Department Described.");
+        Log::getInstance().Info("Department Described.");
+    }
+}
+
+bool Database::isIdExist(int id, const std::string& tableName) {
+    std::string query = "SELECT id FROM " + tableName + " WHERE id = " + std::to_string(id) + ";";
+
+    sqlite3_stmt* stmt;
+    int rc = sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        setError("Failed to prepare statement: " + std::string(sqlite3_errmsg(db)));
+        return false;
+    }
+
+    rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW) {
+
+        sqlite3_finalize(stmt);
+        return true;
+    }
+    else if (rc == SQLITE_DONE) {
+
+        sqlite3_finalize(stmt);
+        return false;
+    }
+    else {
+
+        setError("SQL error: " + std::string(sqlite3_errmsg(db)));
+        sqlite3_finalize(stmt);
+        return false;
     }
 }

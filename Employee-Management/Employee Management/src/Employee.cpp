@@ -227,67 +227,67 @@ void Employee::updateEmployee() {
         switch (choice) {
         case 1:
             if (setFirstnameFromUserInput()) {
-                updateQuery = generateUpdateQuery("firstname", getFirstname(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee","firstname", getFirstname(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 2:
             if (setLastnameFromUserInput()) {
-                updateQuery = generateUpdateQuery("lastname", getLastname(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "lastname", getLastname(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 3:
             if (setDobFromUserInput()) {
-                updateQuery = generateUpdateQuery("dob", getDob(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "dob", getDob(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 4:
             if (setMobileFromUserInput()) {
-                updateQuery = generateUpdateQuery("mobile", getMobile(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "mobile", getMobile(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 5:
             if (setEmailFromUserInput()) {
-                updateQuery = generateUpdateQuery("email", getEmail(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "email", getEmail(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 6:
             if (setAddressFromUserInput()) {
-                updateQuery = generateUpdateQuery("address", getAddress(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "address", getAddress(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 7:
             if (setGenderFromUserInput()) {
-                updateQuery = generateUpdateQuery("gender", getGender(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "gender", getGender(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 8:
             if (setDojFromUserInput()) {
-                updateQuery = generateUpdateQuery("doj", getDoj(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "doj", getDoj(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 9:
             if (setWLocationFromUserInput()) {
-                updateQuery = generateUpdateQuery("w_location", getWLocation(), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "w_location", getWLocation(), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 10:
             if (setManagerIdFromUserInput()) {
-                updateQuery = generateUpdateQuery("manager_id", std::to_string(getManagerId()), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "manager_id", std::to_string(getManagerId()), idToUpdate);
                 executionFlag = true;
             }
             break;
         case 11:
             if (setDepartmentIdFromUserInput()) {
-                updateQuery = generateUpdateQuery("department_id", std::to_string(getDepartmentId()), idToUpdate);
+                updateQuery = generateUpdateQuery("Employee", "department_id", std::to_string(getDepartmentId()), idToUpdate);
                 executionFlag = true;
             }
             break;
@@ -378,9 +378,6 @@ void Employee::viewEmployee() {
     }
 };
 
-std::string Employee::generateUpdateQuery(const std::string& fieldName, const std::string& value, int idToUpdate) {
-    return "UPDATE Employee SET " + fieldName + " = '" + value + "' WHERE id = " + std::to_string(idToUpdate);
-}
 
 void Employee::action() {
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
