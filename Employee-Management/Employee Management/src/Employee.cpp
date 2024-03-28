@@ -100,38 +100,16 @@ bool Employee::setDepartmentIdFromUserInput() {
     return false;
 }
 
-bool Employee::insertEmployee() { 
-    
+bool Employee::insertEmployee() {
     std::cout << "Enter Employee Details:\n";
 
     if (!setUserData()) {
         return false;
     }
 
-    std::string insertQuery = "INSERT INTO Employee (id, firstname, lastname, dob, mobile, email, address, gender, doj, w_location, manager_id, department_id) VALUES ("
-        + std::to_string(id) + ", '" +
-        firstname + "', '" +
-        lastname + "', '" +
-        dob + "', '" +
-        mobile + "', '" +
-        email + "', '" +
-        address + "', '" +
-        gender + "', '" +
-        doj + "', '" +
-        w_location + "', " +
-        (getManagerId() == -1 ? "null" : std::to_string(getManagerId())) + ", " +
-        (getDepartmentId() == -1 ? "null" : std::to_string(getDepartmentId())) + +");";
- 
-    if (Database::getInstance().executeQuery(insertQuery)) {
-        std::cout << "Inserted Employee Succesfully ! \n";
-        return true;
-     }
-     else {
-         std::cout << Database::getInstance().getError() << "\n";
-         return false;
-     }
+    return EmployeeController::insertEmployee(*this);
+}
 
-};
 
 void Employee::deleteEmployee() {
     std::string deleteQuery{};

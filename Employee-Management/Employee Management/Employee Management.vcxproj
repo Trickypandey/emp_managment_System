@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ControllersImpl\EmployeeController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sqlite\shell.c" />
     <ClCompile Include="sqlite\sqlite3.c" />
@@ -156,6 +157,7 @@
     <ClCompile Include="src\validate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controllers\EmployeeController.h" />
     <ClInclude Include="include\Auth.h" />
     <ClInclude Include="include\database.h" />
     <ClInclude Include="include\Department.h" />

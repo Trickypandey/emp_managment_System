@@ -17,8 +17,6 @@ int main() {
 		system("cls");
 		databaseInit();
 		Database::getInstance().close();
-
 	}
-
 	return 0;
 }
