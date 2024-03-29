@@ -173,46 +173,15 @@ void Engineer::describeEngineer() {
 }
 
 void Engineer::action() {
-    bool flag = true;
-    int choice;
+    std::map<int, std::pair<std::string, std::function<void()>>> options = {
+        {1, {"Insert", std::bind(&Engineer::insertEngineer, this)}},
+        {2, {"Delete", std::bind(&Engineer::deleteEngineer, this)}},
+        {3, {"Update", std::bind(&Engineer::updateEngineer, this)}},
+        {4, {"View", std::bind(&Engineer::viewEngineer, this)}},
+        {5, {"Describe", std::bind(&Engineer::describeEngineer, this)}},
+        {6, {"Exit", []() {}}}
+    };
 
-    while (flag) {
-        std::cout << "Engineer Table\n";
-        std::cout << "Please select a value to perform actions:\n";
-        std::cout << "1. Insert\n";
-        std::cout << "2. Delete\n";
-        std::cout << "3. Update\n";
-        std::cout << "4. View\n";
-        std::cout << "5. Describe\n";
-        std::cout << "6. Exit\n";
-        std::cout << "Enter your choice (1-6): ";
-
-        std::cin >> choice;
-
-        switch (choice) {
-        case 1:
-            insertEngineer();
-            break;
-        case 2:
-            deleteEngineer();
-            break;
-        case 3:
-            updateEngineer();
-            break;
-        case 4:
-            viewEngineer();
-            break;
-        case 5:
-            describeEngineer();
-            break;
-        case 6:
-            flag = false;
-            break;
-        default:
-            std::cerr << "Invalid choice. Please enter a number between 1 and 6.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            break;
-        }
-    }
+    executeMenu(options);
 }
+

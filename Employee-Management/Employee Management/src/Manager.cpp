@@ -244,47 +244,14 @@ void Manager::describeManager() {
 }
 
 void Manager::action() {
-    bool flag = true;
+    std::map<int, std::pair<std::string, std::function<void()>>> options = {
+        {1, {"Insert", std::bind(&Manager::insertManager, this)}},
+        {2, {"Delete", std::bind(&Manager::deleteManager, this)}},
+        {3, {"Update", std::bind(&Manager::updateManager, this)}},
+        {4, {"View", std::bind(&Manager::viewManager, this)}},
+        {5, {"Describe", std::bind(&Manager::describeManager, this)}},
+        {6, {"Exit", []() {}}}
+    };
 
-    while (flag) {
-        std::cout << "Manager Table\n";
-        std::cout << "Please select a value to perform actions:\n";
-        std::cout << "1. Insert\n";
-        std::cout << "2. Delete\n";
-        std::cout << "3. Update\n";
-        std::cout << "4. View\n";
-        std::cout << "5. Describe\n";
-        std::cout << "6. Exit\n";
-        std::cout << "Enter your choice (1-6): ";
-
-        int choice;
-        std::cin >> choice;
-
-        switch (choice) {
-        case 1:
-            insertManager();
-            break;
-        case 2:
-            deleteManager();
-            break;
-        case 3:
-            updateManager();
-            break;
-        case 4:
-            viewManager();
-            break;
-        case 5:
-            describeManager();
-            break;
-        case 6:
-            flag = false;
-            break;
-        default:
-            std::cerr << "Invalid choice. Please enter a number between 1 and 6.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            break;
-        }
-    }
+    executeMenu(options);
 }
-

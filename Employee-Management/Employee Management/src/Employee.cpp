@@ -192,7 +192,7 @@ void Employee::deleteEmployee() {
     }
 }
 
-void Employee::updateEmployee(std::optional<int> id = std::nullopt) {
+void Employee::updateEmployee(std::optional<int> id) {
     std::string updateQuery{};
     int idToUpdate;
     bool flag = true;
