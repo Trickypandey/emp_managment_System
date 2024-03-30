@@ -456,3 +456,18 @@ bool Database::isIdExist(int id, const std::string& tableName) {
         return false;
     }
 }
+
+void Database::pragmeSwitch(bool pragmaSwitch) {
+    std::string pragmaQuery;
+        if (pragmaSwitch)
+        {
+            pragmaQuery = { "PRAGMA foreign_keys = ON;" };
+
+        }
+        else
+        {
+            pragmaQuery = { "PRAGMA foreign_keys = OFF;" };
+        }
+
+        executeQuery(pragmaQuery);
+}

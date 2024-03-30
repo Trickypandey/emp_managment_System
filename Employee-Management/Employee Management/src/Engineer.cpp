@@ -25,14 +25,27 @@ bool Engineer::setSpecializationUserInput() {
 
 
 void Engineer::insertEngineer() {
-    if (!insertEmployee()) {
+    std::cout << "Is your engineer an existing employee? (y/n): ";
+    char response;
+    std::cin >> response;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    bool newEmpFlag = (response == 'y' || response == 'Y');
+    std::optional<int> _id = newEmpFlag ? getInput<int>("Enter Employee ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt) : insertEmployee();
+
+    if (!_id.has_value()) {
         std::cout << "Error inserting Employee. Aborting insertion of Engineer.\n";
         return;
     }
 
-    if (!setProgLangUserInput() || !setSpecializationUserInput()) {
+    if (newEmpFlag && (!setProgLangUserInput() || !setSpecializationUserInput())) {
         std::cout << "Error setting Engineer data. Aborting insertion.\n";
         deleteById(getId());
+        return;
+    }
+
+    if (!Database::getInstance().isIdExist(*_id, "employee")) {
+        std::cerr << "Employee with ID " << *_id << " does not exist in the database.\n";
         return;
     }
 
@@ -42,10 +55,19 @@ void Engineer::insertEngineer() {
         specialization + "'" +
         ");";
 
+    if (newEmpFlag)
+    {
+        Database::getInstance().pragmeSwitch(false);
+    }
+
     if (Database::getInstance().executeQuery(insertQueryEngineer))
         std::cout << "Inserted Engineer Successfully!\n\n";
-    else
+    else {
+
         std::cout << Database::getInstance().getError() << "\n\n";
+    }
+    Database::getInstance().pragmeSwitch(true);
+
 }
 
 void Engineer::deleteEngineer() {
@@ -67,7 +89,7 @@ void Engineer::updateEngineer() {
     int _id;
     std::cin >> _id;
     if (!Database::getInstance().isIdExist(_id, "employee")) {
-        std::cerr << "Department with ID " << _id << " does not exist in the database.\n";
+        std::cerr << "Employee with ID " << _id << " does not exist in the database.\n";
         return;
     }
 

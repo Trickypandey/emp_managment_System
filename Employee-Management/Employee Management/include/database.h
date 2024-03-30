@@ -36,6 +36,7 @@ public:
     void showTables();
     void deleteTableQuery();
     void useSqlQuery();
+    void pragmeSwitch(bool pragmaSwitch);
 
 private:
     Database() {}
