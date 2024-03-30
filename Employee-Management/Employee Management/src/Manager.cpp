@@ -111,83 +111,70 @@ void Manager::deleteManager() {
     }
 }
 void Manager::updateManager() {
+    bool flag = true;
     int choice;
     std::string updateQuery{};
-    bool executionFlag = false;
+    std::cout << "Enter Manager id to update: \n";
+    int _id;
+    std::cin >> _id;
+    if (!Database::getInstance().isIdExist(_id, "employee")) {
+        std::cerr << "Department with ID " << _id << " does not exist in the database.\n";
+        return;
+    }
 
-    std::cout << "1. To update Employee Table related details\n";
-    std::cout << "2. To update Manager Table related details\n";
-    std::cout << "Select from the given choices:";
-    std::cin >> choice;
+    std::cout << "Manager Table - Update\n";
+    std::cout << "Please select an attribute to update:\n";
+    std::cout << "1. Manager's Experience\n";
+    std::cout << "2. Project Title\n";
+    std::cout << "2. Update Employee Detail\n";
+    std::cout << "4. Exit\n";
+    std::cout << "Enter your choice (1-3): ";
 
-    switch (choice) {
-    case 1:
-        updateEmployee(std::nullopt);
-        break;
-    case 2:
-    {
-        int _id;
-        std::cout << "Enter Employee id to update: \n";
-        if (!(std::cin >> _id)) {
-            std::cerr << "Invalid input. Please enter a valid integer.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            break;
-        }
-
-        std::cout << "Please select an attribute to update:\n";
-        std::cout << "1. Manager's Experience\n";
-        std::cout << "2. Project Title\n";
-        std::cout << "3. Exit\n";
-        std::cout << "Enter your choice (1-3): ";
-
+    while (flag) {
         std::cin >> choice;
         std::cout << "\n";
 
         switch (choice) {
         case 1:
             if (setExperienceUserInput()) {
-                
                 updateQuery = generateUpdateQuery("Manager", "management_experience", std::to_string(getManagementExperience()), _id);
-                executionFlag = true;
+                flag = false;
             }
             break;
         case 2:
             if (setProjectTileUserInput()) {
-                
                 updateQuery = generateUpdateQuery("Manager", "project_title", getProjectTitle(), _id);
-                executionFlag = true;
+                flag = false;
             }
             break;
         case 3:
+            updateEmployee(_id);
+            break;
+        case 4:
+            flag = false;
             break;
         default:
             std::cerr << "Invalid choice. Please enter a number between 1 and 3.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
+    }
 
-        if (executionFlag) {
-            if (Database::getInstance().executeQuery(updateQuery)) {
-                int changes = sqlite3_changes(Database::getInstance().db);
-                std::cout << changes << " row affected \n\n";
-                if (changes != 0) {
-                    std::cout << "Manager Updated Successfully! \n\n";
-                }
-            }
-            else {
-                std::cout << "Error updating Manager: " << Database::getInstance().getError() << "\n";
+    if (!updateQuery.empty()) {
+        if (Database::getInstance().executeQuery(updateQuery)) {
+            int changes = sqlite3_changes(Database::getInstance().db);
+            std::cout << changes << " row affected \n\n";
+            if (changes != 0) {
+                std::cout << "Manager Updated Successfully!\n\n";
             }
         }
-
-        break;
-    }
-    default:
-        std::cerr << "Invalid choice. Please enter a number between 1 and 2.\n";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        break;
+        else {
+            std::cout << "Error updating Manager: " << Database::getInstance().getError() << "\n";
+        }
     }
 }
+
 
 
 void Manager::viewManager() {
@@ -237,21 +224,17 @@ void Manager::viewManager() {
 }
 
 
-void Manager::describeManager() {
-    if (!Database::getInstance().executeQueryCallback("pragma table_info('Manager');")) {
-        std::cout << Database::getInstance().getError();
-    }
-}
-
 void Manager::action() {
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Manager::insertManager, this)}},
         {2, {"Delete", std::bind(&Manager::deleteManager, this)}},
         {3, {"Update", std::bind(&Manager::updateManager, this)}},
         {4, {"View", std::bind(&Manager::viewManager, this)}},
-        {5, {"Describe", std::bind(&Manager::describeManager, this)}},
+        {5, {"Describe",[]() { Database::getInstance().describeTable("Department"); } }},
         {6, {"Exit", []() {}}}
     };
 
     executeMenu(options);
 }
+
+

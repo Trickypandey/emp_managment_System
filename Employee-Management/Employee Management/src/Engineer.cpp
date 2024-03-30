@@ -166,11 +166,7 @@ void Engineer::viewEngineer() {
     }
 }
 
-void Engineer::describeEngineer() {
-    if (!Database::getInstance().executeQueryCallback("pragma table_info('Engineer');")) {
-        std::cout << Database::getInstance().getError();
-    }
-}
+
 
 void Engineer::action() {
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
@@ -178,7 +174,7 @@ void Engineer::action() {
         {2, {"Delete", std::bind(&Engineer::deleteEngineer, this)}},
         {3, {"Update", std::bind(&Engineer::updateEngineer, this)}},
         {4, {"View", std::bind(&Engineer::viewEngineer, this)}},
-        {5, {"Describe", std::bind(&Engineer::describeEngineer, this)}},
+        {5, {"Describe",[] {Database::getInstance().describeTable("Engineer"); }}},
         {6, {"Exit", []() {}}}
     };
 

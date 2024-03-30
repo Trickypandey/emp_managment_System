@@ -195,7 +195,8 @@ void Salary::action() {
         {2, {"Delete", std::bind(&Salary::deleteSalary, this)}},
         {3, {"Update", std::bind(&Salary::updateSalary, this)}},
         {4, {"View", std::bind(&Salary::viewSalary, this)}},
-        {5, {"Exit", []() {}}}
+        {5, {"Describe", []() { Database::getInstance().describeTable("Salary"); }}},
+        {6, {"Exit", []() {}}}
     };
 
     executeMenu(options);

@@ -21,7 +21,7 @@ public:
     void updateManager();
     void viewManager();
 
-    void describeManager();
+   
 
     void action();
 

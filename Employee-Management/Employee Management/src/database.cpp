@@ -418,10 +418,10 @@ void Database::useSqlQuery()
 }
 
 
-void describeTable(const std::string& tableName) {
+void Database::describeTable(const std::string& tableName) {
     std::string query = "pragma table_info('" + tableName + "');";
-    if (!Database::getInstance().executeQueryCallback(query)) {
-        std::cout << Database::getInstance().getError() << std::endl;
+    if (!executeQueryCallback(query)) {
+        std::cout << getError() << std::endl;
     }
     else {
         Log::getInstance().Info("Department Described.");

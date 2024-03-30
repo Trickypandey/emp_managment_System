@@ -230,46 +230,15 @@ void Department::viewDepartment() {
 }
 
 void Department::action() {
-    bool flag = true;
-    int choice;
+    std::map<int, std::pair<std::string, std::function<void()>>> options = {
+        {1, {"Insert", std::bind(&Department::insertDepartment, this)}},
+        {2, {"Delete", std::bind(&Department::deleteDepartment, this)}},
+        {3, {"Update", std::bind(&Department::updateDepartment, this)}},
+        {4, {"View", std::bind(&Department::viewDepartment, this)}},
+        {5, {"Describe", []() { Database::getInstance().describeTable("Department"); }}},
+        {6, {"Exit", []() {}}}
+    };
 
-    while (flag) {
-        std::cout << "Department Table\n";
-        std::cout << "Please select a value to perform actions:\n";
-        std::cout << "1. Insert\n";
-        std::cout << "2. Delete\n";
-        std::cout << "3. Update\n";
-        std::cout << "4. View\n";
-        std::cout << "5. Describe\n";
-        std::cout << "6. Exit\n";
-        std::cout << "Enter your choice (1-5): ";
-        std::cin >> choice;
-
-        switch (choice) {
-        case 1:
-            insertDepartment();
-            break;
-        case 2:
-            deleteDepartment();
-            break;
-        case 3:
-            updateDepartment();
-            break;
-        case 4:
-            viewDepartment();
-            break;
-        case 5:
-            //Database::getInstance().describeTable("Department");
-            break;
-        case 6:
-            flag = false;
-            break;
-        default:
-            std::cout << "Invalid choice. Please enter a number between 1 and 6.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            break;
-        }
-    }
+    executeMenu(options);
 }
 
