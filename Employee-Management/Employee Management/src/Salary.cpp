@@ -190,13 +190,14 @@ void Salary::viewSalary() {
 
 
 void Salary::action() {
+    std::cout << "Salary" << std::endl;
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Salary::insertSalary, this)}},
         {2, {"Delete", std::bind(&Salary::deleteSalary, this)}},
         {3, {"Update", std::bind(&Salary::updateSalary, this)}},
         {4, {"View", std::bind(&Salary::viewSalary, this)}},
         {5, {"Describe", []() { Database::getInstance().describeTable("Salary"); }}},
-        {6, {"Exit", []() {}}}
+        {6, {"Exit", []{system("cls"); }}}
     };
 
     executeMenu(options);

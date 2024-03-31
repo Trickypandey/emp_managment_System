@@ -225,13 +225,14 @@ void Manager::viewManager() {
 
 
 void Manager::action() {
+    std::cout << "Mananger" << std::endl;
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Manager::insertManager, this)}},
         {2, {"Delete", std::bind(&Manager::deleteManager, this)}},
         {3, {"Update", std::bind(&Manager::updateManager, this)}},
         {4, {"View", std::bind(&Manager::viewManager, this)}},
         {5, {"Describe",[]() { Database::getInstance().describeTable("Department"); } }},
-        {6, {"Exit", []() {}}}
+        {6, {"Exit", [] {system("cls"); }}}
     };
 
     executeMenu(options);

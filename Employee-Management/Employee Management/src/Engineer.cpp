@@ -191,13 +191,14 @@ void Engineer::viewEngineer() {
 
 
 void Engineer::action() {
+    std::cout << "Engineer" << std::endl;
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Engineer::insertEngineer, this)}},
         {2, {"Delete", std::bind(&Engineer::deleteEngineer, this)}},
         {3, {"Update", std::bind(&Engineer::updateEngineer, this)}},
         {4, {"View", std::bind(&Engineer::viewEngineer, this)}},
         {5, {"Describe",[] {Database::getInstance().describeTable("Engineer"); }}},
-        {6, {"Exit", []() {}}}
+        {6, {"Exit", []{system("cls"); }}}
     };
 
     executeMenu(options);

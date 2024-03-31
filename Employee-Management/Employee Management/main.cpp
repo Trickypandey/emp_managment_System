@@ -8,7 +8,6 @@ using logs::Log;
 
 // this is working
 int main() {
-	std::cout << "--------------------Welcome To Employee Database Management System---------------------" << std::endl;
 
 	if (Auth::authUser()) {
 		std::filesystem::path dbPath = "employee.db";
@@ -18,6 +17,7 @@ int main() {
 		}
 		Log::getInstance().Info("Database Opened.");
 		system("cls");
+		std::cout << "--------------------Welcome To Employee Database Management System---------------------" << std::endl;
 		databaseInit();
 		Database::getInstance().close();
 

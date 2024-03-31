@@ -230,13 +230,14 @@ void Department::viewDepartment() {
 }
 
 void Department::action() {
+    std::cout << "Department" << std::endl;
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Department::insertDepartment, this)}},
         {2, {"Delete", std::bind(&Department::deleteDepartment, this)}},
         {3, {"Update", std::bind(&Department::updateDepartment, this)}},
         {4, {"View", std::bind(&Department::viewDepartment, this)}},
         {5, {"Describe", []() { Database::getInstance().describeTable("Department"); }}},
-        {6, {"Exit", []() {}}}
+        {6, {"Exit", [] {system("cls"); }}}
     };
 
     executeMenu(options);

@@ -29,7 +29,7 @@ void databaseInit() {
 	std::map<int, std::pair<std::string, std::function<void()>>> menuOptions = {
 		{1, {"Create Table", []() { Database::getInstance().createTableQuery(); }}},
 		{2, {"Show Tables", []() { Database::getInstance().showTables(); }}},
-		{3, {"Manipulate Existing Database", []() { manipulateDB(); }}},
+		{3, {"Manipulate Existing Database", []() {system("cls");  manipulateDB(); }}},
 		{4, {"Delete Table", []() { Database::getInstance().deleteTableQuery(); }}},
 		{5, {"Run SQL Query", []() { Database::getInstance().useSqlQuery(); }}},
 		{6, {"Backup Existing Database", [] {

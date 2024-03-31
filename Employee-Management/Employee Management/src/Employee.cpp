@@ -383,13 +383,14 @@ void Employee::viewEmployee() {
 };
 
 void Employee::action() {
+    std::cout << "Employee" << std::endl;
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Employee::insertEmployee, this)}},
         {2, {"Delete", std::bind(&Employee::deleteEmployee, this)}},
         {3, {"Update", std::bind(&Employee::updateEmployee, this,std::nullopt)}},
         {4, {"View", std::bind(&Employee::viewEmployee, this)}},
         {5, {"Describe", []() { Database::getInstance().describeTable("Department"); }}},
-        {6, {"Exit", []() {}}}
+        {6, {"Exit", []{system("cls"); }}}
     };
 
     executeMenu(options);
