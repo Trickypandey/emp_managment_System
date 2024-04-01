@@ -7,3 +7,19 @@
 [ 01-04-2024 09:47:34 ][Info ]: admin signed in. 
 [ 01-04-2024 09:47:34 ][Info ]: Database Opened. 
 [ 01-04-2024 09:47:36 ][Info ]: Database Closed. 
+[ 01-04-2024 15:27:51 ][Info ]: admin signed in. 
+[ 01-04-2024 15:27:51 ][Info ]: Database Opened. 
+[ 01-04-2024 15:28:51 ][Info ]: SELECT * FROM Employee  : Executed. 
+[ 01-04-2024 15:29:14 ][Error]: FOREIGN KEY constraint failed 
+[ 01-04-2024 15:29:14 ][Warn ]: Selected Employee is managing different employees: can not delete for id :  1 
+[ 01-04-2024 15:29:49 ][Info ]: admin signed in. 
+[ 01-04-2024 15:29:49 ][Info ]: Database Opened. 
+[ 01-04-2024 15:30:04 ][Info ]: Employee Deleted for id :  1013 
+[ 01-04-2024 15:30:25 ][Info ]: SELECT * FROM Employee WHERE email = ''  : Executed. 
+[ 01-04-2024 15:30:27 ][Info ]: SELECT * FROM Employee  : Executed. 
+[ 01-04-2024 15:31:45 ][Info ]: Database Closed. 
+[ 01-04-2024 15:32:11 ][Info ]: admin signed in. 
+[ 01-04-2024 15:32:11 ][Info ]: Database Opened. 
+[ 01-04-2024 15:33:09 ][Info ]: Employee Updated for id :  1013 
+[ 01-04-2024 15:33:14 ][Info ]: Employee Updated for id :  1013 
+[ 01-04-2024 15:33:16 ][Info ]: SELECT * FROM Employee  : Executed. 

@@ -29,13 +29,13 @@ void Manager::insertManager() {
 
     if (!setExperienceUserInput()) {
         std::cout << "Error setting Manager experience. Deleting inserted Employee.\n";
-        deleteById(Employee::getId());
+        deleteEmployee(Employee::getId());
         return;
     }
 
     if (!setProjectTileUserInput()) {
         std::cout << "Error setting Manager project title. Deleting inserted Employee.\n";
-        deleteById(Employee::getId());
+        deleteEmployee(Employee::getId());
         return;
     }
     

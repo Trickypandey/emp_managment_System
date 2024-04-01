@@ -146,6 +146,11 @@
     <ClCompile Include="sqlite\shell.c" />
     <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="src\Auth.cpp" />
+    <ClCompile Include="src\controllers\departmentController.cpp" />
+    <ClCompile Include="src\controllers\employeeController.cpp" />
+    <ClCompile Include="src\controllers\engineerController.cpp" />
+    <ClCompile Include="src\controllers\managerController.cpp" />
+    <ClCompile Include="src\controllers\salaryController.cpp" />
     <ClCompile Include="src\database.cpp" />
     <ClCompile Include="src\Department.cpp" />
     <ClCompile Include="src\Employee.cpp" />
@@ -158,6 +163,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Auth.h" />
+    <ClInclude Include="include\controllers\departmentController.h" />
+    <ClInclude Include="include\controllers\employeeController.h" />
+    <ClInclude Include="include\controllers\engineerController.h" />
+    <ClInclude Include="include\controllers\managerController.h" />
+    <ClInclude Include="include\controllers\salaryController.h" />
     <ClInclude Include="include\database.h" />
     <ClInclude Include="include\Department.h" />
     <ClInclude Include="include\Employee.h" />

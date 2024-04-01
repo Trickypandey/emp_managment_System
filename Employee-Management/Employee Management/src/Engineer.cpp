@@ -40,7 +40,7 @@ void Engineer::insertEngineer() {
 
     if (newEmpFlag && (!setProgLangUserInput() || !setSpecializationUserInput())) {
         std::cout << "Error setting Engineer data. Aborting insertion.\n";
-        deleteById(_id.value());
+        deleteEmployee(_id.value());
         return;
     }
 
@@ -74,7 +74,7 @@ void Engineer::deleteEngineer() {
     if (setIdFromUserInput()) return;
     //std::string checkEngineer = "SELECT id FROM Engineer WHERE id = " + std::to_string(getId());
     if (Database::getInstance().isIdExist(getId(), "Department"))
-        deleteById(getId());
+        deleteEmployee(getId());
     else
         std::cout << "Engineer does not exist.\n\n";
 }

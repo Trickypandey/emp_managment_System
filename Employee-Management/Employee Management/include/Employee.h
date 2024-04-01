@@ -5,12 +5,13 @@
 #include <iostream>
 #include <string>
 #include "database.h"
+#include "log.h"
 #include "Utility.h"
-
+#include "./controllers/employeeController.h"
 
 //#include "validate.h"
 //enum class Gender { Male, Female, Other };
-
+using logs::Log;
 class Employee {
 
 public:
@@ -90,15 +91,11 @@ public:
     bool setWLocationFromUserInput();
     bool setManagerIdFromUserInput();
     bool setDepartmentIdFromUserInput();
-    
-
-
 
     std::optional<int> insertEmployee();
-    void deleteEmployee();
+    bool deleteEmployee(std::optional<int> _id);
     void updateEmployee(std::optional<int> id);
     void viewEmployee();
-    void deleteById(int _id);
 
     void action();
 
@@ -126,10 +123,7 @@ private:
             return false;
         }
         return true;
-    }
-
-
-    
+    } 
 };
 
 #endif
