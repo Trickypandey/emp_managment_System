@@ -40,7 +40,7 @@ void Engineer::insertEngineer() {
 
     if (newEmpFlag && (!setProgLangUserInput() || !setSpecializationUserInput())) {
         std::cout << "Error setting Engineer data. Aborting insertion.\n";
-        deleteById(getId());
+        deleteById(_id.value());
         return;
     }
 

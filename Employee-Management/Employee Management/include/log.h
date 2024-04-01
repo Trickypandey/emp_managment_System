@@ -85,7 +85,7 @@ namespace logs {
 		int bufferedLogCount{ 0 };
 
 		explicit Log()
-			:m_LogLevel{ Level::LevelError }, fileName{ "databaseLog.txt" } {}
+			:m_LogLevel{ Level::LevelInfo }, fileName{ "databaseLog.txt" } {}
 
 		explicit Log(Level l1, std::string filePara = { "databaseLog.txt" })
 			: m_LogLevel{ l1 }, fileName{ filePara }
