@@ -38,9 +38,11 @@ void Engineer::insertEngineer() {
         return;
     }
 
-    if (newEmpFlag && (!setProgLangUserInput() || !setSpecializationUserInput())) {
+    if (!setProgLangUserInput() || !setSpecializationUserInput()) {
         std::cout << "Error setting Engineer data. Aborting insertion.\n";
-        deleteEmployee(_id.value());
+        if (newEmpFlag) {
+            deleteEmployee(_id.value());
+        }
         return;
     }
 

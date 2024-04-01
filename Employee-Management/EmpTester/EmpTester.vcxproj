@@ -53,8 +53,9 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>X64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -66,7 +67,20 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\Users\ZTI\OneDrive - ZURU INC\Desktop\MainEmp\emp_managment_System\Employee-Management\bin-int\x64\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);C:\Users\ZTI\OneDrive - ZURU INC\Desktop\MainEmp\emp_managment_System\Employee-Management\bin-int\x64\Debug/validate;</AdditionalDependencies>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);C:\Users\ZTI\OneDrive - ZURU INC\Desktop\MainEmp\emp_managment_System\Employee-Management\bin-int\x64\Debug\validate;$(SolutionDir)bin-int\$(Platform)\$(Configuration)\validate;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\Employee;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\Engineer;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\database
+;$(SolutionDir)bin-int\$(Platform)\$(Configuration)\sqlite3;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\Department
+;$(SolutionDir)bin-int\$(Platform)\$(Configuration)\Manager;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\salary;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\log;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\departmentController
+;$(SolutionDir)bin-int\$(Platform)\$(Configuration)\managerController;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\salaryController;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\employeeController;
+$(SolutionDir)bin-int\$(Platform)\$(Configuration)\engineerController</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,7 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EmpFixture.h" />
+    <ClInclude Include="Fixtures\EmpFixture.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +127,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Tests\EmpTester.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Employee Management\Employee Management.vcxproj">

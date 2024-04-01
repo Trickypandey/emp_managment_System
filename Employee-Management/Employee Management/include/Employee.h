@@ -8,6 +8,7 @@
 #include "log.h"
 #include "Utility.h"
 #include "./controllers/employeeController.h"
+#include "../include/Salary.h"
 
 //#include "validate.h"
 //enum class Gender { Male, Female, Other };
@@ -16,6 +17,13 @@ class Employee {
 
 public:
     Employee() = default;
+
+    Employee(int emp_id, const std::string& first, const std::string& last, const std::string& date_of_birth,
+        const std::string& phone, const std::string& mail, const std::string& addr, const std::string& gen,
+        const std::string& date_of_joining, const std::string& work_loc, int mgr_id, int dept_id , Salary _salary)
+        : id(emp_id), firstname(first), lastname(last), dob(date_of_birth), mobile(phone), email(mail),
+        address(addr), gender(gen), doj(date_of_joining), w_location(work_loc), manager_id(mgr_id),
+        department_id(dept_id), salary{_salary} {}
    
     int getId() const { return id; }
     std::string getFirstname() const { return firstname; }
@@ -99,6 +107,10 @@ public:
 
     void action();
 
+    Salary getSalary() {
+        return this->salary;
+    }
+
 private:
     int id{};
     std::string firstname{};
@@ -112,13 +124,15 @@ private:
     std::string w_location{};
     int manager_id{};
     int department_id{};
+    Salary salary;
 
 
     bool setUserData() {
         if (!setIdFromUserInput() || !setFirstnameFromUserInput() || !setLastnameFromUserInput() ||
             !setDobFromUserInput() || !setMobileFromUserInput() || !setEmailFromUserInput() ||
             !setAddressFromUserInput() || !setGenderFromUserInput() || !setDojFromUserInput() ||
-            !setWLocationFromUserInput() || !setManagerIdFromUserInput() || !setDepartmentIdFromUserInput()) {
+            !setWLocationFromUserInput() || !setManagerIdFromUserInput() || !setDepartmentIdFromUserInput() || !salary.setSidFromUserInput(id) ||
+            !salary.setSAmountFromUserInput() || !salary.setSBaseSalaryFromUserInput() || !salary.setBonusFromUserInput()) {
             std::cout << "Error setting user data. Aborting insertion.\n";
             return false;
         }

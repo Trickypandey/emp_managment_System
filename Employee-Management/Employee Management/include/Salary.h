@@ -5,12 +5,15 @@
 #include "database.h"
 #include "Utility.h"
 #include "Validate.h"
+#include "controllers/salaryController.h"
 
 
 class Salary {
 public:
 
     Salary() = default;
+
+    Salary(int _id, float _amount, float _baseSalary ,int _bonus): id(_id), amount(_amount), base_salary(_baseSalary), bonus(_bonus) {}
     
 
     int getId() const { return id; }
@@ -25,7 +28,7 @@ public:
     void setDate(const std::string& Date) { date = Date; }
     void setBonus(int Bonus) { bonus = Bonus; }
 
-    bool setSidFromUserInput();
+    bool setSidFromUserInput(std::optional<int>);
     bool setSAmountFromUserInput();
     bool setSBaseSalaryFromUserInput();
     bool setBonusFromUserInput();
@@ -46,7 +49,7 @@ private:
     int bonus{};
 
     bool setSalaryData() {
-        if (!setSidFromUserInput() || !setSAmountFromUserInput() || !setSBaseSalaryFromUserInput() ||
+        if (!setSidFromUserInput(std::nullopt) || !setSAmountFromUserInput() || !setSBaseSalaryFromUserInput() ||
             !setBonusFromUserInput()) {
             std::cout << "Error setting Salary data. Aborting insertion.\n";
             return false;

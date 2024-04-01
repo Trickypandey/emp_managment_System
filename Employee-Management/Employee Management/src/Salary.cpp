@@ -1,8 +1,13 @@
 #include "../include/Salary.h"
 using namespace Utility;
 
-bool Salary::setSidFromUserInput() {
-	if (auto input = getInput<int>("Enter Employee Id: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt); input.has_value()) {
+bool Salary::setSidFromUserInput(std::optional<int> sid) {
+    if (sid.has_value())
+    {
+        setId(sid.value());
+        return true;
+    }
+    else if(auto input = getInput<int>("Enter Employee Id: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt); input.has_value()) {
 		setId(input.value());
 		return true;
 	}
@@ -59,7 +64,7 @@ void Salary::insertSalary() {
 void Salary::deleteSalary() {
 	auto executionFlag = false;
 	std::string deleteQuery;
-	if (setSidFromUserInput()) {
+	if (setSidFromUserInput(std::nullopt)) {
 
 		deleteQuery = "DELETE FROM Salary WHERE id = " + std::to_string(getId());
 		executionFlag = false;
@@ -165,7 +170,7 @@ void Salary::viewSalary() {
             executionFlag = true;
             break;
         case 2:
-            if (setSidFromUserInput()) {
+            if (setSidFromUserInput(std::nullopt)) {
                 selectQuery = "SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary WHERE id = " + std::to_string(getId());
                 executionFlag = true;
             }

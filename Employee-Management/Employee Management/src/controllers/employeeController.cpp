@@ -13,13 +13,14 @@ std::optional<int> EmployeeController::insertEmployee(Employee& employee) {
 		employee.getDob() + "', '" +
 		employee.getMobile() + "', '" +
 		employee.getEmail() + "', '" +
-		employee.getAddress() + "', '" +
+		employee.getAddress() + "', '" +  
 		employee.getGender() + "', '" +
 		employee.getDoj() + "', '" +
 		employee.getWLocation() + "', " +
 		managerIdString + ", " +
 		departmentIdString + ");";
-	if (Database::getInstance().executeQuery(insertQueryEmployee)) {
+	if (Database::getInstance().executeQuery(insertQueryEmployee) && SalaryController::insertSalaryController(employee.getSalary())) {
+		std::cout << "Employee Inserted Successfully ! \n\n";
 		return employee.getId();
 	}
 	else {
