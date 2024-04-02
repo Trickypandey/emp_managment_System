@@ -59,7 +59,7 @@ bool Employee::setAddressFromUserInput() {
 }
 
 bool Employee::setGenderFromUserInput() {
-    if (auto input = getInput<std::string>("Enter Gender (Male, Female, Other): ", "Invalid Input. Please enter your gender.", [](const std::string& s) { return !s.empty(); }); input.has_value()) {
+    if (auto input = getInput<std::string>("Enter Gender (Male, Female, Other): ", "Invalid Input. Please enter your gender.", [](const std::string& s) { return !s.empty() && ( s == "Male" || s == "Female" || s == "Other"); }); input.has_value()) {
         setGender(input.value());
         return true;
     }
@@ -108,7 +108,7 @@ std::optional<int> Employee::insertEmployee() {
         return std::nullopt;
     }
 
-    return EmployeeController::insertEmployee(*this);
+    EmployeeController::insertEmployee(*this);
 };
 
 bool Employee::deleteEmployee(std::optional<int> deleteId) {
@@ -129,7 +129,6 @@ bool Employee::deleteEmployee(std::optional<int> deleteId) {
     return EmployeeController::deleteEmployee(_id);
 }
 
-
 void Employee::updateEmployee(std::optional<int> id) {
     std::string updateQuery{};
     int idToUpdate;
@@ -148,6 +147,7 @@ void Employee::updateEmployee(std::optional<int> id) {
         return;
     }
 
+    this->setId(idToUpdate);
     while (flag) {
         bool executionFlag = false;
         std::cout << "Select the field to update:\n";
@@ -171,70 +171,60 @@ void Employee::updateEmployee(std::optional<int> id) {
         switch (choice) {
         case 1:
             if (setFirstnameFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee","firstname", getFirstname(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::FIRST_NAME);
             }
             break;
         case 2:
             if (setLastnameFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "lastname", getLastname(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::LAST_NAME);
             }
             break;
         case 3:
             if (setDobFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "dob", getDob(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::DATE_OF_BIRTH);
             }
             break;
         case 4:
             if (setMobileFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "mobile", getMobile(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::MOBILE_NUMBER);
             }
             break;
         case 5:
             if (setEmailFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "email", getEmail(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::EMAIL_ADDRESS);
             }
             break;
         case 6:
             if (setAddressFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "address", getAddress(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::ADDRESS);
             }
             break;
         case 7:
             if (setGenderFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "gender", getGender(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::GENDER);
             }
             break;
         case 8:
             if (setDojFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "doj", getDoj(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::DATE_OF_JOINING);
             }
             break;
         case 9:
             if (setWLocationFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "w_location", getWLocation(), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::WORK_LOCATION);
             }
             break;
         case 10:
             if (setManagerIdFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "manager_id", std::to_string(getManagerId()), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::MANAGER_ID);
             }
             break;
         case 11:
             if (setDepartmentIdFromUserInput()) {
-                updateQuery = generateUpdateQuery("Employee", "department_id", std::to_string(getDepartmentId()), idToUpdate);
-                executionFlag = true;
+                executionFlag = EmployeeController::updateEmployee(*this, EmployeeAttribute::DEPARTMENT_ID);
             }
             break;
+
         case 12:
             flag = false;
             break;
@@ -244,16 +234,62 @@ void Employee::updateEmployee(std::optional<int> id) {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
         }
-
-        if (EmployeeController::updateEmployee(updateQuery)) {
-            std::cout << "\033[32mEmployee Updated Successfully ! \033[0m\n\n";
-            Log::getInstance().Info("Employee Updated for id : ", idToUpdate);
-        }
     }
 }
 
 void Employee::viewEmployee() { 
-    EmployeeController::viewEmployee(*this);
+    std::string selectQuery{};
+
+    int choice;
+    bool flag = true;
+    system("cls");
+
+    while (flag) {
+        std::cout << "Please select a column to view an employee:\n";
+        std::cout << "1. ALL\n";
+        std::cout << "2. ID\n";
+        std::cout << "3. Firstname\n";
+        std::cout << "4. Email\n";
+        std::cout << "5. Exit\n";
+        std::cout << "Enter your choice (1-5): ";
+        std::cin >> choice;
+
+        switch (choice) {
+        case 1:
+            EmployeeController::viewEmployee(*this ,EmployeeViewAttribute::ALL);
+            
+            break;
+        case 2:
+            if (setIdFromUserInput())
+            {
+                EmployeeController::viewEmployee(*this ,EmployeeViewAttribute::ID);
+            }
+            
+            break;
+        case 3:
+            if (setFirstnameFromUserInput())
+            {
+                EmployeeController::viewEmployee(*this ,EmployeeViewAttribute::FIRSTNAME);
+            }
+           
+            break;
+        case 4:
+            if (setEmailFromUserInput())
+            {
+                EmployeeController::viewEmployee(*this ,EmployeeViewAttribute::EMAIL);
+            }
+           
+            break;
+        case 5:
+            flag = false;
+            break;
+        default:
+            std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            break;
+        }
+    }
 };
 
 void Employee::action() {

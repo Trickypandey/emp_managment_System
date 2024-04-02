@@ -40,49 +40,28 @@ bool Salary::setBonusFromUserInput() {
 
 void Salary::insertSalary() {
 	std::cout << "Insert Salary Details:\n";
-	auto executionFlag = false;
-	std::string insertQuery;
 	
 	if (setSalaryData()){
-		
-		insertQuery = "INSERT INTO Salary (id, amount, base_salary, bonus) VALUES ("
-			+ std::to_string(id) + ", '" +
-			std::to_string(amount) + "', '" +
-			std::to_string(base_salary) + "', '" +
-			std::to_string(bonus) + "');";
-		executionFlag = true;
-	}
-
-	if(executionFlag){
-		if (Database::getInstance().executeQuery(insertQuery))
-			std::cout << "Inserted Salary Succesfully ! \n\n";
-		else
-			std::cout << Database::getInstance().getError() << "\n";
+        if (Database::getInstance().isIdExist(getId(),"Employee"))
+        {
+            SalaryController::insertSalaryController(*this);
+        }
+        else
+        {
+            std::cout << "Employee doesn't exist\n";
+        }
 	}
 
 };
+
 void Salary::deleteSalary() {
-	auto executionFlag = false;
-	std::string deleteQuery;
+
 	if (setSidFromUserInput(std::nullopt)) {
-
-		deleteQuery = "DELETE FROM Salary WHERE id = " + std::to_string(getId());
-		executionFlag = false;
-	}
-
-	if(executionFlag){
-		if (Database::getInstance().executeQuery(deleteQuery)) {
-			int changes = sqlite3_changes(Database::getInstance().db);
-			std::cout << changes << " row affected \n\n";
-			if (changes != 0) {
-				std::cout << "Salary Deleted Succesfully ! \n\n";
-			}
-		}
-		else
-			std::cout << Database::getInstance().getError() << "\n";
+        SalaryController::deleteSalaryController(*this);
 	}
 
 };
+
 void Salary::updateSalary() {
     bool flag = true;
     bool executionFlag = false;
@@ -106,20 +85,20 @@ void Salary::updateSalary() {
         switch (choice) {
         case 1:
             if (setSAmountFromUserInput()) {
-                updateQuery = generateUpdateQuery("Salary", "amount", std::to_string(getAmount()), id);
-                executionFlag = true;
+                SalaryController::updateSalaryController(*this, Utility::SalaryAttribute::AMOUNT);
             }
             break;
         case 2:
             if (setSBaseSalaryFromUserInput()) {
-                updateQuery = generateUpdateQuery("Salary", "base_salary", std::to_string(getBaseSalary()), id);
-                executionFlag = true;
+                
+                SalaryController::updateSalaryController(*this, Utility::SalaryAttribute::BASE_SALARY);
+               
             }
             break;
         case 3:
             if (setBonusFromUserInput()) {
-                updateQuery = generateUpdateQuery("Salary", "bonus", std::to_string(getBonus()), id);
-                executionFlag = true;
+                
+                SalaryController::updateSalaryController(*this, Utility::SalaryAttribute::BONUS);
             }
             break;
         case 4:
@@ -130,20 +109,6 @@ void Salary::updateSalary() {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
-        }
-
-        if (executionFlag) {
-            if (Database::getInstance().executeQuery(updateQuery)) {
-                int changes = sqlite3_changes(Database::getInstance().db);
-                std::cout << changes << " row affected \n\n";
-                if (changes != 0) {
-                    std::cout << "Salary Updated Successfully!\n";
-                }
-            }
-            else {
-                std::cout << "Error updating salary: " << Database::getInstance().getError() << "\n";
-            }
-            executionFlag = false; 
         }
     }
 }
@@ -166,7 +131,7 @@ void Salary::viewSalary() {
 
         switch (choice) {
         case 1:
-            selectQuery = "SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary";
+            selectQuery = "SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL   Salary";
             executionFlag = true;
             break;
         case 2:
@@ -184,15 +149,11 @@ void Salary::viewSalary() {
         }
 
         if (executionFlag) {
-            if (!Database::getInstance().executeQueryCallback(selectQuery)) {
-                std::cout << "Error viewing salary: " << Database::getInstance().getError() << std::endl;
-            }
+            SalaryController::viewSalaryController(selectQuery);
             executionFlag = false; 
         }
     }
 }
-
-
 
 void Salary::action() {
     std::cout << "Salary" << std::endl;

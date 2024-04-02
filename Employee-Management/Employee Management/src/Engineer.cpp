@@ -51,23 +51,24 @@ void Engineer::insertEngineer() {
         return;
     }
 
-    std::string insertQueryEngineer = "INSERT INTO Engineer (id, programming_language, specialization) VALUES ("
+    if (newEmpFlag)
+    {
+        Database::getInstance().pragmeSwitch(false);
+    }
+    EngineerController::insertEngineerController(*this);
+    /*std::string insertQueryEngineer = "INSERT INTO Engineer (id, programming_language, specialization) VALUES ("
         + std::to_string(getId()) + ", '" +
         programming_language + "', '" +
         specialization + "'" +
         ");";
 
-    if (newEmpFlag)
-    {
-        Database::getInstance().pragmeSwitch(false);
-    }
 
     if (Database::getInstance().executeQuery(insertQueryEngineer))
         std::cout << "Inserted Engineer Successfully!\n\n";
     else {
 
         std::cout << Database::getInstance().getError() << "\n\n";
-    }
+    }*/
     Database::getInstance().pragmeSwitch(true);
 
 }

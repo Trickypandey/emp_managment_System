@@ -70,6 +70,12 @@ namespace Validation{
         const std::regex pattern("[a-zA-Z].*\\d|\\d.*[a-zA-Z]");
         return std::regex_match(str.begin(), str.end(), pattern);
     }
+
+    inline bool validateNumeric(const int& num) {
+        std::string str = std::to_string(num);
+        std::regex pattern("^(-1|\\d{1,6})$");
+        return std::regex_match(str, pattern);
+    }
 }
 
 #endif

@@ -5,6 +5,7 @@
 #include "database.h"
 #include "Utility.h"
 #include "Validate.h"
+#include "controllers/engineerController.h"
 
 class Engineer : public Employee {
 public:

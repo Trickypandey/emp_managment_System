@@ -72,6 +72,61 @@ namespace Utility {
         return "UPDATE "+ tablename +" SET " + fieldName + " = '" + value + "' WHERE id = " + std::to_string(idToUpdate);
     }
 
+    inline std::string generateSelectQuery(const std::string& tablename, const std::string& condition = "") {
+        std::string query = "SELECT * FROM " + tablename;
+        if (!condition.empty()) {
+            query += " WHERE " + condition;
+        }
+        return query;
+    }
+    //selectQuery = "SELECT * FROM Department WHERE id = " + std::to_string(dept.getId());
+
+    enum class SalaryAttribute {
+        AMOUNT,
+        BASE_SALARY,
+        BONUS
+    };
+
+
+    enum class EmployeeAttribute {
+        FIRST_NAME,
+        LAST_NAME,
+        DATE_OF_BIRTH,
+        MOBILE_NUMBER,
+        EMAIL_ADDRESS,
+        ADDRESS,
+        GENDER,
+        DATE_OF_JOINING,
+        WORK_LOCATION,
+        MANAGER_ID,
+        DEPARTMENT_ID
+    };
+
+    enum class EmployeeViewAttribute
+    {
+        ALL,
+        ID,
+        FIRSTNAME,
+        EMAIL
+
+    };
+
+    enum class DepartmentAttribute {
+        ID,
+        NAME,
+        MANAGER_ID,
+        DESCRIPTION
+    };
+
+
+    enum class DepartmentViewAttribute
+    {
+        ALL,
+        ID,
+        NAME
+    };
+
+
 
 }
 #endif

@@ -4,3 +4,14 @@
 [ 01-04-2024 18:28:28 ][Error]: FOREIGN KEY constraint failed 
 [ 01-04-2024 18:28:37 ][Error]: FOREIGN KEY constraint failed 
 [ 01-04-2024 18:29:59 ][Error]: FOREIGN KEY constraint failed 
+[ 01-04-2024 18:41:22 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 01-04-2024 18:41:22 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 01-04-2024 18:42:01 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 01-04-2024 18:42:01 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 02-04-2024 09:02:45 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 02-04-2024 09:02:45 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 02-04-2024 09:05:27 ][Error]: FOREIGN KEY constraint failed 
+[ 02-04-2024 09:05:27 ][Error]: FOREIGN KEY constraint failed 
+[ 02-04-2024 09:07:28 ][Info ]: Database Closed. 
+[ 02-04-2024 09:07:55 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 02-04-2024 09:07:55 ][Error]: UNIQUE constraint failed: Employee.id 

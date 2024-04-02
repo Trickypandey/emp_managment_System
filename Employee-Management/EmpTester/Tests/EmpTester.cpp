@@ -3,8 +3,9 @@
 #include "include/controllers/employeeController.h"
 
 
+
 TEST_F(employeeFixer, AttributeEmployeeTest) {
-	EXPECT_EQ(emp.getId(), 1001) << "Incorrect value.";
+	EXPECT_EQ(emp.getId(), 1301) << "Incorrect value.";
 	EXPECT_EQ(emp.getFirstname(), "sourabh") << "Incorrect value.";
 	EXPECT_EQ(emp.getLastname(), "pandey") << "Incorrect value.";
 	EXPECT_EQ(emp.getDob(), "01-01-1990") << "Incorrect value.";
@@ -12,6 +13,7 @@ TEST_F(employeeFixer, AttributeEmployeeTest) {
 
 TEST_F(employeeFixer, InsertEmployeeTest) {
 	EXPECT_TRUE(EmployeeController::insertEmployee(emp)) << "Error department insert";
+	EXPECT_TRUE(EmployeeController::insertEmployee(emp2)) << "Error department insert";
 }
 
 //TEST_F(employeeFixer, UpdateEmployeeTest) {

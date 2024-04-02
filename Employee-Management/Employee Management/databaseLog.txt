@@ -26,3 +26,28 @@
 [ 01-04-2024 17:23:45 ][Info ]: admin signed in. 
 [ 01-04-2024 17:23:45 ][Info ]: Database Opened. 
 [ 01-04-2024 17:24:18 ][Info ]: Database Closed. 
+[ 02-04-2024 14:40:38 ][Info ]: admin signed in. 
+[ 02-04-2024 14:40:38 ][Info ]: Database Opened. 
+[ 02-04-2024 14:40:50 ][Error]: UNIQUE constraint failed: Department.id 
+[ 02-04-2024 14:41:00 ][Error]: FOREIGN KEY constraint failed 
+[ 02-04-2024 14:42:37 ][Info ]: Department Inserted for id :  11 
+[ 02-04-2024 15:27:21 ][Info ]: admin signed in. 
+[ 02-04-2024 15:27:21 ][Info ]: Database Opened. 
+[ 02-04-2024 15:27:27 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 02-04-2024 15:27:37 ][Error]: incomplete input 
+[ 02-04-2024 15:27:46 ][Error]: no such column: it 
+[ 02-04-2024 15:31:47 ][Info ]: admin signed in. 
+[ 02-04-2024 15:31:47 ][Info ]: Database Opened. 
+[ 02-04-2024 15:32:02 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 02-04-2024 15:32:08 ][Error]: incomplete input 
+[ 02-04-2024 15:32:30 ][Error]: no such column: gfsdgs 
+[ 02-04-2024 15:36:01 ][Info ]: admin signed in. 
+[ 02-04-2024 15:36:01 ][Info ]: Database Opened. 
+[ 02-04-2024 15:36:08 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 02-04-2024 15:36:14 ][Info ]: Department Viewed for SELECT * FROM Department WHERE id = 1 
+[ 02-04-2024 15:36:25 ][Info ]: Department Viewed for SELECT * FROM Department WHERE name = 'Department' 
+[ 02-04-2024 15:56:08 ][Info ]: admin signed in. 
+[ 02-04-2024 15:56:08 ][Info ]: Database Opened. 
+[ 02-04-2024 15:56:14 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 15:56:19 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 0 
+[ 02-04-2024 15:56:24 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 0 
