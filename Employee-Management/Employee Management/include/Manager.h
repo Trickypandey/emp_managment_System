@@ -3,6 +3,7 @@
 #include "Employee.h"
 #include "Utility.h"
 #include "validate.h"
+#include "./controllers/managerController.h"
 
 class Manager : public Employee {
 public:

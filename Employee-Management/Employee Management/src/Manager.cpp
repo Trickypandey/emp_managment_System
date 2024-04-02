@@ -22,92 +22,42 @@ bool Manager::setProjectTileUserInput() {
 
 void Manager::insertManager() {
 
-    if (!insertEmployee()) {
-        std::cout << "Error Manager Employee. Aborting Manager insertion.\n";
+    std::cout << "Is your manager an existing employee? (y/n): ";
+    char response;
+    std::cin >> response;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    bool newEmpFlag = (response == 'y' || response == 'Y');
+    auto _id = newEmpFlag ? getInput<int>("Enter Employee ID: ", "Invalid Input. Please enter Id in Int.", Validation::validateInt) : insertEmployee();
+
+    if (!_id.has_value()) {
+        std::cout << "Error inserting Employee. Aborting insertion of Engineer.\n";
         return;
     }
 
-    if (!setExperienceUserInput()) {
-        std::cout << "Error setting Manager experience. Deleting inserted Employee.\n";
-        deleteEmployee(Employee::getId());
+    if (!setExperienceUserInput() || !setProjectTileUserInput()) {
+        std::cout << "Error setting Manager data. Aborting insertion.\n";
+        if (newEmpFlag) {
+            deleteEmployee(_id.value());
+        }
         return;
     }
 
-    if (!setProjectTileUserInput()) {
-        std::cout << "Error setting Manager project title. Deleting inserted Employee.\n";
-        deleteEmployee(Employee::getId());
+    if (!Database::getInstance().isIdExist(*_id, "employee")) {
+        std::cerr << "Employee with ID " << *_id << " does not exist in the database.\n";
         return;
     }
-    
 
-    std::string insertQuery = "INSERT INTO Manager(id, management_experience , project_title) VALUES ("
-        + std::to_string(Employee::getId()) + ","
-        + std::to_string(management_experience) + ",'"
-        + project_title + "');";
-
-    if (Database::getInstance().executeQuery(insertQuery))
-        std::cout << "Inserted Manager Successfully! \n\n";
-    else
-        std::cout << Database::getInstance().getError() << "\n";
+    Database::getInstance().pragmeSwitch(false);
+    ManagerController::insertManagerController(*this , *_id);
 
 }
 
 void Manager::deleteManager() {
-    bool executionFlag = false;
-    bool flag = true;
-    std::string deleteQuery;
+    if (!setIdFromUserInput()) return;
 
-    while (flag) {
-        deleteQuery.clear();
-        std::cout << "Please select a column to delete a manager:\n";
-        std::cout << "1. ID\n";
-        std::cout << "2. Firstname\n";
-        std::cout << "3. Gmail\n";
-        std::cout << "4. Exit\n";
-        std::cout << "Enter your choice (1-4): ";
-
-        int choice;
-        std::cin >> choice;
-
-        switch (choice) {
-        case 1:
-            if (setIdFromUserInput()) {
-                deleteQuery = "DELETE FROM Manager WHERE id = " + std::to_string(getId());
-                executionFlag = true;
-            }
-            break;
-        case 2:
-            if (setFirstnameFromUserInput()) {
-                deleteQuery = "DELETE FROM Manager WHERE firstname = '" + getFirstname() + "'";
-                executionFlag = true;
-            }
-            break;
-        case 3:
-            if (setEmailFromUserInput()) {
-                deleteQuery = "DELETE FROM Manager WHERE email = '" + getEmail() + "'";
-                executionFlag = true;
-            }
-            break;
-        case 4:
-            flag = false;
-            break;
-        default:
-            std::cerr << "Invalid choice. Please enter a number between 1 and 4.\n";
-            break;
-        }
-
-        if (executionFlag) {
-            if (Database::getInstance().executeQuery(deleteQuery)) {
-                int changes = sqlite3_changes(Database::getInstance().db);
-                std::cout << changes << " row affected \n\n";
-                if (changes != 0) {
-                    std::cout << "Manager Deleted Successfully! \n\n";
-                }
-            }
-            else {
-                std::cout << Database::getInstance().getError() << "\n";
-            }
-        }
+    if (!ManagerController::deleteManagerController(getId())) {
+        std::cout << "Manager Deletion Failed\n";
     }
 }
 void Manager::updateManager() {

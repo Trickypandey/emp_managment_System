@@ -79,3 +79,23 @@
 [ 02-04-2024 18:19:22 ][Info ]: Show table Query Fetched. 
 [ 02-04-2024 18:19:45 ][Info ]: Employee Deleted for id :  2 
 [ 02-04-2024 18:21:32 ][Info ]: Department Described. 
+[ 02-04-2024 21:01:33 ][Info ]: Database Opened. 
+[ 02-04-2024 21:01:43 ][Info ]: SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary  : Executed. 
+[ 02-04-2024 21:02:01 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 21:02:41 ][Info ]: Employee Updated for id :  1 
+[ 02-04-2024 21:02:50 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 21:13:37 ][Info ]: Database Opened. 
+[ 02-04-2024 21:14:03 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 21:14:13 ][Info ]: Employee Deleted for id :  4 
+[ 02-04-2024 21:14:17 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 21:14:31 ][Info ]: SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary  : Executed. 
+[ 02-04-2024 23:15:50 ][Info ]: Database Opened. 
+[ 02-04-2024 23:17:14 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 23:18:27 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 02-04-2024 23:19:03 ][Info ]: Manager Inserted for id :  0 
+[ 02-04-2024 23:21:20 ][Info ]: Manager Inserted for id :  5 
+[ 02-04-2024 23:28:16 ][Info ]: Database Opened. 
+[ 02-04-2024 23:28:49 ][Info ]: Employee Deleted for id :  5 
+[ 02-04-2024 23:28:49 ][Info ]: Engineer Deleted for id :  5 
+[ 02-04-2024 23:28:59 ][Info ]: SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary  : Executed. 
+[ 02-04-2024 23:29:09 ][Info ]: Department Viewed for SELECT * FROM Employee 

@@ -33,6 +33,7 @@ bool DepartmentController::deleteDepartmentController(Department& dept,Departmen
 	}
 
 	if (Database::getInstance().executeQuery(deleteQuery)) {
+		Database::getInstance().pragmeSwitch(false);
 
 		int changes = sqlite3_changes(Database::getInstance().db);
 
@@ -40,12 +41,15 @@ bool DepartmentController::deleteDepartmentController(Department& dept,Departmen
 		if (changes != 0) {
 			std::cout << "\033[32mDepartment Deleted Succesfully ! \033[0m\n\n";
 			Log::getInstance().Info("Department Deleted for id : ", dept.getId());
+			Database::getInstance().pragmeSwitch(false);
 			return true;
 		}
 
+		Database::getInstance().pragmeSwitch(false);
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
+		Database::getInstance().pragmeSwitch(false);
 		return false;
 	}
 }
