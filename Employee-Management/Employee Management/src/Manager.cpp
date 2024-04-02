@@ -63,37 +63,43 @@ void Manager::deleteManager() {
 void Manager::updateManager() {
     bool flag = true;
     int choice;
-    std::string updateQuery{};
     std::cout << "Enter Manager id to update: \n";
     int _id;
-    std::cin >> _id;
+    if (auto idtoUpdate = getInput<int>("Enter Id", "Invalid input. Please enter a non-negative integer.", Validation::validateInt); idtoUpdate.has_value()) {
+
+        _id = idtoUpdate.value();
+    }
+    else
+    {
+        return;
+    }
     if (!Database::getInstance().isIdExist(_id, "employee")) {
         std::cerr << "Department with ID " << _id << " does not exist in the database.\n";
         return;
     }
 
-    std::cout << "Manager Table - Update\n";
-    std::cout << "Please select an attribute to update:\n";
-    std::cout << "1. Manager's Experience\n";
-    std::cout << "2. Project Title\n";
-    std::cout << "2. Update Employee Detail\n";
-    std::cout << "4. Exit\n";
-    std::cout << "Enter your choice (1-3): ";
 
     while (flag) {
+        std::cout << "Manager Table - Update\n";
+        std::cout << "Please select an attribute to update:\n";
+        std::cout << "1. Manager's Experience\n";
+        std::cout << "2. Project Title\n";
+        std::cout << "3. Update Employee Detail\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter your choice (1-3): ";
         std::cin >> choice;
         std::cout << "\n";
 
         switch (choice) {
         case 1:
             if (setExperienceUserInput()) {
-                updateQuery = generateUpdateQuery("Manager", "management_experience", std::to_string(getManagementExperience()), _id);
+                ManagerController::updateManagerController(*this, ManagerAttribute::MANGAEREXPERIENCE ,_id);
                 flag = false;
             }
             break;
         case 2:
             if (setProjectTileUserInput()) {
-                updateQuery = generateUpdateQuery("Manager", "project_title", getProjectTitle(), _id);
+                ManagerController::updateManagerController(*this, ManagerAttribute::PROJECTTITLE,_id);
                 flag = false;
             }
             break;
@@ -110,26 +116,12 @@ void Manager::updateManager() {
             break;
         }
     }
-
-    if (!updateQuery.empty()) {
-        if (Database::getInstance().executeQuery(updateQuery)) {
-            int changes = sqlite3_changes(Database::getInstance().db);
-            std::cout << changes << " row affected \n\n";
-            if (changes != 0) {
-                std::cout << "Manager Updated Successfully!\n\n";
-            }
-        }
-        else {
-            std::cout << "Error updating Manager: " << Database::getInstance().getError() << "\n";
-        }
-    }
 }
 
 
 
 void Manager::viewManager() {
     auto flag{true};
-    bool executionFlag = false;
     std::string selectQuery;
     int choice;
 
@@ -147,12 +139,13 @@ void Manager::viewManager() {
         switch (choice) {
         case 1:
             selectQuery = "SELECT * FROM Employee NATURAL JOIN Manager WHERE Employee.id == Manager.id ";
-            executionFlag = true;
+            ManagerController::viewManagerController(selectQuery);
             break;
         case 2:
             if (setIdFromUserInput()) {
                 selectQuery = "SELECT * FROM Employee NATURAL JOIN Manager WHERE Employee.id == Manager.id AND Employee.id = " + std::to_string(getId());
-                executionFlag = true;
+                ManagerController::viewManagerController(selectQuery);
+                
             }
             break;
         case 3:
@@ -163,11 +156,6 @@ void Manager::viewManager() {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             break;
-        }
-        if(executionFlag){
-            if (!Database::getInstance().executeQueryCallback(selectQuery)) {
-                std::cout << Database::getInstance().getError() << std::endl;
-            }
         }
     }
 

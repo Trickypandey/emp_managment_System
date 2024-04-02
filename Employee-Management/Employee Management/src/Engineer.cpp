@@ -91,13 +91,15 @@ void Engineer::updateEngineer() {
         switch (choice) {
         case 1:
             if (setProgLangUserInput()) {
-                updateQuery = generateUpdateQuery("Engineer", "programming_language", getProgrammingLanguage(),_id);
+                //updateQuery = generateUpdateQuery("Engineer", "programming_language", getProgrammingLanguage(),_id);
+                EngineerController::updateEngineerController(*this, EngineerAttribute::PROGRAMMINGLANGUAGE, _id);
                 flag = false;
             }
             break;
         case 2:
             if (setSpecializationUserInput()) {
-                updateQuery = generateUpdateQuery("Engineer", "specialization", getSpecialization(), _id);
+                //updateQuery = generateUpdateQuery("Engineer", "specialization", getSpecialization(), _id);
+                EngineerController::updateEngineerController(*this, EngineerAttribute::SPECIALIZATION, _id);
                 flag = false;
             }
             break;
@@ -115,18 +117,7 @@ void Engineer::updateEngineer() {
         }
     }
 
-    if (!updateQuery.empty()) {
-        if (Database::getInstance().executeQuery(updateQuery)) {
-            int changes = sqlite3_changes(Database::getInstance().db);
-            std::cout << changes << " row affected \n\n";
-            if (changes != 0) {
-                std::cout << "Engineer Updated Successfully!\n\n";
-            }
-        }
-        else {
-            std::cout << "Error updating engineer: " << Database::getInstance().getError() << "\n";
-        }
-    }
+    
 }
 
 void Engineer::viewEngineer() {

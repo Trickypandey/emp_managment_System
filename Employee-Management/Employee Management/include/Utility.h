@@ -126,6 +126,16 @@ namespace Utility {
         NAME
     };
 
+    
+    enum class ManagerAttribute {
+        MANGAEREXPERIENCE,
+        PROJECTTITLE
+    };
+    
+    enum class EngineerAttribute {
+        PROGRAMMINGLANGUAGE,
+        SPECIALIZATION
+    };
 
 
 }

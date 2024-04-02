@@ -41,16 +41,26 @@ bool ManagerController::deleteManagerController(int id) {
     return false;
 }
 
-bool ManagerController::updateManagerController(Manager& manager, std::string attribute) {
-    std::string updateQuery = "UPDATE Manager SET ";
-    if (attribute == "management_experience") {
+bool ManagerController::updateManagerController(Manager& manager, ManagerAttribute attribute , int id) {
+    std::string updateQuery;
+    /*if (attribute == "management_experience") {
         updateQuery += " management_experience = '" + std::to_string(manager.getManagementExperience()) + "'";
     }
     else if (attribute == "project_title") {
         updateQuery += " project_title= '" + manager.getProjectTitle() + "'";
-    }
+    }*/
 
-    updateQuery += " WHERE id = " + std::to_string(manager.getId()) + ";";
+    switch (attribute)
+    {
+    case Utility::ManagerAttribute::MANGAEREXPERIENCE:
+        updateQuery = generateUpdateQuery("Manager", "management_experience", std::to_string(manager.getManagementExperience()),id);
+        break;
+    case Utility::ManagerAttribute::PROJECTTITLE:
+        updateQuery = generateUpdateQuery("Manager", "project_title", manager.getProjectTitle(),id);
+        break;
+    default:
+        break;
+    }
 
     if (Database::getInstance().executeQuery(updateQuery)) {
         int changes = sqlite3_changes(Database::getInstance().db);

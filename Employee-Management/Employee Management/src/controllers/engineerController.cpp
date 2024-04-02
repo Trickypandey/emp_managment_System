@@ -42,17 +42,28 @@ bool EngineerController::deleteEngineerController(int id) {
 	return false;
 }
 
-bool EngineerController::updateEngineerController(Engineer& engineer, std::string attribute) {
+bool EngineerController::updateEngineerController(Engineer& engineer,EngineerAttribute  attribute , int _id) {
 	
-	std::string updateQuery = "UPDATE Engineer SET ";
-	if (attribute == "programming_language") {
+	std::string updateQuery;
+	/*if (attribute == "programming_language") {
 		updateQuery += " programming_language = '" + engineer.getProgrammingLanguage() + "'";
 	}
 	else if (attribute == "specialization") {
 		updateQuery += " specialization= '" + engineer.getSpecialization() + "'";
 	}
 
-	updateQuery += " WHERE id = " + std::to_string(engineer.getId()) + ";";
+	updateQuery += " WHERE id = " + std::to_string(engineer.getId()) + ";";*/
+	switch (attribute)	
+	{
+	case Utility::EngineerAttribute::PROGRAMMINGLANGUAGE:
+		updateQuery = generateUpdateQuery("Engineer","programming_language",engineer.getProgrammingLanguage(),_id);
+		break;
+	case Utility::EngineerAttribute::SPECIALIZATION:
+		updateQuery = generateUpdateQuery("Engineer","programming_language",engineer.getSpecialization(),_id);
+		break;
+	default:
+		break;
+	}
 	if (Database::getInstance().executeQuery(updateQuery)) {
 
 		int changes = sqlite3_changes(Database::getInstance().db);
