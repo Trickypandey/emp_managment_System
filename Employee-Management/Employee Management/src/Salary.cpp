@@ -131,7 +131,7 @@ void Salary::viewSalary() {
 
         switch (choice) {
         case 1:
-            selectQuery = "SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL   Salary";
+            selectQuery = "SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary";
             executionFlag = true;
             break;
         case 2:
