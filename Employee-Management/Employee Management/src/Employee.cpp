@@ -83,8 +83,14 @@ bool Employee::setWLocationFromUserInput() {
 }
 
 bool Employee::setManagerIdFromUserInput() {
-    auto input = getInput<int>("Enter Manager ID: ", "Invalid Input. Please enter an integer.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
+    auto input = getInput<int>("Enter Manager ID(-1 for null): ", "Invalid Input. Please enter an integer.", [](int id) {  if (id == -1) { return true; }return id >= 0 && Database::getInstance().isIdExist(id, "Employee"); });
     if (input.has_value()) {
+        if (input.value() == -1)
+        {
+
+            setManagerId(NULL);
+            return true;
+        }
         setManagerId(input.value());
         return true;
     }
@@ -92,8 +98,14 @@ bool Employee::setManagerIdFromUserInput() {
 }
 
 bool Employee::setDepartmentIdFromUserInput() {
-    auto input = getInput<int>("Enter Department ID: ", "Invalid Format !! Please enter a valid DepartmentId.", [](int id) { return id >= 0 && Database::getInstance().isIdExist(id, "Department"); });
+    auto input = getInput<int>("Enter Department ID(-1 for null): ", "Invalid Format !! Please enter a valid DepartmentId.", [](int id) {if (id == -1) { return true; } return id >= 0 && Database::getInstance().isIdExist(id, "Department"); });
     if (input.has_value()) {
+        if (input.value() == -1)
+        {
+
+            setDepartmentId(NULL);
+            return true;
+        }
         setDepartmentId(input.value());
         return true;
     }

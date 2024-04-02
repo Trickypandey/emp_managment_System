@@ -27,7 +27,7 @@ bool Database::open(std::filesystem::path dbPath) {
 
 bool Database::createTables() {
 
-    const char* sql = "CREATE TABLE IF NOT EXISTS Employee ("
+    const char* EMP = "CREATE TABLE IF NOT EXISTS Employee ("
         "id INTEGER PRIMARY KEY,"
         "firstname VARCHAR,"
         "lastname VARCHAR,"
@@ -43,63 +43,58 @@ bool Database::createTables() {
         "FOREIGN KEY (department_id) REFERENCES Department(id),"
         "FOREIGN KEY (manager_id) REFERENCES Employee(id));";
 
-    if (!executeQuery(sql))
+    if (!executeQuery(EMP))
     {
         return false;
     }
 
-    const char* sql2 = "CREATE TABLE IF NOT EXISTS Department ("
+    const char* DEPT = "CREATE TABLE IF NOT EXISTS Department ("
         "id INTEGER PRIMARY KEY,"
         "name VARCHAR,"
         "manager_id INTEGER,"
         "description VARCHAR,"
-        "FOREIGN KEY (manager_id) REFERENCES Employee(id))";
+        "FOREIGN KEY (manager_id) REFERENCES Employee(id) )";
 
 
-    if (!executeQuery(sql2))
+    if (!executeQuery(DEPT))
     {
         return false;
     }
 
-
-
-    const char* sql3 = "CREATE TABLE IF NOT EXISTS Engineer ("
+    const char* ENG = "CREATE TABLE IF NOT EXISTS Engineer ("
         "id INTEGER PRIMARY KEY,"
         "programming_language VARCHAR,"
         "specialization VARCHAR,"
-        "FOREIGN KEY (id) REFERENCES Employee(id))";
+        "FOREIGN KEY (id) REFERENCES Employee(id) ON DELETE CASCADE )";
 
-    if (!executeQuery(sql3))
+    if (!executeQuery(ENG))
     {
         return false;
     }
 
-
-    const char* sql4 = "CREATE TABLE IF NOT EXISTS Manager ("
+    const char* MANAGER = "CREATE TABLE IF NOT EXISTS Manager ("
         "id INTEGER PRIMARY KEY,"
         "management_experience INTEGER,"
         "project_title VARCHAR,"
-        "FOREIGN KEY (id) REFERENCES Employee(id))";
+        "FOREIGN KEY (id) REFERENCES Employee(id) ON DELETE CASCADE)";
 
 
-    if (!executeQuery(sql4))
+    if (!executeQuery(MANAGER))
     {
         return false;
     }
 
-
-    const char* sql5 = "CREATE TABLE IF NOT EXISTS Salary ("
+    const char* SALARY = "CREATE TABLE IF NOT EXISTS Salary ("
         "id INTEGER PRIMARY KEY,"
-        "amount INTEGER,"
-        "base_salary INTEGER,"
-        "bonus INTEGER,"
-        "FOREIGN KEY (id) REFERENCES Employee(id))";
+        "base_salary REAL,"
+        "bonus REAL,"
+        "amount REAL AS (base_salary + bonus),"
+        "FOREIGN KEY (id) REFERENCES Employee(id) ON DELETE CASCADE)";
 
-    if (!executeQuery(sql5))
+    if (!executeQuery(SALARY))
     {
         return false;
     }
-
 
     return true;
 }

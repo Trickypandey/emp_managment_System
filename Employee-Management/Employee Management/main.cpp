@@ -9,7 +9,7 @@ using logs::Log;
 // this is working
 int main() {
 
-	if (Auth::authUser()) {
+	//if (Auth::authUser()) {
 		std::filesystem::path dbPath = "employee.db";
 		if (!Database::getInstance().open(dbPath)) {
 			std::cerr << "Error opening database: " << Database::getInstance().getError() << std::endl;
@@ -21,7 +21,7 @@ int main() {
 		databaseInit();
 		Database::getInstance().close();
 
-	}
+	//}
 
 	return 0;
 }

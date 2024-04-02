@@ -2,15 +2,15 @@
 
 using logs::Log;
 
-bool EngineerController::insertEngineerController(Engineer& engineer) {
+bool EngineerController::insertEngineerController(Engineer& engineer , int id) {
 	
 	std::string insertQueryEngineer = "INSERT INTO Engineer (id, programming_language,specialization) VALUES ("
-		+ std::to_string(engineer.getId()) + ", '" +
+		+ std::to_string(id) + ", '" +
 		engineer.getProgrammingLanguage() + "', '" +
 		engineer.getSpecialization() + "'" +
 		");";
 
-
+	std::cout << insertQueryEngineer << "\n";
 	if (Database::getInstance().executeQuery(insertQueryEngineer)) {
 		std::cout << "\033[32mInserted Engineer Succesfully ! \033[0m\n\n";
 		Log::getInstance().Info("Engineer Inserted for id : ", engineer.getId());
@@ -23,19 +23,19 @@ bool EngineerController::insertEngineerController(Engineer& engineer) {
 
 };
 
-bool EngineerController::deleteEngineerController(Engineer& engineer, std::string attribute) {
+bool EngineerController::deleteEngineerController(int id) {
 
-	/*if (!EmployeeController::deleteEmployee(engineer, "id")) {
+	if (!EmployeeController::deleteEmployee(id)) {
 		std::cout << Database::getInstance().getError() << "\n";
 		return false;
-	}*/
+	}
 
 	int changes = sqlite3_changes(Database::getInstance().db);
 
 	std::cout << "\033[32m" << changes << " row affected \033[0m\n\n";
 	if (changes != 0) {
 		std::cout << "\033[32mEngineer Deleted Successfully ! \033[0m\n\n";
-		Log::getInstance().Info("Engineer Deleted for id : ", engineer.getId());
+		Log::getInstance().Info("Engineer Deleted for id : ",id);
 		return true;
 	}
 

@@ -51,3 +51,31 @@
 [ 02-04-2024 15:56:14 ][Info ]: Department Viewed for SELECT * FROM Employee 
 [ 02-04-2024 15:56:19 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 0 
 [ 02-04-2024 15:56:24 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 0 
+[ 02-04-2024 17:36:24 ][Warn ]: 1 attempt 
+[ 02-04-2024 17:36:26 ][Warn ]: 2 attempt 
+[ 02-04-2024 17:36:30 ][Info ]: admin signed in. 
+[ 02-04-2024 17:36:30 ][Info ]: Database Opened. 
+[ 02-04-2024 17:36:34 ][Error]: database is locked 
+[ 02-04-2024 17:42:04 ][Info ]: admin signed in. 
+[ 02-04-2024 17:42:04 ][Info ]: Database Opened. 
+[ 02-04-2024 17:42:13 ][Error]: database is locked 
+[ 02-04-2024 17:42:24 ][Info ]: Employee Deleted for id :  1 
+[ 02-04-2024 17:42:34 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 17:50:58 ][Info ]: admin signed in. 
+[ 02-04-2024 17:50:58 ][Info ]: Database Opened. 
+[ 02-04-2024 17:51:04 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 17:51:54 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 17:52:03 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 18:11:24 ][Info ]: admin signed in. 
+[ 02-04-2024 18:11:24 ][Info ]: Database Opened. 
+[ 02-04-2024 18:11:42 ][Error]: UNIQUE constraint failed: Engineer.id 
+[ 02-04-2024 18:12:29 ][Info ]: Engineer Inserted for id :  2 
+[ 02-04-2024 18:12:52 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 02-04-2024 18:14:09 ][Info ]: admin signed in. 
+[ 02-04-2024 18:14:09 ][Info ]: Database Opened. 
+[ 02-04-2024 18:15:08 ][Info ]: Database Closed. 
+[ 02-04-2024 18:19:20 ][Info ]: admin signed in. 
+[ 02-04-2024 18:19:20 ][Info ]: Database Opened. 
+[ 02-04-2024 18:19:22 ][Info ]: Show table Query Fetched. 
+[ 02-04-2024 18:19:45 ][Info ]: Employee Deleted for id :  2 
+[ 02-04-2024 18:21:32 ][Info ]: Department Described. 

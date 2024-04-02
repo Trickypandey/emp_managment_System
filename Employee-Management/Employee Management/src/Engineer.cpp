@@ -51,35 +51,16 @@ void Engineer::insertEngineer() {
         return;
     }
 
-    if (newEmpFlag)
-    {
-        Database::getInstance().pragmeSwitch(false);
-    }
-    EngineerController::insertEngineerController(*this);
-    /*std::string insertQueryEngineer = "INSERT INTO Engineer (id, programming_language, specialization) VALUES ("
-        + std::to_string(getId()) + ", '" +
-        programming_language + "', '" +
-        specialization + "'" +
-        ");";
-
-
-    if (Database::getInstance().executeQuery(insertQueryEngineer))
-        std::cout << "Inserted Engineer Successfully!\n\n";
-    else {
-
-        std::cout << Database::getInstance().getError() << "\n\n";
-    }*/
-    Database::getInstance().pragmeSwitch(true);
-
+    Database::getInstance().pragmeSwitch(false);
+    EngineerController::insertEngineerController(*this , *_id);
 }
 
 void Engineer::deleteEngineer() {
-    if (setIdFromUserInput()) return;
-    //std::string checkEngineer = "SELECT id FROM Engineer WHERE id = " + std::to_string(getId());
-    if (Database::getInstance().isIdExist(getId(), "Department"))
-        deleteEmployee(getId());
-    else
-        std::cout << "Engineer does not exist.\n\n";
+    if (!setIdFromUserInput()) return;
+
+    if (!EngineerController::deleteEngineerController(getId())) {
+        std::cout << "engineer Deletion Failed\n";
+    }
 }
 
 void Engineer::updateEngineer() {
