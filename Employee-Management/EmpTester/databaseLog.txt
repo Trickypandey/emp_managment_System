@@ -15,3 +15,156 @@
 [ 02-04-2024 09:07:28 ][Info ]: Database Closed. 
 [ 02-04-2024 09:07:55 ][Error]: UNIQUE constraint failed: Employee.id 
 [ 02-04-2024 09:07:55 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:35:48 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:35:48 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:36:32 ][Info ]: Database Closed. 
+[ 03-04-2024 09:40:48 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:40:48 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:40:48 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:43:19 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:43:19 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:43:19 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:43:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:44:25 ][Warn ]: Selected Employee is managing different employees: can not delete for id :  1401 
+[ 03-04-2024 09:44:25 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:44:25 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:44:25 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:44:25 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:44:25 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:47:35 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:47:35 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:47:35 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:47:35 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:47:35 ][Warn ]: Selected Employee is managing different employees: can not delete for id :  1401 
+[ 03-04-2024 09:47:36 ][Info ]: Department Viewed for SELECT * FROM Employee; 
+[ 03-04-2024 09:47:36 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 1401; 
+[ 03-04-2024 09:47:36 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE firstname = 'sourabh'; 
+[ 03-04-2024 09:47:36 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE email like 'example@example.com'; 
+[ 03-04-2024 09:56:19 ][Info ]: Department Inserted for id :  10 
+[ 03-04-2024 09:56:19 ][Info ]: Department Inserted for id :  11 
+[ 03-04-2024 09:56:19 ][Error]: UNIQUE constraint failed: Department.id 
+[ 03-04-2024 09:56:19 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 09:56:19 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 09:56:19 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 09:56:19 ][Info ]: Department Deleted for id :  10 
+[ 03-04-2024 09:56:19 ][Info ]: Department Deleted for id :  11 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Department WHERE id = 10; 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Department WHERE name = 'HR' 
+[ 03-04-2024 09:56:19 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:56:19 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:56:19 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:56:19 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 09:56:19 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 09:56:19 ][Warn ]: Selected Employee is managing different employees: can not delete for id :  1401 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Employee; 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 1401; 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE firstname = 'sourabh'; 
+[ 03-04-2024 09:56:19 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE email like 'example@example.com'; 
+[ 03-04-2024 10:07:22 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:07:22 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:07:22 ][Info ]: SELECT * FROM Salary WHERE id = 1  : Executed. 
+[ 03-04-2024 10:07:22 ][Info ]: Department Inserted for id :  10 
+[ 03-04-2024 10:07:22 ][Info ]: Department Inserted for id :  11 
+[ 03-04-2024 10:07:22 ][Error]: UNIQUE constraint failed: Department.id 
+[ 03-04-2024 10:07:22 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 10:07:22 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 10:07:22 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 10:07:22 ][Info ]: Department Deleted for id :  10 
+[ 03-04-2024 10:07:22 ][Info ]: Department Deleted for id :  11 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Department WHERE id = 10; 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Department WHERE name = 'HR' 
+[ 03-04-2024 10:07:22 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 10:07:22 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:07:22 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:07:22 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:07:22 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:07:22 ][Warn ]: Selected Employee is managing different employees: can not delete for id :  1401 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Employee; 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 1401; 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE firstname = 'sourabh'; 
+[ 03-04-2024 10:07:22 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE email like 'example@example.com'; 
+[ 03-04-2024 10:08:31 ][Error]: UNIQUE constraint failed: Salary.id 
+[ 03-04-2024 10:08:31 ][Error]: UNIQUE constraint failed: Salary.id 
+[ 03-04-2024 10:08:31 ][Info ]: Salary Updated for id :  1301 
+[ 03-04-2024 10:08:31 ][Info ]: Salary Updated for id :  1301 
+[ 03-04-2024 10:08:31 ][Info ]: Salary Updated for id :  1301 
+[ 03-04-2024 10:08:31 ][Info ]: Salary Deleted for id :  1301 
+[ 03-04-2024 10:08:31 ][Info ]: SELECT * FROM Salary WHERE id = 1  : Executed. 
+[ 03-04-2024 10:08:31 ][Info ]: Department Inserted for id :  10 
+[ 03-04-2024 10:08:31 ][Info ]: Department Inserted for id :  11 
+[ 03-04-2024 10:08:31 ][Error]: UNIQUE constraint failed: Department.id 
+[ 03-04-2024 10:08:31 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 10:08:31 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 10:08:31 ][Info ]: Department Updated for id :  10 
+[ 03-04-2024 10:08:31 ][Info ]: Department Deleted for id :  10 
+[ 03-04-2024 10:08:31 ][Info ]: Department Deleted for id :  11 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Department WHERE id = 10; 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Department WHERE name = 'HR' 
+[ 03-04-2024 10:08:31 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 10:08:31 ][Error]: UNIQUE constraint failed: Employee.id 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:08:31 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:08:31 ][Info ]: Employee Updated for id :  1401 
+[ 03-04-2024 10:08:31 ][Error]: FOREIGN KEY constraint failed 
+[ 03-04-2024 10:08:31 ][Warn ]: Selected Employee is managing different employees: can not delete for id :  1401 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Employee; 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE id = 1401; 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE firstname = 'sourabh'; 
+[ 03-04-2024 10:08:31 ][Info ]: Department Viewed for SELECT * FROM Employee WHERE email like 'example@example.com'; 

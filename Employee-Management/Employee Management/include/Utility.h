@@ -77,6 +77,7 @@ namespace Utility {
         if (!condition.empty()) {
             query += " WHERE " + condition;
         }
+        query += ';';
         return query;
     }
     //selectQuery = "SELECT * FROM Department WHERE id = " + std::to_string(dept.getId());

@@ -99,3 +99,8 @@
 [ 02-04-2024 23:28:49 ][Info ]: Engineer Deleted for id :  5 
 [ 02-04-2024 23:28:59 ][Info ]: SELECT id, firstname, lastname, email, amount, base_salary, bonus FROM Employee NATURAL JOIN Salary  : Executed. 
 [ 02-04-2024 23:29:09 ][Info ]: Department Viewed for SELECT * FROM Employee 
+[ 03-04-2024 09:22:49 ][Info ]: Database Opened. 
+[ 03-04-2024 09:24:52 ][Info ]: Department Viewed for SELECT * FROM Department 
+[ 03-04-2024 09:24:58 ][Info ]: Department Viewed for SELECT * FROM Department WHERE id = 1; 
+[ 03-04-2024 09:25:06 ][Info ]: Department Viewed for SELECT * FROM Department WHERE name = 'online' 
+[ 03-04-2024 09:25:18 ][Info ]: Department Described. 

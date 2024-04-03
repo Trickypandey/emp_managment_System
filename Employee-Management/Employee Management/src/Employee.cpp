@@ -311,9 +311,8 @@ void Employee::action() {
         {2, {"Delete", std::bind(&Employee::deleteEmployee, this,std::nullopt)}},
         {3, {"Update", std::bind(&Employee::updateEmployee, this,std::nullopt)}},
         {4, {"View", std::bind(&Employee::viewEmployee, this)}},
-        {5, {"Describe", []() { Database::getInstance().describeTable("Department"); }}},
+        {5, {"Describe", []() { Database::getInstance().describeTable("Employee"); }}},
         {6, {"Exit", [] {system("cls"); }}}
     };
-
     executeMenu(options);
 }

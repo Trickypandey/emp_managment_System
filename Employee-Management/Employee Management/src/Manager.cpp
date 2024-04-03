@@ -169,7 +169,7 @@ void Manager::action() {
         {2, {"Delete", std::bind(&Manager::deleteManager, this)}},
         {3, {"Update", std::bind(&Manager::updateManager, this)}},
         {4, {"View", std::bind(&Manager::viewManager, this)}},
-        {5, {"Describe",[]() { Database::getInstance().describeTable("Department"); } }},
+        {5, {"Describe",[]() { Database::getInstance().describeTable("Manager"); } }},
         {6, {"Exit", [] {system("cls"); }}}
     };
 

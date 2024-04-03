@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "include/database.h"
 #include "include/MenuControler.h"
+#include "include/Auth.h"
+
 
 
 TEST(ValidationTest, EmailValidation) {
@@ -51,6 +53,9 @@ TEST(ValidationTest, StringAndIntValidation) {
     EXPECT_FALSE(Validation::validateStringAndInt("123"));
     EXPECT_FALSE(Validation::validateStringAndInt("abc def"));
 }
+
+
+
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);

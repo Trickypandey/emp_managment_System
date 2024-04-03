@@ -13,7 +13,7 @@ public:
 
     Salary() = default;
 
-    Salary(int _id, float _amount, float _baseSalary ,int _bonus): id(_id), amount(_amount), base_salary(_baseSalary), bonus(_bonus) {}
+    Salary(int _id, float _baseSalary ,int _bonus): id(_id), base_salary(_baseSalary), bonus(_bonus) {}
     
 
     int getId() const { return id; }

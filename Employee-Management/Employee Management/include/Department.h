@@ -12,6 +12,9 @@ class Department {
 public:
     Department() = default;
 
+    Department(int dept_id, const std::string& dept_name, int mgr_id, const std::string& dept_description)
+        : id(dept_id), name(dept_name), manager_id(mgr_id), description(dept_description) {}
+
 
     int getId() const { return id; }
     std::string getName() const { return name; }

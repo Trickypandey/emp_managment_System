@@ -124,15 +124,14 @@ void EmployeeController::viewEmployee(Employee& employee , EmployeeViewAttribute
 		selectQuery = generateSelectQuery("Employee" , "id = " + std::to_string(employee.getId()));
 		break;
 	case Utility::EmployeeViewAttribute::FIRSTNAME:
-		selectQuery = generateSelectQuery("Employee", "firstname = " + employee.getFirstname());
+		selectQuery = generateSelectQuery("Employee","firstname = '" + employee.getFirstname() + "'");
 		break;
 	case Utility::EmployeeViewAttribute::EMAIL:
-		selectQuery = generateSelectQuery("Employee" , "email like" + employee.getEmail());
+		selectQuery = generateSelectQuery("Employee" , "email like '" + employee.getEmail() + "'");
 		break;
 	default:
 		break;
 	}
-
 	if (Database::getInstance().executeQueryCallback(selectQuery)) {
 		Log::getInstance().Info("Department Viewed for " + selectQuery);
 	}
