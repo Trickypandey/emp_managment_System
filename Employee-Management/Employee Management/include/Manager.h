@@ -8,6 +8,8 @@
 class Manager : public Employee {
 public:
     Manager() = default;
+    Manager(const Employee& emp, int manager_exp, const std::string& project_title)
+        : Employee(emp), management_experience(manager_exp), project_title(project_title) {}
 
     int getManagementExperience() const { return management_experience; }
     std::string getProjectTitle() const { return project_title; }

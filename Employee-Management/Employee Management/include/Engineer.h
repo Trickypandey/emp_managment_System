@@ -11,6 +11,11 @@ class Engineer : public Employee {
 public:
 	Engineer() = default;
 
+	Engineer(const Employee& emp,
+		const std::string& prog_lang, const std::string& spec)
+		: Employee(emp),
+		programming_language(prog_lang), specialization(spec) {}
+
 	std::string getProgrammingLanguage() const { return programming_language; }
 	std::string getSpecialization() const { return specialization; }
 

@@ -118,9 +118,13 @@ $(SolutionDir)bin-int\$(Platform)\$(Configuration)\engineerController</Additiona
   <ItemGroup>
     <ClInclude Include="Fixtures\DepartFixture.h" />
     <ClInclude Include="Fixtures\EmpFixture.h" />
+    <ClInclude Include="Fixtures\EngFixture.h" />
+    <ClInclude Include="Fixtures\ManagarFixture.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Tests\EngTestcpp.cpp" />
+    <ClCompile Include="Tests\ManagerTest.cpp" />
     <ClCompile Include="Tests\SalaryTest.cpp" />
     <ClInclude Include="Fixtures\SalaryFixture.h" />
     <ClCompile Include="test.cpp" />
