@@ -33,7 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\ZTI\OneDrive - ZURU INC\Desktop\MainEmp\emp_managment_System\Employee-Management\Employee Management</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Employee Management</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -66,8 +66,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\ZTI\OneDrive - ZURU INC\Desktop\MainEmp\emp_managment_System\Employee-Management\bin-int\x64\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);C:\Users\ZTI\OneDrive - ZURU INC\Desktop\MainEmp\emp_managment_System\Employee-Management\bin-int\x64\Debug\validate;$(SolutionDir)bin-int\$(Platform)\$(Configuration)\validate;
+      <AdditionalLibraryDirectories>$(SolutionDir)bin-int\$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);$(SolutionDir)bin-int\$(Platform)\$(Configuration)\validate;
 $(SolutionDir)bin-int\$(Platform)\$(Configuration)\Employee;
 $(SolutionDir)bin-int\$(Platform)\$(Configuration)\Engineer;
 $(SolutionDir)bin-int\$(Platform)\$(Configuration)\database
