@@ -16,6 +16,7 @@ bool SalaryController::insertSalaryController(const Salary& salary) {
 	else {
 		std::cout << Database::getInstance().getError() << "\n\n";
 		std::cout << "Salary Insertion Failed! \n\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " :SalaryController::insertSalaryController");
 		return false;
 	}
 	
@@ -40,6 +41,7 @@ bool SalaryController::deleteSalaryController(Salary& salary) {
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
 		std::cout << "\033[32mSalary Deletion Failed! \033[0m\n\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " :SalaryController::deleteSalaryController");
 	}
 	
 	return false;
@@ -76,6 +78,7 @@ bool SalaryController::updateSalaryController(Salary& salary, Utility::SalaryAtt
 	else {
 		std::cout << "\033[32mSalary Updated Failed ! \033[0m\n\n";
 		std::cout << Database::getInstance().getError() << "\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " :SalaryController::updateSalaryController");
 	}
 
 	return false;
@@ -89,6 +92,7 @@ bool SalaryController::viewSalaryController(std::string selectQuery) {
 	}
 	else {
 		Log::getInstance().Info(selectQuery, " : Executed.");
+		Log::getInstance().Error(Database::getInstance().getError(), " :SalaryController::viewSalaryController");
 		return true;
 	}
 }

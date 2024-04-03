@@ -16,6 +16,7 @@ bool ManagerController::insertManagerController(Manager& manager, int id) {
     }
     else {
         std::cout << Database::getInstance().getError() << "\n\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " :ManagerController::insertManagerController");
         return false;
     }
 
@@ -25,6 +26,7 @@ bool ManagerController::deleteManagerController(int id) {
    
     if (!EmployeeController::deleteEmployee(id)) {
         std::cout << Database::getInstance().getError() << "\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " :ManagerController::deleteManagerController");
         return false;
     }
 
@@ -73,6 +75,7 @@ bool ManagerController::updateManagerController(Manager& manager, ManagerAttribu
     }
     else {
         std::cout << Database::getInstance().getError() << "\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " :ManagerController::updateManagerController");
         return false;
     }
 }
@@ -84,6 +87,7 @@ bool ManagerController::viewManagerController(std::string selectQuery) {
     }
     else {
         Log::getInstance().Info(selectQuery, " : Executed.");
+        Log::getInstance().Error(Database::getInstance().getError(), " :ManagerController::viewManagerController");
         return true;
     }
 }

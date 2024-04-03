@@ -21,11 +21,13 @@ std::optional<int> EmployeeController::insertEmployee(Employee& employee) {
 		departmentIdString + ");";
 	if (Database::getInstance().executeQuery(insertQueryEmployee) && SalaryController::insertSalaryController(employee.getSalary())) {
 		std::cout << "Employee Inserted Successfully ! \n\n";
+		Log::getInstance().Info("Employee Inserted Successfully ! id=",employee.getId());	
 		return employee.getId();
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n\n";
 		std::cout << "Employee Insertion Failed! \n\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : EmployeeController::insertEmployee.");
 		return std::nullopt;
 	}
 };
@@ -108,6 +110,7 @@ bool EmployeeController::updateEmployee(Employee& employee, EmployeeAttribute at
 		else {
 			std::cout << "Employee Updation Failed ! \033[0m\n\n";
 			std::cout << Database::getInstance().getError() << "\n";
+			Log::getInstance().Error(Database::getInstance().getError(), " : EmployeeController::updateEmployee.");
 		}
 	}
 	return false;
@@ -137,6 +140,6 @@ void EmployeeController::viewEmployee(Employee& employee , EmployeeViewAttribute
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
-		
+		Log::getInstance().Error(Database::getInstance().getError(), " : EmployeeController::viewEmployee.");
 	}
 }

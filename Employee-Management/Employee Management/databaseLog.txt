@@ -129,3 +129,8 @@
 [ 03-04-2024 11:06:16 ][Info ]: SELECT * FROM Employee NATURAL JOIN Manager WHERE Employee.id == Manager.id   : Executed. 
 [ 03-04-2024 11:06:21 ][Info ]: Department Described. 
 [ 03-04-2024 11:06:30 ][Info ]: Database Closed. 
+[ 03-04-2024 11:24:17 ][Info ]: admin signed in. 
+[ 03-04-2024 11:24:17 ][Info ]: Database Opened. 
+[ 03-04-2024 11:24:22 ][Info ]: Department Viewed for SELECT * FROM Employee; 
+[ 03-04-2024 11:24:42 ][Info ]: Employee Updated for id :  1 
+[ 03-04-2024 11:24:50 ][Info ]: Database Closed. 

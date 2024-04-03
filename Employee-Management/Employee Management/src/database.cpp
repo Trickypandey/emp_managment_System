@@ -266,6 +266,7 @@ void Database::export_to_csv(const std::string& table, const std::filesystem::pa
 
     if (rc != SQLITE_DONE) {
         std::cout << getError() << "\n\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " : export_to_csv.");
     }
     else {
         Log::getInstance().Info("Database Exported.");
@@ -309,6 +310,7 @@ void Database::createTableQuery() {
     }
     sql += ");";
 
+     Log::getInstance().Info(sql, "Fired");
     if (executeQuery(sql)) {
         Log::getInstance().Info(tableName, " created.");
     }
@@ -318,8 +320,10 @@ void Database::createTableQuery() {
 void Database::showTables() {
 
     std::string showQuery = " SELECT name FROM sqlite_schema ;";
-    if (!executeQueryCallback(showQuery))
+    if (!executeQueryCallback(showQuery)) {
         std::cout << getError() << "\n\n";
+        Log::getInstance().Error(getError(), "ShowTables");
+    }
     else {
 
     }
@@ -351,6 +355,7 @@ void Database::deleteTableQuery() {
         }
         else
             std::cout << Database::getInstance().getError() << "\n\n";
+            Log::getInstance().Info(Database::getInstance().getError(), " : deleteTableQuery.");
 
         break;
 
@@ -365,6 +370,7 @@ void Database::deleteTableQuery() {
         }
         else
             std::cout << Database::getInstance().getError() << "\n\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " : deleteTableQuery.");
 
         break;
 
@@ -400,14 +406,16 @@ void Database::useSqlQuery()
         }
         else
             std::cout << getError() << "\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " : useSqlQuery.");
     }
     else {
         if (executeQuery(sqlQuery)) {
             std::cout << "SQL Query Completed Successfully ! \n\n";
-            Log::getInstance().Info(sqlQuery, " : Executed.");
+            Log::getInstance().Error(sqlQuery, " : Executed.");
         }
         else
             std::cout << getError() << "\n";
+        Log::getInstance().Error(Database::getInstance().getError(), " : useSqlQuery.");
     }
 
 }

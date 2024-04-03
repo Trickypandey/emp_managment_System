@@ -18,6 +18,7 @@ bool EngineerController::insertEngineerController(Engineer& engineer , int id) {
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : EngineerController::insertEngineerController");
 		return false;
 	}
 
@@ -27,6 +28,7 @@ bool EngineerController::deleteEngineerController(int id) {
 
 	if (!EmployeeController::deleteEmployee(id)) {
 		std::cout << Database::getInstance().getError() << "\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : EngineerController::deleteEngineerController");
 		return false;
 	}
 
@@ -78,6 +80,7 @@ bool EngineerController::updateEngineerController(Engineer& engineer,EngineerAtt
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : EngineerController::updateEngineerController");
 		return false;
 	}
 }
@@ -86,6 +89,7 @@ bool EngineerController::viewEngineerController(std::string selectQuery) {
 
 	if (!Database::getInstance().executeQueryCallback(selectQuery)) {
 		std::cout << Database::getInstance().getError() << std::endl;
+		Log::getInstance().Error(Database::getInstance().getError(), " : EngineerController::viewEngineerController");
 		return false;
 	}
 	else {

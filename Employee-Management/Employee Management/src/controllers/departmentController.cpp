@@ -19,6 +19,7 @@ bool DepartmentController::insertDepartmentController(Department& dept) {
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : DepartmentController::insertDepartmentController");
 		return false;
 	}
 };
@@ -49,6 +50,7 @@ bool DepartmentController::deleteDepartmentController(Department& dept,Departmen
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : DepartmentController::deleteDepartmentController");
 		Database::getInstance().pragmeSwitch(false);
 		return false;
 	}
@@ -85,6 +87,7 @@ bool DepartmentController::updateDepartmentController(Department& dept, Departme
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
 		std::cout << "\033[32m Department Updation Failed! \033[0m\n\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : DepartmentController::updateDepartmentController");
 		return false;
 	}
 }
@@ -118,6 +121,7 @@ bool DepartmentController::viewDepartmentController(Department& dept, Department
 	}
 	else {
 		std::cout << Database::getInstance().getError() << "\n";
+		Log::getInstance().Error(Database::getInstance().getError(), " : DepartmentController::viewDepartmentController");
 		return false;
 	}
 }
