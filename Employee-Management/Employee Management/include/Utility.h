@@ -42,11 +42,13 @@ namespace Utility {
 
 
     template<typename T>
-    inline void executeMenu(const std::map<int, std::pair<std::string, T>>& menuOptions) {
+    inline void executeMenu(const std::map<int, std::pair<std::string, T>>& menuOptions , std::string tableName) {
         bool flag = true;
         int choice;
 
         while (flag) {
+
+            std::cout << tableName <<"\n";
             std::cout << "Please select an action:\n";
             for (const auto& [number, prompt] : menuOptions) {
                 std::cout << number << ". " << prompt.first << '\n';

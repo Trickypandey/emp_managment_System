@@ -238,6 +238,7 @@ void Employee::updateEmployee(std::optional<int> id) {
             break;
 
         case 12:
+            system("cls");
             flag = false;
             break;
         default:
@@ -294,6 +295,7 @@ void Employee::viewEmployee() {
             break;
         case 5:
             flag = false;
+            system("cls");
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
@@ -305,14 +307,15 @@ void Employee::viewEmployee() {
 };
 
 void Employee::action() {
-    std::cout << "Employee" << std::endl;
+    system("cls");
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Employee::insertEmployee, this)}},
         {2, {"Delete", std::bind(&Employee::deleteEmployee, this,std::nullopt)}},
         {3, {"Update", std::bind(&Employee::updateEmployee, this,std::nullopt)}},
         {4, {"View", std::bind(&Employee::viewEmployee, this)}},
-        {5, {"Describe", []() { Database::getInstance().describeTable("Employee"); }}},
+        {5, {"Describe", []() { Database::getInstance().describeTable(""); }}},
         {6, {"Exit", [] {system("cls"); }}}
     };
-    executeMenu(options);
+
+    executeMenu(options , "Employee Table");
 }

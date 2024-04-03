@@ -19,7 +19,7 @@ void manipulateDB() {
 		{6, {"Main Menu", []() {system("cls"); }}}
 	};
 
-	Utility::executeMenu(tableOptions);
+	Utility::executeMenu(tableOptions ,"Select The Table");
 
 
 }
@@ -43,5 +43,5 @@ void databaseInit() {
 		{7, {"Exit", []() {}}}
 	};
 
-	Utility::executeMenu(menuOptions);
+	Utility::executeMenu(menuOptions,"Select a Operation To Perform");
 }

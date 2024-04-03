@@ -131,8 +131,7 @@ private:
         if (!setIdFromUserInput() || !setFirstnameFromUserInput() || !setLastnameFromUserInput() ||
             !setDobFromUserInput() || !setMobileFromUserInput() || !setEmailFromUserInput() ||
             !setAddressFromUserInput() || !setGenderFromUserInput() || !setDojFromUserInput() ||
-            !setWLocationFromUserInput() || !setManagerIdFromUserInput() || !setDepartmentIdFromUserInput() || !salary.setSidFromUserInput(id) ||
-            !salary.setSAmountFromUserInput() || !salary.setSBaseSalaryFromUserInput() || !salary.setBonusFromUserInput()) {
+            !setWLocationFromUserInput() || !setManagerIdFromUserInput() || !setDepartmentIdFromUserInput() || !salary.setSidFromUserInput(id) || !salary.setSBaseSalaryFromUserInput() || !salary.setBonusFromUserInput()) {
             std::cout << "Error setting user data. Aborting insertion.\n";
             return false;
         }

@@ -14,13 +14,13 @@ bool Salary::setSidFromUserInput(std::optional<int> sid) {
 	return false;
 }
 
-bool Salary::setSAmountFromUserInput() {
-	if (auto input = getInput<float>("Enter Amount: ", "Invalid Input. Please enter a valid amount.", [](double amount) { return amount >= 0.0; }); input.has_value()) {
-		setAmount(input.value());
-		return true;
-	}
-	return false;
-}
+//bool Salary::setSAmountFromUserInput() {
+//	if (auto input = getInput<float>("Enter Amount: ", "Invalid Input. Please enter a valid amount.", [](double amount) { return amount >= 0.0; }); input.has_value()) {
+//		setAmount(input.value());
+//		return true;
+//	}
+//	return false;
+//}
 
 bool Salary::setSBaseSalaryFromUserInput() {
 	if (auto input = getInput<float>("Enter Base: ", "Invalid Input. Please enter a valid base salary.", [](double base_salary) { return base_salary >= 0.0; }); input.has_value()) {
@@ -64,8 +64,7 @@ void Salary::deleteSalary() {
 
 void Salary::updateSalary() {
     bool flag = true;
-    bool executionFlag = false;
-    std::string updateQuery{};
+
     int choice;
 
     while (flag) {
@@ -73,7 +72,7 @@ void Salary::updateSalary() {
         std::cin >> id;
 
         std::cout << "Please select an attribute to update:\n";
-        std::cout << "1. Salary Amount\n";
+        //std::cout << "1. Salary Amount\n";
         std::cout << "2. Base Salary\n";
         std::cout << "3. Bonus\n";
         std::cout << "4. Exit\n";
@@ -83,26 +82,28 @@ void Salary::updateSalary() {
         std::cout << "\n";
 
         switch (choice) {
-        case 1:
+        /*case 1:
             if (setSAmountFromUserInput()) {
                 SalaryController::updateSalaryController(*this, Utility::SalaryAttribute::AMOUNT);
             }
-            break;
+            break;*/
         case 2:
             if (setSBaseSalaryFromUserInput()) {
                 
                 SalaryController::updateSalaryController(*this, Utility::SalaryAttribute::BASE_SALARY);
-               
+                flag = false;
             }
             break;
         case 3:
             if (setBonusFromUserInput()) {
                 
                 SalaryController::updateSalaryController(*this, Utility::SalaryAttribute::BONUS);
+                flag = false;
             }
             break;
         case 4:
             flag = false;
+            system("cls");
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 4.\n";
@@ -142,6 +143,7 @@ void Salary::viewSalary() {
             break;
         case 3:
             flag = false;
+            system("cls");
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 3.\n";
@@ -156,7 +158,7 @@ void Salary::viewSalary() {
 }
 
 void Salary::action() {
-    std::cout << "Salary" << std::endl;
+    system("cls");
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Salary::insertSalary, this)}},
         {2, {"Delete", std::bind(&Salary::deleteSalary, this)}},
@@ -166,5 +168,5 @@ void Salary::action() {
         {6, {"Exit", []{system("cls"); }}}
     };
 
-    executeMenu(options);
+    executeMenu(options , "Salary Table");
 }

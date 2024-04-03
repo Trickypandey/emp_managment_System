@@ -74,6 +74,7 @@ void Department::deleteDepartment() {
             }
             break;
         case 3:
+            system("cls");
             flag = false;
             break;
         default:
@@ -132,6 +133,7 @@ void Department::updateDepartment() {
             }
             break;
         case 4:
+            system("cls");
             flag = false;
             break;
         default:
@@ -176,6 +178,7 @@ void Department::viewDepartment() {
             }
             break;
         case 4:
+            system("cls");
             flag = false;
             break;
         default:
@@ -189,7 +192,7 @@ void Department::viewDepartment() {
 }
 
 void Department::action() {
-    std::cout << "Department" << std::endl;
+    system("cls");
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Department::insertDepartment, this)}},
         {2, {"Delete", std::bind(&Department::deleteDepartment, this)}},
@@ -199,6 +202,6 @@ void Department::action() {
         {6, {"Exit", [] {system("cls"); }}}
     };
 
-    executeMenu(options);
+    executeMenu(options , "Department Table");
 }
 

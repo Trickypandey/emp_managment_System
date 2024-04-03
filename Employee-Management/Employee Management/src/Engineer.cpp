@@ -108,6 +108,7 @@ void Engineer::updateEngineer() {
             break;
         case 4:
             flag = false;
+            system("cls");
             break;
         default:
             std::cout << "Invalid choice. Please enter a number between 1 and 3.\n";
@@ -166,7 +167,7 @@ void Engineer::viewEngineer() {
 
 
 void Engineer::action() {
-    std::cout << "Engineer" << std::endl;
+    system("cls");
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Engineer::insertEngineer, this)}},
         {2, {"Delete", std::bind(&Engineer::deleteEngineer, this)}},
@@ -176,6 +177,6 @@ void Engineer::action() {
         {6, {"Exit", []{system("cls"); }}}
     };
 
-    executeMenu(options);
+    executeMenu(options , "Engineer Table");
 }
 

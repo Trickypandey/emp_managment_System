@@ -108,6 +108,7 @@ void Manager::updateManager() {
             break;
         case 4:
             flag = false;
+            system("cls");
             break;
         default:
             std::cerr << "Invalid choice. Please enter a number between 1 and 3.\n";
@@ -163,7 +164,7 @@ void Manager::viewManager() {
 
 
 void Manager::action() {
-    std::cout << "Mananger" << std::endl;
+    system("cls");
     std::map<int, std::pair<std::string, std::function<void()>>> options = {
         {1, {"Insert", std::bind(&Manager::insertManager, this)}},
         {2, {"Delete", std::bind(&Manager::deleteManager, this)}},
@@ -173,7 +174,7 @@ void Manager::action() {
         {6, {"Exit", [] {system("cls"); }}}
     };
 
-    executeMenu(options);
+    executeMenu(options,"Manager Table");
 }
 
 

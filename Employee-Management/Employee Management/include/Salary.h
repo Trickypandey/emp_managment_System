@@ -29,7 +29,7 @@ public:
     void setBonus(int Bonus) { bonus = Bonus; }
 
     bool setSidFromUserInput(std::optional<int>);
-    bool setSAmountFromUserInput();
+    //bool setSAmountFromUserInput();
     bool setSBaseSalaryFromUserInput();
     bool setBonusFromUserInput();
 
@@ -48,7 +48,7 @@ private:
     int bonus{};
 
     bool setSalaryData() {
-        if (!setSidFromUserInput(std::nullopt) || !setSAmountFromUserInput() || !setSBaseSalaryFromUserInput() ||
+        if (!setSidFromUserInput(std::nullopt)  || !setSBaseSalaryFromUserInput() ||
             !setBonusFromUserInput()) {
             std::cout << "Error setting Salary data. Aborting insertion.\n";
             return false;
